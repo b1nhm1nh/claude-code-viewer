@@ -12,7 +12,7 @@ This is a web-based viewer for Claude Code conversation history files. The appli
 ```bash
 pnpm dev
 ```
-This runs both Next.js (port 3400) and pathpida in watch mode for type-safe routing.
+This runs Next.js on port 3400 with Turbopack for fast development.
 
 **Build and type checking:**
 ```bash
@@ -50,15 +50,17 @@ pnpm test:watch # Run tests in watch mode
 - `/api/projects` - List all Claude projects
 - `/api/projects/:projectId` - Get project details and sessions
 - `/api/projects/:projectId/sessions/:sessionId` - Get session conversations
+- `/api/events/state_changes` - Server-Sent Events for real-time file monitoring
 
 **Data Flow**:
 1. Backend reads JSONL files from `~/.claude/projects/`
 2. Parses and validates conversation entries with Zod schemas
-3. Frontend fetches via type-safe API client with React Query
+3. Frontend fetches via type-safe API client with TanStack Query
+4. Real-time updates via Server-Sent Events for file system changes
 
 **Type Safety**: 
 - Zod schemas for conversation data validation (`src/lib/conversation-schema/`)
-- pathpida for type-safe routing (`src/lib/$path.ts`)
+- Type-safe API client with Hono and Zod validation
 - Strict TypeScript configuration extending `@tsconfig/strictest`
 
 ### File Structure Patterns
@@ -72,6 +74,7 @@ pnpm test:watch # Run tests in watch mode
 - Project operations: `getProjects`, `getProject`, `getProjectMeta`
 - Session operations: `getSessions`, `getSession`, `getSessionMeta` 
 - Parsing utilities: `parseJsonl`, `parseCommandXml`
+- File monitoring: `FileWatcherService` for real-time updates
 
 **Frontend Structure**:
 - Page components in app router structure
@@ -82,9 +85,10 @@ pnpm test:watch # Run tests in watch mode
 ### Data Sources
 
 The application reads Claude Code history from:
-- **Primary location**: `~/.claude/projects/` (defined in `src/server/service/paths.ts:4`)
+- **Primary location**: `~/.claude/projects/` (defined in `src/server/service/paths.ts`)
 - **File format**: JSONL files containing conversation entries
 - **Structure**: Project folders containing session JSONL files
+- **Real-time monitoring**: Watches for file changes and updates UI automatically
 
 ### Key Components
 
@@ -98,9 +102,23 @@ The application reads Claude Code history from:
 - Extracts command names and arguments for better display
 - Handles different command formats (slash commands, local commands)
 
+### Key Features
+
+**Real-time Updates**:
+- `FileWatcherService` monitors `~/.claude/projects/` using Node.js `fs.watch()`
+- Server-Sent Events stream for live UI updates
+- Automatic refresh when conversation files are modified
+- Heartbeat mechanism for connection health monitoring
+
+**CLI Installation**:
+- Can be installed via `PORT=3400 npx github:d-kimuson/claude-code-viewer`
+- Standalone Next.js build with embedded dependencies
+- Binary entry point at `dist/index.js`
+
 ### Development Notes
 
-- Uses `pathpida` for compile-time route validation
 - Biome handles both linting and formatting (no ESLint/Prettier)
 - Vitest for testing with global test setup
 - TanStack Query for server state management with error boundaries
+- Jotai atoms for client-side state (filtering, UI state)
+- React 19 with Suspense boundaries for progressive loading
