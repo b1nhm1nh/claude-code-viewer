@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "run-p 'dev:*'",
-    "dev:next": "next dev -p 3400 --turbopack",
+    "dev:next": "PORT=3400 next dev --turbopack",
     "build": "next build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
     "lint": "run-s 'lint:*'",
     "lint:biome-format": "biome format .",
