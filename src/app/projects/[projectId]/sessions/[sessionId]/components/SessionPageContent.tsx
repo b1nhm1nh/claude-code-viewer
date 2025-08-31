@@ -37,7 +37,7 @@ export const SessionPageContent: FC<{
 
             <div className="flex items-center gap-3 mb-2">
               <MessageSquareIcon className="w-6 h-6" />
-              <h1 className="text-3xl font-bold">
+              <h1 className="text-3xl font-bold break-all overflow-ellipsis line-clamp-2">
                 {session.meta.firstCommand !== null
                   ? firstCommandToTitle(session.meta.firstCommand)
                   : sessionId}
