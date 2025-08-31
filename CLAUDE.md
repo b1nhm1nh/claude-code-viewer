@@ -16,31 +16,34 @@ This runs Next.js on port 3400 with Turbopack for fast development.
 
 **Build and type checking:**
 ```bash
-pnpm build
-pnpm typecheck
+pnpm build      # Next.js standalone build + asset copying
+pnpm typecheck  # TypeScript compilation check
 ```
 
-**Linting and formatting:**
+**Linting and formatting (Biome):**
 ```bash
-pnpm lint       # Run all lint checks
-pnpm fix        # Fix all linting and formatting issues
+pnpm lint       # Run format and lint checks in sequence (biome format + biome check)
+pnpm fix        # Auto-fix format and lint issues with unsafe fixes
 ```
 
-**Testing:**
+**Testing (Vitest):**
 ```bash
-pnpm test       # Run tests once
+pnpm test       # Run all tests once
 pnpm test:watch # Run tests in watch mode
 ```
 
 ## Architecture Overview
 
 ### Technology Stack
-- **Frontend**: Next.js 15 with React 19, TypeScript
-- **Backend**: Hono.js API routes (served via Next.js API routes)
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **Data fetching**: TanStack Query (React Query)
-- **Validation**: Zod schemas
-- **Code formatting**: Biome (replaces ESLint + Prettier)
+- **Frontend**: Next.js 15.5.2 with React 19.1.1, TypeScript (strict mode via @tsconfig/strictest)
+- **Backend**: Hono.js 4.9.5 API routes (served via Next.js API routes with Zod validation)
+- **Styling**: Tailwind CSS 4.1.12 with shadcn/ui components (Radix UI primitives)
+- **Data fetching**: TanStack Query 5.85.5 with Suspense integration
+- **State management**: Jotai 2.13.1 atoms for client-side filtering
+- **Validation**: Zod 4.1.5 schemas with modular conversation parsing
+- **Code formatting**: Biome 2.2.2 (replaces ESLint + Prettier completely)
+- **Testing**: Vitest 3.2.4 with global test setup
+- **Package manager**: pnpm 10.8.1
 
 ### Key Architecture Patterns
 
@@ -105,13 +108,16 @@ The application reads Claude Code history from:
 ### Key Features
 
 **Real-time Updates**:
-- `FileWatcherService` monitors `~/.claude/projects/` using Node.js `fs.watch()`
-- Server-Sent Events stream for live UI updates
-- Automatic refresh when conversation files are modified
-- Heartbeat mechanism for connection health monitoring
+- FileWatcherService singleton monitors `~/.claude/projects/` using Node.js `fs.watch()`
+- Server-Sent Events via Hono's `streamSSE()` for live UI updates  
+- Event types: `connected`, `project_changed`, `session_changed`, `heartbeat`
+- Automatic TanStack Query cache invalidation when conversation files are modified
+- Heartbeat mechanism (30s intervals) for connection health monitoring
+- Proper cleanup and abort handling on client disconnection
 
 **CLI Installation**:
-- Can be installed via `PORT=3400 npx github:d-kimuson/claude-code-viewer`
+- Can be installed via `PORT=3400 npx @kimuson/claude-code-viewer@latest`
+- Published as `@kimuson/claude-code-viewer` (v0.0.5) on npm
 - Standalone Next.js build with embedded dependencies
 - Binary entry point at `dist/index.js`
 

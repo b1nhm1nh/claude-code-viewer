@@ -6,25 +6,38 @@ A web-based viewer for browsing Claude Code conversation history files. View and
 
 Claude Code Viewer parses JSONL conversation files stored in `~/.claude/projects/` and presents them in a human-readable web UI. Browse projects, sessions, and detailed conversation history with support for tool usage, subtasks, and real-time file monitoring.
 
+![](./docs/assets/basic.png)
+
 ## Features
 
 - **Project Browser** - View all Claude Code projects with metadata and session counts
-- **Session Navigation** - Browse conversation sessions within projects with filtering options
+- **Session Navigation** - Browse conversation sessions within projects with filtering options  
 - **Conversation Display** - Human-readable format for Claude Code logs with syntax highlighting
-- **Subtask Support** - Separate display for subtasks and sidechain conversations
-- **Real-time Updates** - Automatic refresh when conversation files are modified
-- **File System Watching** - Monitors `~/.claude/projects/` for changes and updates the UI
-- **Responsive Design** - Works on desktop and mobile devices
+- **Command Detection** - Parses XML-like command structures for enhanced display
+- **Real-time Updates** - Server-Sent Events provide live updates when files change
+- **Tool Usage Display** - Clear presentation of tool calls, parameters, and results
+  - ![](./docs/assets/expand_tool_use.png)
+- **Sub Task Display**
+  - ![](./docs/assets/sub_task.png)
 
 ## Installation & Usage
 
-### Quick Start
+### Quick Start (CLI)
 
-Run directly from GitHub without installation:
+Run directly from npm without installation:
 
 ```bash
-PORT=3400 npx github:d-kimuson/claude-code-viewer
+PORT=3400 npx @kimuson/claude-code-viewer@latest
 ```
+
+Alternatively, install globally:
+
+```bash
+npm install -g @kimuson/claude-code-viewer
+claude-code-viewer
+```
+
+The application uses pnpm as the package manager (v10.8.1) and is published as version 0.0.5.
 
 The server will start on port 3400 (or the specified PORT). Open `http://localhost:3400` in your browser.
 
@@ -83,44 +96,17 @@ The application reads Claude Code conversation files from:
 Set a custom port using the `PORT` environment variable:
 
 ```bash
-PORT=8080 npx github:d-kimuson/claude-code-viewer
+PORT=8080 npx @kimuson/claude-code-viewer@latest
 ```
 
 ### Data Directory
 
 The application automatically detects the standard Claude Code directory at `~/.claude/projects/`. No additional configuration is required.
 
-## Browser Support
-
-- Chrome/Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Troubleshooting
-
-### No Projects Found
-
-- Ensure Claude Code has been used and has created conversation files
-- Check that `~/.claude/projects/` exists and contains project directories
-- Verify file permissions allow reading the projects directory
-
-### Connection Issues
-
-- Check that the specified port is not in use
-- Ensure firewall settings allow local connections
-- Try a different port using the `PORT` environment variable
-
-### Real-time Updates Not Working
-
-- The application uses Server-Sent Events for real-time updates
-- Some browsers or network configurations may block SSE connections
-- Refresh the page manually to see latest changes
-
 ## License
 
-This project is available under the MIT License. See the LICENSE file for details.
+This project is available under the MIT License.
 
 ## Contributing
 
-See [docs/dev.md](docs/dev.md) for development setup and contribution guidelines.
+See [docs/dev.md](docs/dev.md) for detailed development setup and contribution guidelines.
