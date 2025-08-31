@@ -1,8 +1,13 @@
 {
-  "name": "@d-kimuson/claude-code-viewer",
+  "name": "@kimuson/claude-code-viewer",
   "version": "0.0.1",
-  "private": true,
   "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-kimuson/claude-code-viewer.git"
+  },
+  "homepage": "https://github.com/d-kimuson/claude-code-viewer",
   "files": [
     "dist"
   ],
