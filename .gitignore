@@ -36,4 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 # dist
-dist/standalone/node_modules
+dist/*
+!dist/index.js
+# dist/standalone/node_modules
