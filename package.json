@@ -1,6 +1,6 @@
 {
   "name": "@kimuson/claude-code-viewer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "@kimuson/claude-code-viewer": "./dist/index.js"
+    "claude-code-viewer": "./dist/index.js"
   },
   "scripts": {
     "dev": "run-p 'dev:*'",
