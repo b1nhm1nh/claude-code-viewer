@@ -58,10 +58,7 @@ const getFirstCommand = (
     }
 
     const command = parseCommandXml(firstUserText);
-    if (
-      command.kind === "local-command-1" ||
-      command.kind === "local-command-2"
-    ) {
+    if (command.kind === "local-command") {
       continue;
     }
 

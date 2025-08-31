@@ -11,16 +11,11 @@ export type ParsedCommand =
   | {
       kind: "command";
       commandName: string;
-      commandArgs: string;
+      commandArgs?: string;
       commandMessage?: string;
     }
   | {
-      kind: "local-command-1";
-      commandName: string;
-      commandMessage: string;
-    }
-  | {
-      kind: "local-command-2";
+      kind: "local-command";
       stdout: string;
     }
   | {
@@ -55,22 +50,16 @@ export const parseCommandXml = (content: string): ParsedCommand => {
   )?.content;
 
   switch (true) {
-    case commandName !== undefined && commandArgs !== undefined:
+    case commandName !== undefined:
       return {
         kind: "command",
         commandName,
         commandArgs,
-        commandMessage: commandMessage,
-      };
-    case commandName !== undefined && commandMessage !== undefined:
-      return {
-        kind: "local-command-1",
-        commandName,
         commandMessage,
       };
     case localCommandStdout !== undefined:
       return {
-        kind: "local-command-2",
+        kind: "local-command",
         stdout: localCommandStdout,
       };
     default:

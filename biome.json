@@ -12,7 +12,8 @@
       "!**/*.generated.*",
       "!.next",
       "!src/lib/$path.ts",
-      "!**/*.css"
+      "!**/*.css",
+      "!dist"
     ]
   },
   "formatter": {
