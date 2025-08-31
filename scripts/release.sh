@@ -10,7 +10,4 @@ pnpm build
 
 cp -r .next/standalone ./dist/
 
-git add dist
-git commit -m "chore: Release"
-
-git push origin HEAD
+pnpm release-it
