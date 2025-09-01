@@ -1,7 +1,11 @@
 import { Hono } from "hono";
+import type { Config } from "../config/config";
 
-// biome-ignore lint/complexity/noBannedTypes: add after
-export type HonoContext = {};
+export type HonoContext = {
+  Variables: {
+    config: Config;
+  };
+};
 
 export const honoApp = new Hono<HonoContext>().basePath("/api");
 

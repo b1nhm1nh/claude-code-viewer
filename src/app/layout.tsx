@@ -5,6 +5,11 @@ import { RootErrorBoundary } from "./components/RootErrorBoundary";
 import { ServerEventsProvider } from "./components/ServerEventsProvider";
 
 import "./globals.css";
+import { QueryClient } from "@tanstack/react-query";
+import { configQueryConfig } from "./hooks/useConfig";
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,11 +26,17 @@ export const metadata: Metadata = {
   description: "Web Viewer for Claude Code history",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    ...configQueryConfig,
+  });
+
   return (
     <html lang="ja">
       <body

@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { honoClient } from "../../../../lib/api/client";
 
-export const useProject = (projectId: string) => {
-  return useSuspenseQuery({
+export const projectQueryConfig = (projectId: string) =>
+  ({
     queryKey: ["projects", projectId],
     queryFn: async () => {
       const response = await honoClient.api.projects[":projectId"].$get({
@@ -11,6 +11,11 @@ export const useProject = (projectId: string) => {
 
       return await response.json();
     },
+  }) as const;
+
+export const useProject = (projectId: string) => {
+  return useSuspenseQuery({
+    ...projectQueryConfig(projectId),
     refetchOnReconnect: true,
   });
 };

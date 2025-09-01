@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
+import { projetsQueryConfig } from "../app/projects/hooks/useProjects";
 import { honoClient } from "../lib/api/client";
 import type { SSEEvent } from "../server/service/events/types";
 
@@ -77,12 +78,12 @@ export const useServerEvents = () => {
         console.log("data", event);
 
         if (event.data.type === "project_changed") {
-          console.log("invalidating projects");
-          await queryClient.invalidateQueries({ queryKey: ["projects"] });
+          await queryClient.invalidateQueries({
+            queryKey: projetsQueryConfig.queryKey,
+          });
         }
 
         if (event.data.type === "session_changed") {
-          console.log("invalidating sessions");
           await queryClient.invalidateQueries({ queryKey: ["sessions"] });
         }
       }

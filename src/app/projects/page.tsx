@@ -1,10 +1,19 @@
+import { QueryClient } from "@tanstack/react-query";
 import { HistoryIcon } from "lucide-react";
 import { ProjectList } from "./components/ProjectList";
+import { projetsQueryConfig } from "./hooks/useProjects";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export default async function ProjectsPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: projetsQueryConfig.queryKey,
+    queryFn: projetsQueryConfig.queryFn,
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="mb-8">

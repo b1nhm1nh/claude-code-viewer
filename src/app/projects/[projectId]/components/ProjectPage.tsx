@@ -1,6 +1,6 @@
 "use client";
 
-import { useAtom } from "jotai";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ArrowLeftIcon,
   FolderIcon,
@@ -8,7 +8,7 @@ import {
   PlusIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useId } from "react";
+import { useEffect, useId } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,9 +18,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useProject } from "../hooks/useProject";
+import { configQueryConfig, useConfig } from "../../../hooks/useConfig";
+import { projectQueryConfig, useProject } from "../hooks/useProject";
 import { firstCommandToTitle } from "../services/firstCommandToTitle";
-import { hideSessionsWithoutUserMessagesAtom } from "../store/filterAtoms";
 import { NewChatModal } from "./newChat/NewChatModal";
 
 export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
@@ -28,13 +28,15 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
   const {
     data: { project, sessions },
   } = useProject(projectId);
-  const [hideSessionsWithoutUserMessages, setHideSessionsWithoutUserMessages] =
-    useAtom(hideSessionsWithoutUserMessagesAtom);
+  const { config, updateConfig } = useConfig();
+  const queryClient = useQueryClient();
 
-  // Apply filtering
-  const filteredSessions = hideSessionsWithoutUserMessages
-    ? sessions.filter((session) => session.meta.firstCommand !== null)
-    : sessions;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: invalidate when config changed
+  useEffect(() => {
+    void queryClient.invalidateQueries({
+      queryKey: projectQueryConfig(projectId).queryKey,
+    });
+  }, [config.hideNoUserMessageSession]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -72,13 +74,7 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
         <section>
           <h2 className="text-xl font-semibold mb-4">
             Conversation Sessions{" "}
-            {filteredSessions.length > 0 ? `(${filteredSessions.length})` : ""}
-            {hideSessionsWithoutUserMessages &&
-              filteredSessions.length !== sessions.length && (
-                <span className="text-sm text-muted-foreground ml-2">
-                  of {sessions.length} total
-                </span>
-              )}
+            {sessions.length > 0 ? `(${sessions.length})` : ""}
           </h2>
 
           {/* Filter Controls */}
@@ -86,8 +82,16 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
             <div className="flex items-center space-x-2">
               <Checkbox
                 id={checkboxId}
-                checked={hideSessionsWithoutUserMessages}
-                onCheckedChange={setHideSessionsWithoutUserMessages}
+                checked={config?.hideNoUserMessageSession}
+                onCheckedChange={async () => {
+                  updateConfig({
+                    ...config,
+                    hideNoUserMessageSession: !config?.hideNoUserMessageSession,
+                  });
+                  await queryClient.invalidateQueries({
+                    queryKey: configQueryConfig.queryKey,
+                  });
+                }}
               />
               <label
                 htmlFor={checkboxId}
@@ -101,7 +105,7 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
             </p>
           </div>
 
-          {filteredSessions.length === 0 ? (
+          {sessions.length === 0 ? (
             <Card>
               <CardContent className="flex flex-col items-center justify-center py-12">
                 <MessageSquareIcon className="w-12 h-12 text-muted-foreground mb-4" />
@@ -124,7 +128,7 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
             </Card>
           ) : (
             <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1">
-              {filteredSessions.map((session) => (
+              {sessions.map((session) => (
                 <Card
                   key={session.id}
                   className="hover:shadow-md transition-shadow"
