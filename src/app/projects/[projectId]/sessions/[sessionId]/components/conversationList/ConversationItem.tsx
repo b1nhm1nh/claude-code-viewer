@@ -64,7 +64,7 @@ export const ConversationItem: FC<{
       typeof conversation.message.content === "string" ? (
         <UserConversationContent content={conversation.message.content} />
       ) : (
-        <ul className="w-full">
+        <ul className="w-full" id={`message-${conversation.uuid}`}>
           {conversation.message.content.map((content) => (
             <li key={content.toString()}>
               <UserConversationContent content={content} />

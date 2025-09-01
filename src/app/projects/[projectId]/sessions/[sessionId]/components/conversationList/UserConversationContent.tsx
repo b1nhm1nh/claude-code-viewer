@@ -10,17 +10,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { UserMessageContent } from "@/lib/conversation-schema/message/UserMessageSchema";
-import { TextContent } from "./TextContent";
+import { UserTextContent } from "./UserTextContent";
 
 export const UserConversationContent: FC<{
   content: UserMessageContent;
 }> = ({ content }) => {
   if (typeof content === "string") {
-    return <TextContent text={content} />;
+    return <UserTextContent text={content} />;
   }
 
   if (content.type === "text") {
-    return <TextContent text={content.text} />;
+    return <UserTextContent text={content.text} />;
   }
 
   if (content.type === "image") {

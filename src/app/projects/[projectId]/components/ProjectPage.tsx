@@ -1,7 +1,12 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { ArrowLeftIcon, FolderIcon, MessageSquareIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  FolderIcon,
+  MessageSquareIcon,
+  PlusIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useId } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useProject } from "../hooks/useProject";
 import { firstCommandToTitle } from "../services/firstCommandToTitle";
 import { hideSessionsWithoutUserMessagesAtom } from "../store/filterAtoms";
+import { NewChatModal } from "./newChat/NewChatModal";
 
 export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
   const checkboxId = useId();
@@ -40,11 +46,22 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
           </Link>
         </Button>
 
-        <div className="flex items-center gap-3 mb-2">
-          <FolderIcon className="w-6 h-6" />
-          <h1 className="text-3xl font-bold">
-            {project.meta.projectPath ?? project.claudeProjectPath}
-          </h1>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-3">
+            <FolderIcon className="w-6 h-6" />
+            <h1 className="text-3xl font-bold">
+              {project.meta.projectPath ?? project.claudeProjectPath}
+            </h1>
+          </div>
+          <NewChatModal
+            projectId={projectId}
+            trigger={
+              <Button size="lg" className="gap-2">
+                <PlusIcon className="w-5 h-5" />
+                Start New Chat
+              </Button>
+            }
+          />
         </div>
         <p className="text-muted-foreground font-mono text-sm">
           History File: {project.claudeProjectPath ?? "unknown"}
@@ -89,11 +106,20 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
               <CardContent className="flex flex-col items-center justify-center py-12">
                 <MessageSquareIcon className="w-12 h-12 text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No sessions found</h3>
-                <p className="text-muted-foreground text-center max-w-md">
+                <p className="text-muted-foreground text-center max-w-md mb-6">
                   No conversation sessions found for this project. Start a
                   conversation with Claude Code in this project to create
                   sessions.
                 </p>
+                <NewChatModal
+                  projectId={projectId}
+                  trigger={
+                    <Button size="lg" className="gap-2">
+                      <PlusIcon className="w-5 h-5" />
+                      Start First Chat
+                    </Button>
+                  }
+                />
               </CardContent>
             </Card>
           ) : (

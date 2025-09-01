@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquareIcon, PanelLeftIcon } from "lucide-react";
+import { MessageSquareIcon, PanelLeftIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { type FC, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import type { Session } from "../../../../../../../server/service/types";
+import { NewChatModal } from "../../../../components/newChat/NewChatModal";
 import { useProject } from "../../../../hooks/useProject";
 import { firstCommandToTitle } from "../../../../services/firstCommandToTitle";
 
@@ -21,8 +22,19 @@ const SidebarContent: FC<{
 }> = ({ sessions, currentSessionId, projectId }) => (
   <div className="h-full flex flex-col bg-sidebar text-sidebar-foreground">
     <div className="border-b border-sidebar-border p-4">
-      <h2 className="font-semibold text-lg">Sessions</h2>
-      <p className="text-xs text-sidebar-foreground/70 mt-1">
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="font-semibold text-lg">Sessions</h2>
+        <NewChatModal
+          projectId={projectId}
+          trigger={
+            <Button size="sm" variant="outline" className="gap-1.5 mr-5">
+              <PlusIcon className="w-3.5 h-3.5" />
+              New
+            </Button>
+          }
+        />
+      </div>
+      <p className="text-xs text-sidebar-foreground/70">
         {sessions.length} total
       </p>
     </div>

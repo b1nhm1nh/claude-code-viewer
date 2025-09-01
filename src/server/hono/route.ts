@@ -1,4 +1,10 @@
+import { readdir } from "node:fs/promises";
+import { homedir } from "node:os";
+import { resolve } from "node:path";
+import { zValidator } from "@hono/zod-validator";
 import { streamSSE } from "hono/streaming";
+import { z } from "zod";
+import { ClaudeCodeTaskController } from "../service/claude-code/ClaudeCodeTaskController";
 import { getFileWatcher } from "../service/events/fileWatcher";
 import { sseEvent } from "../service/events/sseEvent";
 import type { WatcherEvent } from "../service/events/types";
@@ -9,6 +15,8 @@ import { getSessions } from "../service/session/getSessions";
 import type { HonoAppType } from "./app";
 
 export const routes = (app: HonoAppType) => {
+  const taskController = new ClaudeCodeTaskController();
+
   return app
     .get("/projects", async (c) => {
       const { projects } = await getProjects();
@@ -30,6 +38,102 @@ export const routes = (app: HonoAppType) => {
       const { projectId, sessionId } = c.req.param();
       const { session } = await getSession(projectId, sessionId);
       return c.json({ session });
+    })
+
+    .get("/projects/:projectId/claude-commands", async (c) => {
+      const { projectId } = c.req.param();
+      const { project } = await getProject(projectId);
+
+      const [globalCommands, projectCommands] = await Promise.allSettled([
+        readdir(resolve(homedir(), ".claude", "commands"), {
+          withFileTypes: true,
+        }).then((dirents) =>
+          dirents
+            .filter((d) => d.isFile() && d.name.endsWith(".md"))
+            .map((d) => d.name.replace(/\.md$/, "")),
+        ),
+        project.meta.projectPath !== null
+          ? readdir(resolve(project.meta.projectPath, ".claude", "commands"), {
+              withFileTypes: true,
+            }).then((dirents) =>
+              dirents
+                .filter((d) => d.isFile() && d.name.endsWith(".md"))
+                .map((d) => d.name.replace(/\.md$/, "")),
+            )
+          : [],
+      ]);
+
+      return c.json({
+        globalCommands:
+          globalCommands.status === "fulfilled" ? globalCommands.value : [],
+        projectCommands:
+          projectCommands.status === "fulfilled" ? projectCommands.value : [],
+      });
+    })
+
+    .post(
+      "/projects/:projectId/new-session",
+      zValidator(
+        "json",
+        z.object({
+          message: z.string(),
+        }),
+      ),
+      async (c) => {
+        const { projectId } = c.req.param();
+        const { message } = c.req.valid("json");
+        const { project } = await getProject(projectId);
+
+        if (project.meta.projectPath === null) {
+          return c.json({ error: "Project path not found" }, 400);
+        }
+
+        const task = await taskController.createTask({
+          projectId,
+          cwd: project.meta.projectPath,
+          message,
+        });
+
+        const { nextSessionId, userMessageId } = await taskController.startTask(
+          task.id,
+        );
+        return c.json({ taskId: task.id, nextSessionId, userMessageId });
+      },
+    )
+
+    .post(
+      "/projects/:projectId/sessions/:sessionId/resume",
+      zValidator(
+        "json",
+        z.object({
+          resumeMessage: z.string(),
+        }),
+      ),
+      async (c) => {
+        const { projectId, sessionId } = c.req.param();
+        const { resumeMessage } = c.req.valid("json");
+        const { project } = await getProject(projectId);
+
+        if (project.meta.projectPath === null) {
+          return c.json({ error: "Project path not found" }, 400);
+        }
+
+        const task = await taskController.createTask({
+          projectId,
+          sessionId,
+          cwd: project.meta.projectPath,
+          message: resumeMessage,
+        });
+
+        const { nextSessionId, userMessageId } = await taskController.startTask(
+          task.id,
+        );
+        return c.json({ taskId: task.id, nextSessionId, userMessageId });
+      },
+    )
+
+    .get("/tasks/running", async (c) => {
+      return c.json({ runningTasks: taskController.runningTasks });
     })
 
     .get("/events/state_changes", async (c) => {

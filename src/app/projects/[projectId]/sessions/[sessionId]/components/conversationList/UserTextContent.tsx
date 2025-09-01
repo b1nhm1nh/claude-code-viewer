@@ -6,12 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { parseCommandXml } from "../../../../../../../server/service/parseCommandXml";
 import { MarkdownContent } from "../../../../../../components/MarkdownContent";
 
-export const TextContent: FC<{ text: string }> = ({ text }) => {
+export const UserTextContent: FC<{ text: string }> = ({ text }) => {
   const parsed = parseCommandXml(text);
-
-  if (parsed.kind === "command" && parsed.commandName === "/init") {
-    console.log("debug /init", parsed);
-  }
 
   if (parsed.kind === "command") {
     return (
@@ -40,7 +36,9 @@ export const TextContent: FC<{ text: string }> = ({ text }) => {
                       Arguments:
                     </span>
                     <div className="bg-background rounded border p-2 mt-1">
-                      <code className="text-xs">{parsed.commandArgs}</code>
+                      <code className="text-xs whitespace-pre-line">
+                        {parsed.commandArgs}
+                      </code>
                     </div>
                   </>
                 )}
@@ -50,7 +48,9 @@ export const TextContent: FC<{ text: string }> = ({ text }) => {
                       Message:
                     </span>
                     <div className="bg-background rounded border p-2 mt-1">
-                      <code className="text-xs">{parsed.commandMessage}</code>
+                      <code className="text-xs whitespace-pre-line">
+                        {parsed.commandMessage}
+                      </code>
                     </div>
                   </>
                 )}
@@ -79,6 +79,9 @@ export const TextContent: FC<{ text: string }> = ({ text }) => {
   }
 
   return (
-    <MarkdownContent className="w-full mx-2 my-6" content={parsed.content} />
+    <MarkdownContent
+      className="w-full px-3 py-3 mb-5 border border-border rounded-lg bg-slate-50"
+      content={parsed.content}
+    />
   );
 };

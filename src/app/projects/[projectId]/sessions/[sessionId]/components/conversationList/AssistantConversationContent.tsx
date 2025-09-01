@@ -1,4 +1,5 @@
-import { ChevronDown, FileText, Lightbulb, Settings } from "lucide-react";
+import { ChevronDown, Lightbulb, Settings } from "lucide-react";
+import Image from "next/image";
 import type { FC } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -112,7 +113,7 @@ export const AssistantConversationContent: FC<{
                     toolResult.content.map((item) => {
                       if (item.type === "image") {
                         return (
-                          <img
+                          <Image
                             key={item.source.data}
                             src={`data:${item.source.media_type};base64,${item.source.data}`}
                             alt="Tool Result"
@@ -143,29 +144,7 @@ export const AssistantConversationContent: FC<{
   }
 
   if (content.type === "tool_result") {
-    return (
-      <Card className="border-amber-200 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/20 gap-2 py-3">
-        <CardHeader className="py-0 px-4">
-          <div className="flex items-center gap-2">
-            <FileText className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-            <CardTitle className="text-sm font-medium">Tool Result</CardTitle>
-            <Badge
-              variant="outline"
-              className="border-amber-300 text-amber-700 dark:border-amber-700 dark:text-amber-300"
-            >
-              Debug
-            </Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="py-0 px-4">
-          <div className="bg-background rounded border p-2">
-            <pre className="text-xs overflow-x-auto">
-              {JSON.stringify(content, null, 2)}
-            </pre>
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return null;
   }
 
   return null;
