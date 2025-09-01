@@ -104,9 +104,35 @@ export const AssistantConversationContent: FC<{
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="bg-background rounded border p-2 mt-1">
-                  <pre className="text-xs overflow-x-auto">
-                    {JSON.stringify(toolResult.content, null, 2)}
-                  </pre>
+                  {typeof toolResult.content === "string" ? (
+                    <pre className="text-xs overflow-x-auto whitespace-pre-line">
+                      {toolResult.content}
+                    </pre>
+                  ) : (
+                    toolResult.content.map((item) => {
+                      if (item.type === "image") {
+                        return (
+                          <img
+                            key={item.source.data}
+                            src={`data:${item.source.media_type};base64,${item.source.data}`}
+                            alt="Tool Result"
+                          />
+                        );
+                      }
+                      if (item.type === "text") {
+                        return (
+                          <pre
+                            key={item.text}
+                            className="text-xs overflow-x-auto whitespace-pre-line"
+                          >
+                            {item.text}
+                          </pre>
+                        );
+                      }
+                      item satisfies never;
+                      throw new Error("Unexpected tool result content type");
+                    })
+                  )}
                 </div>
               </CollapsibleContent>
             </Collapsible>
