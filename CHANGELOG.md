@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.9
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Adjust thinking card margin &nbsp;-&nbsp; by **d-kimsuon** [<samp>(04cfb)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/04cfb9f)
+- Improve multi-line tool result view. properly handle line breaks. &nbsp;-&nbsp; by **d-kimsuon** [<samp>(9362b)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/9362bb5)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.0.8...0.0.9)
+
 ## 0.0.8
 
 *No significant changes*
