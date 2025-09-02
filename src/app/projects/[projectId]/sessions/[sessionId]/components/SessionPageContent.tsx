@@ -144,6 +144,7 @@ export const SessionPageContent: FC<{
               projectId={projectId}
               sessionId={sessionId}
               isPausedTask={isPausedTask}
+              isRunningTask={isRunningTask}
             />
           </main>
         </div>

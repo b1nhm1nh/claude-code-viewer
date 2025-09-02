@@ -8,7 +8,8 @@ import {
   PlusIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useId } from "react";
+import { useEffect } from "react";
+import { SettingsControls } from "@/components/SettingsControls";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,18 +18,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { configQueryConfig, useConfig } from "../../../hooks/useConfig";
+import { useConfig } from "../../../hooks/useConfig";
 import { projectQueryConfig, useProject } from "../hooks/useProject";
 import { firstCommandToTitle } from "../services/firstCommandToTitle";
 import { NewChatModal } from "./newChat/NewChatModal";
 
 export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
-  const checkboxId = useId();
   const {
     data: { project, sessions },
   } = useProject(projectId);
-  const { config, updateConfig } = useConfig();
+  const { config } = useConfig();
   const queryClient = useQueryClient();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: invalidate when config changed
@@ -37,6 +36,12 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
       queryKey: projectQueryConfig(projectId).queryKey,
     });
   }, [config.hideNoUserMessageSession, config.unifySameTitleSession]);
+
+  const handleConfigChange = () => {
+    void queryClient.invalidateQueries({
+      queryKey: projectQueryConfig(projectId).queryKey,
+    });
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -78,57 +83,8 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
           </h2>
 
           {/* Filter Controls */}
-          <div className="mb-6 p-4 bg-muted/50 rounded-lg space-y-4">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id={checkboxId}
-                checked={config?.hideNoUserMessageSession}
-                onCheckedChange={async () => {
-                  updateConfig({
-                    ...config,
-                    hideNoUserMessageSession: !config?.hideNoUserMessageSession,
-                  });
-                  await queryClient.invalidateQueries({
-                    queryKey: configQueryConfig.queryKey,
-                  });
-                }}
-              />
-              <label
-                htmlFor={checkboxId}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Hide sessions without user messages
-              </label>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1 ml-6">
-              Only show sessions that contain user commands or messages
-            </p>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id={`${checkboxId}-unify`}
-                checked={config?.unifySameTitleSession}
-                onCheckedChange={async () => {
-                  updateConfig({
-                    ...config,
-                    unifySameTitleSession: !config?.unifySameTitleSession,
-                  });
-                  await queryClient.invalidateQueries({
-                    queryKey: configQueryConfig.queryKey,
-                  });
-                }}
-              />
-              <label
-                htmlFor={`${checkboxId}-unify`}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Unify sessions with same title
-              </label>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1 ml-6">
-              Show only the latest session when multiple sessions have the same
-              title
-            </p>
+          <div className="mb-6 p-4 bg-muted/50 rounded-lg">
+            <SettingsControls onConfigChange={handleConfigChange} />
           </div>
 
           {sessions.length === 0 ? (
