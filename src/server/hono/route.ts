@@ -228,6 +228,16 @@ export const routes = (app: HonoAppType) => {
         return c.json({ runningTasks: taskController.runningTasks });
       })
 
+      .post(
+        "/tasks/abort",
+        zValidator("json", z.object({ sessionId: z.string() })),
+        async (c) => {
+          const { sessionId } = c.req.valid("json");
+          taskController.abortTask(sessionId);
+          return c.json({ message: "Task aborted" });
+        },
+      )
+
       .get("/events/state_changes", async (c) => {
         return streamSSE(
           c,

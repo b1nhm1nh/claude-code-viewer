@@ -119,7 +119,7 @@ export const NewChat: FC<{
             {startNewChat.isPending ? (
               <>
                 <LoaderIcon className="w-4 h-4 animate-spin" />
-                Starting...
+                Starting... This may take a while.
               </>
             ) : (
               <>

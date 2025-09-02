@@ -1,10 +1,12 @@
 "use client";
 
-import { ArrowLeftIcon, LoaderIcon } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { ArrowLeftIcon, LoaderIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { honoClient } from "../../../../../../lib/api/client";
 import { firstCommandToTitle } from "../../../services/firstCommandToTitle";
 import { useIsResummingTask } from "../hooks/useIsResummingTask";
 import { useSession } from "../hooks/useSession";
@@ -20,6 +22,20 @@ export const SessionPageContent: FC<{
     projectId,
     sessionId,
   );
+
+  const abortTask = useMutation({
+    mutationFn: async (sessionId: string) => {
+      const response = await honoClient.api.tasks.abort.$post({
+        json: { sessionId },
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      return response.json();
+    },
+  });
 
   const { isResummingTask } = useIsResummingTask(sessionId);
 
@@ -77,6 +93,16 @@ export const SessionPageContent: FC<{
                       Conversation is being resumed...
                     </p>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      abortTask.mutate(sessionId);
+                    }}
+                  >
+                    <XIcon className="w-4 h-4" />
+                    Abort
+                  </Button>
                 </div>
               )}
 

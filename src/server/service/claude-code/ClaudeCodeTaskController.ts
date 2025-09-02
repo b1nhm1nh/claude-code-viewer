@@ -21,6 +21,7 @@ type RunningClaudeCodeTask = BaseClaudeCodeTask & {
   status: "running";
   nextSessionId: string;
   userMessageId: string;
+  abortController: AbortController;
 };
 
 type CompletedClaudeCodeTask = BaseClaudeCodeTask & {
@@ -104,6 +105,8 @@ export class ClaudeCodeTaskController {
 
     const handleTask = async () => {
       try {
+        const abortController = new AbortController();
+
         for await (const message of query({
           prompt: task.message,
           options: {
@@ -111,6 +114,7 @@ export class ClaudeCodeTaskController {
             cwd: task.cwd,
             pathToClaudeCodeExecutable: this.pathToClaudeCodeExecutable,
             permissionMode: "bypassPermissions",
+            abortController,
           },
         })) {
           // 初回の sysmte message だとまだ history ファイルが作成されていないので
@@ -124,6 +128,7 @@ export class ClaudeCodeTaskController {
               status: "running",
               nextSessionId: message.session_id,
               userMessageId: message.uuid,
+              abortController,
             };
             this.updateExistingTask(runningTask);
             runningTaskResolve(runningTask);
@@ -166,5 +171,27 @@ export class ClaudeCodeTaskController {
     void handleTask();
 
     return runningTaskPromise;
+  }
+
+  public abortTask(sessionId: string) {
+    const task = this.tasks
+      .filter((task) => task.status === "running")
+      .find((task) => task.nextSessionId === sessionId);
+    if (!task) {
+      throw new Error("Running Task not found");
+    }
+
+    task.abortController.abort();
+    this.updateExistingTask({
+      id: task.id,
+      status: "failed",
+      cwd: task.cwd,
+      message: task.message,
+      onMessageHandlers: task.onMessageHandlers,
+      projectId: task.projectId,
+      nextSessionId: task.nextSessionId,
+      sessionId: task.sessionId,
+      userMessageId: task.userMessageId,
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   AlertCircleIcon,
   LoaderIcon,
@@ -29,6 +29,7 @@ export const ResumeChat: FC<{
 }> = ({ projectId, sessionId }) => {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const queryClient = useQueryClient();
 
   const resumeChat = useMutation({
     mutationFn: async (options: { message: string }) => {
@@ -47,6 +48,7 @@ export const ResumeChat: FC<{
     },
     onSuccess: (response) => {
       setMessage("");
+      queryClient.invalidateQueries({ queryKey: ["runningTasks"] });
       router.push(
         `/projects/${projectId}/sessions/${response.nextSessionId}#message-${response.userMessageId}`,
       );
