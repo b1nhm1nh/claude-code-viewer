@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Resume and new task &nbsp;-&nbsp; by **d-kimsuon** [<samp>(7c96a)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/7c96a63)
+- Move configuration localStorage to server side &nbsp;-&nbsp; by **d-kimsuon** [<samp>(a07b0)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/a07b046)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.0.9...0.1.0)
+
 ## 0.0.9
 
 ### &nbsp;&nbsp;&nbsp;Features
