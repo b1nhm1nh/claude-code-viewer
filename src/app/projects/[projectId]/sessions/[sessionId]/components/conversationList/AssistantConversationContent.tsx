@@ -1,6 +1,8 @@
 import { ChevronDown, Lightbulb, Settings } from "lucide-react";
 import Image from "next/image";
 import type { FC } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -86,11 +88,14 @@ export const AssistantConversationContent: FC<{
               </div>
             </CollapsibleTrigger>
             <CollapsibleContent>
-              <div className="bg-background rounded border p-2 mt-1">
-                <pre className="text-xs overflow-x-auto">
-                  {JSON.stringify(content.input, null, 2)}
-                </pre>
-              </div>
+              <SyntaxHighlighter
+                style={oneLight}
+                language="json"
+                PreTag="div"
+                className="text-xs"
+              >
+                {JSON.stringify(content.input, null, 2)}
+              </SyntaxHighlighter>
             </CollapsibleContent>
           </Collapsible>
           {toolResult && (
