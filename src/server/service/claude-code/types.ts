@@ -7,6 +7,9 @@ type BaseClaudeCodeTask = {
   cwd: string;
   generateMessages: MessageGenerator;
   setNextMessage: (message: string) => void;
+  resolveFirstMessage: () => void;
+  setFirstMessagePromise: () => void;
+  awaitFirstMessage: () => Promise<void>;
   onMessageHandlers: OnMessage[];
 };
 
@@ -33,6 +36,7 @@ type CompletedClaudeCodeTask = BaseClaudeCodeTask & {
   sessionId: string;
   userMessageId: string;
   abortController: AbortController;
+  resolveFirstMessage: () => void;
 };
 
 type FailedClaudeCodeTask = BaseClaudeCodeTask & {

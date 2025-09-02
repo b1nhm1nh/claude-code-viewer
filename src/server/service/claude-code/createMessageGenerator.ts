@@ -8,11 +8,11 @@ export type MessageGenerator = () => AsyncGenerator<
   unknown
 >;
 
-const createPromise = () => {
-  let promiseResolve: ((value: string) => void) | undefined;
+const createPromise = <T>() => {
+  let promiseResolve: ((value: T) => void) | undefined;
   let promiseReject: ((reason?: unknown) => void) | undefined;
 
-  const promise = new Promise<string>((resolve, reject) => {
+  const promise = new Promise<T>((resolve, reject) => {
     promiseResolve = resolve;
     promiseReject = reject;
   });
@@ -33,8 +33,12 @@ export const createMessageGenerator = (
 ): {
   generateMessages: MessageGenerator;
   setNextMessage: (message: string) => void;
+  setFirstMessagePromise: () => void;
+  resolveFirstMessage: () => void;
+  awaitFirstMessage: () => Promise<void>;
 } => {
-  let currentPromise = createPromise();
+  let sendMessagePromise = createPromise<string>();
+  let receivedFirstMessagePromise = createPromise<undefined>();
 
   const createMessage = (message: string): SDKUserMessage => {
     return {
@@ -50,19 +54,34 @@ export const createMessageGenerator = (
     yield createMessage(firstMessage);
 
     while (true) {
-      const message = await currentPromise.promise;
-      currentPromise = createPromise();
+      const message = await sendMessagePromise.promise;
+      sendMessagePromise = createPromise<string>();
 
       yield createMessage(message);
     }
   }
 
   const setNextMessage = (message: string) => {
-    currentPromise.resolve(message);
+    sendMessagePromise.resolve(message);
+  };
+
+  const setFirstMessagePromise = () => {
+    receivedFirstMessagePromise = createPromise<undefined>();
+  };
+
+  const resolveFirstMessage = () => {
+    receivedFirstMessagePromise.resolve(undefined);
+  };
+
+  const awaitFirstMessage = async () => {
+    await receivedFirstMessagePromise.promise;
   };
 
   return {
     generateMessages,
     setNextMessage,
+    setFirstMessagePromise,
+    resolveFirstMessage,
+    awaitFirstMessage,
   };
 };

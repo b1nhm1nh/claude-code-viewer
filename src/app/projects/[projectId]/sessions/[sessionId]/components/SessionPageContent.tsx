@@ -45,7 +45,10 @@ export const SessionPageContent: FC<{
 
   // 自動スクロール処理
   useEffect(() => {
-    if (isRunningTask && conversations.length !== previousConversationLength) {
+    if (
+      (isRunningTask || isPausedTask) &&
+      conversations.length !== previousConversationLength
+    ) {
       setPreviousConversationLength(conversations.length);
       const scrollContainer = scrollContainerRef.current;
       if (scrollContainer) {
@@ -55,7 +58,7 @@ export const SessionPageContent: FC<{
         });
       }
     }
-  }, [conversations, isRunningTask, previousConversationLength]);
+  }, [conversations, isRunningTask, isPausedTask, previousConversationLength]);
 
   return (
     <div className="flex h-screen">
@@ -134,7 +137,7 @@ export const SessionPageContent: FC<{
             </div>
           </header>
 
-          <main className="w-full px-20 pb-20 relative z-5">
+          <main className="w-full px-20 pb-10 relative z-5">
             <ConversationList
               conversations={conversations}
               getToolResult={getToolResult}

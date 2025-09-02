@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { query } from "@anthropic-ai/claude-code";
-import { ulid } from "ulid";
 import prexit from "prexit";
+import { ulid } from "ulid";
 import { type EventBus, getEventBus } from "../events/EventBus";
 import { createMessageGenerator } from "./createMessageGenerator";
 import type {
@@ -48,14 +48,15 @@ export class ClaudeCodeTaskController {
     );
 
     if (existingTask) {
-      return this.continueTask(existingTask, message);
+      return await this.continueTask(existingTask, message);
     } else {
       return await this.startTask(currentSession, message);
     }
   }
 
-  private continueTask(task: AliveClaudeCodeTask, message: string) {
+  private async continueTask(task: AliveClaudeCodeTask, message: string) {
     task.setNextMessage(message);
+    await task.awaitFirstMessage();
     return task;
   }
 
@@ -67,8 +68,13 @@ export class ClaudeCodeTaskController {
     },
     message: string,
   ) {
-    const { generateMessages, setNextMessage } =
-      createMessageGenerator(message);
+    const {
+      generateMessages,
+      setNextMessage,
+      setFirstMessagePromise,
+      resolveFirstMessage,
+      awaitFirstMessage,
+    } = createMessageGenerator(message);
 
     const task: PendingClaudeCodeTask = {
       status: "pending",
@@ -78,6 +84,9 @@ export class ClaudeCodeTaskController {
       cwd: currentSession.cwd,
       generateMessages,
       setNextMessage,
+      setFirstMessagePromise,
+      resolveFirstMessage,
+      awaitFirstMessage,
       onMessageHandlers: [],
     };
 
@@ -120,25 +129,31 @@ export class ClaudeCodeTaskController {
 
           // 初回の system message だとまだ history ファイルが作成されていないので
           if (
-            !resolved &&
             (message.type === "user" || message.type === "assistant") &&
             message.uuid !== undefined
           ) {
-            const runningTask: RunningClaudeCodeTask = {
-              status: "running",
-              id: task.id,
-              projectId: task.projectId,
-              cwd: task.cwd,
-              generateMessages: task.generateMessages,
-              setNextMessage: task.setNextMessage,
-              onMessageHandlers: task.onMessageHandlers,
-              userMessageId: message.uuid,
-              sessionId: message.session_id,
-              abortController: abortController,
-            };
-            this.tasks.push(runningTask);
-            aliveTaskResolve(runningTask);
-            resolved = true;
+            if (!resolved) {
+              const runningTask: RunningClaudeCodeTask = {
+                status: "running",
+                id: task.id,
+                projectId: task.projectId,
+                cwd: task.cwd,
+                generateMessages: task.generateMessages,
+                setNextMessage: task.setNextMessage,
+                resolveFirstMessage: task.resolveFirstMessage,
+                setFirstMessagePromise: task.setFirstMessagePromise,
+                awaitFirstMessage: task.awaitFirstMessage,
+                onMessageHandlers: task.onMessageHandlers,
+                userMessageId: message.uuid,
+                sessionId: message.session_id,
+                abortController: abortController,
+              };
+              this.tasks.push(runningTask);
+              aliveTaskResolve(runningTask);
+              resolved = true;
+            }
+
+            resolveFirstMessage();
           }
 
           await Promise.all(
@@ -152,6 +167,8 @@ export class ClaudeCodeTaskController {
               ...currentTask,
               status: "paused",
             });
+            resolved = true;
+            setFirstMessagePromise();
           }
         }
 
@@ -204,6 +221,9 @@ export class ClaudeCodeTaskController {
       cwd: task.cwd,
       generateMessages: task.generateMessages,
       setNextMessage: task.setNextMessage,
+      resolveFirstMessage: task.resolveFirstMessage,
+      setFirstMessagePromise: task.setFirstMessagePromise,
+      awaitFirstMessage: task.awaitFirstMessage,
       onMessageHandlers: task.onMessageHandlers,
       baseSessionId: task.baseSessionId,
       userMessageId: task.userMessageId,

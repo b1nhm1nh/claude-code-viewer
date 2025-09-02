@@ -36,12 +36,13 @@ export const ResumeChat: FC<{
       return response.json();
     },
     onSuccess: async (response) => {
-      setMessage("");
       if (sessionId !== response.sessionId) {
         router.push(
           `/projects/${projectId}/sessions/${response.sessionId}#message-${response.userMessageId}`,
         );
       }
+
+      setMessage("");
     },
   });
 
@@ -122,7 +123,7 @@ export const ResumeChat: FC<{
             {resumeChat.isPending ? (
               <>
                 <LoaderIcon className="w-4 h-4 animate-spin" />
-                Starting... This may take a while.
+                Sending... This may take a while.
               </>
             ) : isPausedTask || isRunningTask ? (
               <>
