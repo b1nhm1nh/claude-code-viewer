@@ -182,15 +182,19 @@ export const routes = (app: HonoAppType) => {
             return c.json({ error: "Project path not found" }, 400);
           }
 
-          const task = await taskController.createTask({
-            projectId,
-            cwd: project.meta.projectPath,
+          const task = await taskController.startOrContinueTask(
+            {
+              projectId,
+              cwd: project.meta.projectPath,
+            },
             message,
-          });
+          );
 
-          const { nextSessionId, userMessageId } =
-            await taskController.startTask(task.id);
-          return c.json({ taskId: task.id, nextSessionId, userMessageId });
+          return c.json({
+            taskId: task.id,
+            sessionId: task.sessionId,
+            userMessageId: task.userMessageId,
+          });
         },
       )
 
@@ -211,21 +215,25 @@ export const routes = (app: HonoAppType) => {
             return c.json({ error: "Project path not found" }, 400);
           }
 
-          const task = await taskController.createTask({
-            projectId,
-            sessionId,
-            cwd: project.meta.projectPath,
-            message: resumeMessage,
-          });
+          const task = await taskController.startOrContinueTask(
+            {
+              projectId,
+              sessionId,
+              cwd: project.meta.projectPath,
+            },
+            resumeMessage,
+          );
 
-          const { nextSessionId, userMessageId } =
-            await taskController.startTask(task.id);
-          return c.json({ taskId: task.id, nextSessionId, userMessageId });
+          return c.json({
+            taskId: task.id,
+            sessionId: task.sessionId,
+            userMessageId: task.userMessageId,
+          });
         },
       )
 
-      .get("/tasks/running", async (c) => {
-        return c.json({ runningTasks: taskController.runningTasks });
+      .get("/tasks/alive", async (c) => {
+        return c.json({ aliveTasks: taskController.aliveTasks });
       })
 
       .post(

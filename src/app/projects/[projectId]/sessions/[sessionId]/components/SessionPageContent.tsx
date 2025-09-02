@@ -1,14 +1,14 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeftIcon, LoaderIcon, XIcon } from "lucide-react";
+import { ArrowLeftIcon, LoaderIcon, PauseIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { honoClient } from "../../../../../../lib/api/client";
 import { firstCommandToTitle } from "../../../services/firstCommandToTitle";
-import { useIsResummingTask } from "../hooks/useIsResummingTask";
+import { useAliveTask } from "../hooks/useAliveTask";
 import { useSession } from "../hooks/useSession";
 import { ConversationList } from "./conversationList/ConversationList";
 import { ResumeChat } from "./resumeChat/ResumeChat";
@@ -37,15 +37,16 @@ export const SessionPageContent: FC<{
     },
   });
 
-  const { isResummingTask } = useIsResummingTask(sessionId);
+  const { isRunningTask, isPausedTask } = useAliveTask(sessionId);
 
-  const [previouConversationLength, setPreviouConversationLength] = useState(0);
+  const [previousConversationLength, setPreviousConversationLength] =
+    useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // 自動スクロール処理
   useEffect(() => {
-    if (isResummingTask && conversations.length !== previouConversationLength) {
-      setPreviouConversationLength(conversations.length);
+    if (isRunningTask && conversations.length !== previousConversationLength) {
+      setPreviousConversationLength(conversations.length);
       const scrollContainer = scrollContainerRef.current;
       if (scrollContainer) {
         scrollContainer.scrollTo({
@@ -54,7 +55,7 @@ export const SessionPageContent: FC<{
         });
       }
     }
-  }, [conversations, isResummingTask, previouConversationLength]);
+  }, [conversations, isRunningTask, previousConversationLength]);
 
   return (
     <div className="flex h-screen">
@@ -85,12 +86,33 @@ export const SessionPageContent: FC<{
                 </h1>
               </div>
 
-              {isResummingTask && (
+              {isRunningTask && (
                 <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/20 rounded-lg">
                   <LoaderIcon className="w-4 h-4 animate-spin" />
                   <div className="flex-1">
                     <p className="text-sm font-medium">
-                      Conversation is being resumed...
+                      Conversation is in progress...
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      abortTask.mutate(sessionId);
+                    }}
+                  >
+                    <XIcon className="w-4 h-4" />
+                    Abort
+                  </Button>
+                </div>
+              )}
+
+              {isPausedTask && (
+                <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/20 rounded-lg">
+                  <PauseIcon className="w-4 h-4" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">
+                      Conversation is paused...
                     </p>
                   </div>
                   <Button
@@ -118,7 +140,11 @@ export const SessionPageContent: FC<{
               getToolResult={getToolResult}
             />
 
-            <ResumeChat projectId={projectId} sessionId={sessionId} />
+            <ResumeChat
+              projectId={projectId}
+              sessionId={sessionId}
+              isPausedTask={isPausedTask}
+            />
           </main>
         </div>
       </div>

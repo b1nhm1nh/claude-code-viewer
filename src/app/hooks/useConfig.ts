@@ -28,8 +28,10 @@ export const useConfig = () => {
       });
       return await response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: configQueryConfig.queryKey });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: configQueryConfig.queryKey,
+      });
     },
   });
 

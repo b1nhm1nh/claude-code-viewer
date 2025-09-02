@@ -26,7 +26,8 @@ import {
 export const ResumeChat: FC<{
   projectId: string;
   sessionId: string;
-}> = ({ projectId, sessionId }) => {
+  isPausedTask: boolean;
+}> = ({ projectId, sessionId, isPausedTask }) => {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const queryClient = useQueryClient();
@@ -44,14 +45,18 @@ export const ResumeChat: FC<{
         throw new Error(response.statusText);
       }
 
+      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
+
       return response.json();
     },
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       setMessage("");
-      queryClient.invalidateQueries({ queryKey: ["runningTasks"] });
-      router.push(
-        `/projects/${projectId}/sessions/${response.nextSessionId}#message-${response.userMessageId}`,
-      );
+      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
+      if (sessionId !== response.sessionId) {
+        router.push(
+          `/projects/${projectId}/sessions/${response.sessionId}#message-${response.userMessageId}`,
+        );
+      }
     },
   });
 
@@ -143,12 +148,17 @@ export const ResumeChat: FC<{
               {resumeChat.isPending ? (
                 <>
                   <LoaderIcon className="w-4 h-4 animate-spin" />
-                  Starting...
+                  Starting... This may take a while.
+                </>
+              ) : isPausedTask ? (
+                <>
+                  <SendIcon className="w-4 h-4" />
+                  Send
                 </>
               ) : (
                 <>
                   <SendIcon className="w-4 h-4" />
-                  Resume Chat
+                  Resume
                 </>
               )}
             </Button>

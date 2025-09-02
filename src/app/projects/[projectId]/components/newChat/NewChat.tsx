@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AlertCircleIcon, LoaderIcon, SendIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type FC, useId, useRef, useState } from "react";
@@ -16,6 +16,7 @@ export const NewChat: FC<{
 }> = ({ projectId, onSuccess }) => {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const queryClient = useQueryClient();
 
   const startNewChat = useMutation({
     mutationFn: async (options: { message: string }) => {
@@ -30,13 +31,17 @@ export const NewChat: FC<{
         throw new Error(response.statusText);
       }
 
+      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
+
       return response.json();
     },
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       setMessage("");
       onSuccess?.();
+      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
+
       router.push(
-        `/projects/${projectId}/sessions/${response.nextSessionId}#message-${response.userMessageId}`,
+        `/projects/${projectId}/sessions/${response.sessionId}#message-${response.userMessageId}`,
       );
     },
   });
