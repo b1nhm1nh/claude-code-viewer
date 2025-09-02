@@ -1,6 +1,7 @@
 import { execSync } from "node:child_process";
 import { query } from "@anthropic-ai/claude-code";
 import { ulid } from "ulid";
+import prexit from "prexit";
 import { type EventBus, getEventBus } from "../events/EventBus";
 import { createMessageGenerator } from "./createMessageGenerator";
 import type {
@@ -20,6 +21,12 @@ export class ClaudeCodeTaskController {
       .toString()
       .trim();
     this.eventBus = getEventBus();
+
+    prexit(() => {
+      this.aliveTasks.forEach((task) => {
+        task.abortController.abort();
+      });
+    });
   }
 
   public get aliveTasks() {
