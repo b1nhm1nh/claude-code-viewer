@@ -14,19 +14,23 @@ import { UserTextContent } from "./UserTextContent";
 
 export const UserConversationContent: FC<{
   content: UserMessageContent;
-}> = ({ content }) => {
+  id?: string;
+}> = ({ content, id }) => {
   if (typeof content === "string") {
-    return <UserTextContent text={content} />;
+    return <UserTextContent text={content} id={id} />;
   }
 
   if (content.type === "text") {
-    return <UserTextContent text={content.text} />;
+    return <UserTextContent text={content.text} id={id} />;
   }
 
   if (content.type === "image") {
     if (content.source.type === "base64") {
       return (
-        <Card className="border-purple-200 bg-purple-50/50 dark:border-purple-800 dark:bg-purple-950/20">
+        <Card
+          className="border-purple-200 bg-purple-50/50 dark:border-purple-800 dark:bg-purple-950/20"
+          id={id}
+        >
           <CardHeader>
             <div className="flex items-center gap-2">
               <ImageIcon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
@@ -56,7 +60,10 @@ export const UserConversationContent: FC<{
     }
 
     return (
-      <Card className="border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-950/20">
+      <Card
+        className="border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-950/20"
+        id={id}
+      >
         <CardHeader>
           <div className="flex items-center gap-2">
             <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />

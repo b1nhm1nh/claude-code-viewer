@@ -52,14 +52,74 @@ export const routes = (app: HonoAppType) => {
 
         const [{ project }, { sessions }] = await Promise.all([
           getProject(projectId),
-          getSessions(projectId).then(({ sessions }) => ({
-            sessions: sessions.filter((session) => {
-              if (c.get("config").hideNoUserMessageSession) {
+          getSessions(projectId).then(({ sessions }) => {
+            let filteredSessions = sessions;
+
+            // Filter sessions based on hideNoUserMessageSession setting
+            if (c.get("config").hideNoUserMessageSession) {
+              filteredSessions = filteredSessions.filter((session) => {
                 return session.meta.firstCommand !== null;
+              });
+            }
+
+            // Unify sessions with same title if unifySameTitleSession is enabled
+            if (c.get("config").unifySameTitleSession) {
+              const sessionMap = new Map<
+                string,
+                (typeof filteredSessions)[0]
+              >();
+
+              for (const session of filteredSessions) {
+                // Generate title for comparison
+                const title =
+                  session.meta.firstCommand !== null
+                    ? (() => {
+                        const cmd = session.meta.firstCommand;
+                        switch (cmd.kind) {
+                          case "command":
+                            return cmd.commandArgs === undefined
+                              ? cmd.commandName
+                              : `${cmd.commandName} ${cmd.commandArgs}`;
+                          case "local-command":
+                            return cmd.stdout;
+                          case "text":
+                            return cmd.content;
+                          default:
+                            return session.id;
+                        }
+                      })()
+                    : session.id;
+
+                const existingSession = sessionMap.get(title);
+                if (existingSession) {
+                  // Keep the session with the latest modification date
+                  if (
+                    session.meta.lastModifiedAt &&
+                    existingSession.meta.lastModifiedAt
+                  ) {
+                    if (
+                      new Date(session.meta.lastModifiedAt) >
+                      new Date(existingSession.meta.lastModifiedAt)
+                    ) {
+                      sessionMap.set(title, session);
+                    }
+                  } else if (
+                    session.meta.lastModifiedAt &&
+                    !existingSession.meta.lastModifiedAt
+                  ) {
+                    sessionMap.set(title, session);
+                  }
+                  // If no modification dates, keep the existing one
+                } else {
+                  sessionMap.set(title, session);
+                }
               }
-              return true;
-            }),
-          })),
+
+              filteredSessions = Array.from(sessionMap.values());
+            }
+
+            return { sessions: filteredSessions };
+          }),
         ] as const);
 
         return c.json({ project, sessions });

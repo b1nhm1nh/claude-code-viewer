@@ -20,6 +20,7 @@ export const configMiddleware = createMiddleware<HonoContext>(
         "ccv-config",
         JSON.stringify({
           hideNoUserMessageSession: true,
+          unifySameTitleSession: true,
         }),
       );
     }

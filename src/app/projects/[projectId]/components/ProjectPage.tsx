@@ -36,7 +36,7 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
     void queryClient.invalidateQueries({
       queryKey: projectQueryConfig(projectId).queryKey,
     });
-  }, [config.hideNoUserMessageSession]);
+  }, [config.hideNoUserMessageSession, config.unifySameTitleSession]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -78,7 +78,7 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
           </h2>
 
           {/* Filter Controls */}
-          <div className="mb-6 p-4 bg-muted/50 rounded-lg">
+          <div className="mb-6 p-4 bg-muted/50 rounded-lg space-y-4">
             <div className="flex items-center space-x-2">
               <Checkbox
                 id={checkboxId}
@@ -102,6 +102,32 @@ export const ProjectPageContent = ({ projectId }: { projectId: string }) => {
             </div>
             <p className="text-xs text-muted-foreground mt-1 ml-6">
               Only show sessions that contain user commands or messages
+            </p>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id={`${checkboxId}-unify`}
+                checked={config?.unifySameTitleSession}
+                onCheckedChange={async () => {
+                  updateConfig({
+                    ...config,
+                    unifySameTitleSession: !config?.unifySameTitleSession,
+                  });
+                  await queryClient.invalidateQueries({
+                    queryKey: configQueryConfig.queryKey,
+                  });
+                }}
+              />
+              <label
+                htmlFor={`${checkboxId}-unify`}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Unify sessions with same title
+              </label>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1 ml-6">
+              Show only the latest session when multiple sessions have the same
+              title
             </p>
           </div>
 

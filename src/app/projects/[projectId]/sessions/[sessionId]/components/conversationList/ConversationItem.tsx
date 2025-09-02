@@ -62,7 +62,10 @@ export const ConversationItem: FC<{
   if (conversation.type === "user") {
     const userConversationJsx =
       typeof conversation.message.content === "string" ? (
-        <UserConversationContent content={conversation.message.content} />
+        <UserConversationContent
+          content={conversation.message.content}
+          id={`message-${conversation.uuid}`}
+        />
       ) : (
         <ul className="w-full" id={`message-${conversation.uuid}`}>
           {conversation.message.content.map((content) => (
