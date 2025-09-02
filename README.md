@@ -37,7 +37,7 @@ npm install -g @kimuson/claude-code-viewer
 claude-code-viewer
 ```
 
-The application uses pnpm as the package manager (v10.8.1) and is published as version 0.0.5.
+The application uses pnpm as the package manager (v10.8.1) and is published as version 0.1.0.
 
 The server will start on port 3400 (or the specified PORT). Open `http://localhost:3400` in your browser.
 

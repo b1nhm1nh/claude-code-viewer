@@ -117,7 +117,7 @@ The application reads Claude Code history from:
 
 **CLI Installation**:
 - Can be installed via `PORT=3400 npx @kimuson/claude-code-viewer@latest`
-- Published as `@kimuson/claude-code-viewer` (v0.0.5) on npm
+- Published as `@kimuson/claude-code-viewer` (v0.1.0) on npm
 - Standalone Next.js build with embedded dependencies
 - Binary entry point at `dist/index.js`
 
