@@ -1,5 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useSetAtom } from "jotai";
 import { useCallback, useEffect } from "react";
+import { aliveTasksAtom } from "../app/projects/[projectId]/sessions/[sessionId]/store/aliveTasksAtom";
 import { projetsQueryConfig } from "../app/projects/hooks/useProjects";
 import { honoClient } from "../lib/api/client";
 import type { SSEEvent } from "../server/service/events/types";
@@ -36,7 +38,7 @@ const parseSSEEvent = (text: string): ParsedEvent => {
     id: id.slice("id:".length).trim(),
     event: event.slice("event:".length).trim(),
     data: JSON.parse(
-      data.slice(data.indexOf("{"), data.indexOf("}") + 1),
+      data.slice(data.indexOf("{"), data.lastIndexOf("}") + 1),
     ) as SSEEvent,
   };
 };
@@ -53,6 +55,7 @@ let isInitialized = false;
 
 export const useServerEvents = () => {
   const queryClient = useQueryClient();
+  const setAliveTasks = useSetAtom(aliveTasksAtom);
 
   const listener = useCallback(async () => {
     console.log("listening to events");
@@ -86,9 +89,13 @@ export const useServerEvents = () => {
         if (event.data.type === "session_changed") {
           await queryClient.invalidateQueries({ queryKey: ["sessions"] });
         }
+
+        if (event.data.type === "task_changed") {
+          setAliveTasks(event.data.data);
+        }
       }
     }
-  }, [queryClient]);
+  }, [queryClient, setAliveTasks]);
 
   useEffect(() => {
     if (isInitialized === false) {

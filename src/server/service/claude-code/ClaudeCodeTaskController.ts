@@ -1,70 +1,25 @@
 import { execSync } from "node:child_process";
 import { query } from "@anthropic-ai/claude-code";
 import { ulid } from "ulid";
-import {
-  createMessageGenerator,
-  type MessageGenerator,
-  type OnMessage,
-} from "./createMessageGenerator";
-
-type BaseClaudeCodeTask = {
-  id: string;
-  projectId: string;
-  baseSessionId?: string | undefined; // undefined = new session
-  cwd: string;
-  generateMessages: MessageGenerator;
-  setNextMessage: (message: string) => void;
-  onMessageHandlers: OnMessage[];
-};
-
-type PendingClaudeCodeTask = BaseClaudeCodeTask & {
-  status: "pending";
-};
-
-type RunningClaudeCodeTask = BaseClaudeCodeTask & {
-  status: "running";
-  sessionId: string;
-  userMessageId: string;
-  abortController: AbortController;
-};
-
-type PausedClaudeCodeTask = BaseClaudeCodeTask & {
-  status: "paused";
-  sessionId: string;
-  userMessageId: string;
-  abortController: AbortController;
-};
-
-type CompletedClaudeCodeTask = BaseClaudeCodeTask & {
-  status: "completed";
-  sessionId: string;
-  userMessageId: string;
-  abortController: AbortController;
-};
-
-type FailedClaudeCodeTask = BaseClaudeCodeTask & {
-  status: "failed";
-  sessionId?: string;
-  userMessageId?: string;
-  abortController?: AbortController;
-};
-
-type ClaudeCodeTask =
-  | RunningClaudeCodeTask
-  | PausedClaudeCodeTask
-  | CompletedClaudeCodeTask
-  | FailedClaudeCodeTask;
-
-type AliveClaudeCodeTask = RunningClaudeCodeTask | PausedClaudeCodeTask;
+import { type EventBus, getEventBus } from "../events/EventBus";
+import { createMessageGenerator } from "./createMessageGenerator";
+import type {
+  AliveClaudeCodeTask,
+  ClaudeCodeTask,
+  PendingClaudeCodeTask,
+  RunningClaudeCodeTask,
+} from "./types";
 
 export class ClaudeCodeTaskController {
   private pathToClaudeCodeExecutable: string;
   private tasks: ClaudeCodeTask[] = [];
+  private eventBus: EventBus;
 
   constructor() {
     this.pathToClaudeCodeExecutable = execSync("which claude", {})
       .toString()
       .trim();
+    this.eventBus = getEventBus();
   }
 
   public get aliveTasks() {
@@ -256,5 +211,10 @@ export class ClaudeCodeTaskController {
     }
 
     Object.assign(target, task);
+
+    this.eventBus.emit("task_changed", {
+      type: "task_changed",
+      data: this.aliveTasks,
+    });
   }
 }

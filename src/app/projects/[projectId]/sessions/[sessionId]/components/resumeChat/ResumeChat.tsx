@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import {
   AlertCircleIcon,
   LoaderIcon,
@@ -30,7 +30,6 @@ export const ResumeChat: FC<{
 }> = ({ projectId, sessionId, isPausedTask }) => {
   const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const queryClient = useQueryClient();
 
   const resumeChat = useMutation({
     mutationFn: async (options: { message: string }) => {
@@ -45,13 +44,10 @@ export const ResumeChat: FC<{
         throw new Error(response.statusText);
       }
 
-      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
-
       return response.json();
     },
     onSuccess: async (response) => {
       setMessage("");
-      await queryClient.invalidateQueries({ queryKey: ["aliveTasks"] });
       if (sessionId !== response.sessionId) {
         router.push(
           `/projects/${projectId}/sessions/${response.sessionId}#message-${response.userMessageId}`,

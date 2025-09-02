@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { useAtom } from "jotai";
 import { useMemo } from "react";
 import { honoClient } from "../../../../../../lib/api/client";
+import { aliveTasksAtom } from "../store/aliveTasksAtom";
 
 export const useAliveTask = (sessionId: string) => {
-  const { data } = useQuery({
+  const [aliveTasks, setAliveTasks] = useAtom(aliveTasksAtom);
+
+  useQuery({
     queryKey: ["aliveTasks"],
     queryFn: async () => {
       const response = await honoClient.api.tasks.alive.$get({});
@@ -12,21 +16,22 @@ export const useAliveTask = (sessionId: string) => {
         throw new Error(response.statusText);
       }
 
+      const data = await response.json();
+      setAliveTasks(data.aliveTasks);
       return response.json();
     },
     refetchOnReconnect: true,
   });
 
   const taskInfo = useMemo(() => {
-    const aliveTask = data?.aliveTasks.find(
-      (task) => task.sessionId === sessionId,
-    );
+    const aliveTask = aliveTasks.find((task) => task.sessionId === sessionId);
+
     return {
-      aliveTask,
+      aliveTask: aliveTasks.find((task) => task.sessionId === sessionId),
       isRunningTask: aliveTask?.status === "running",
       isPausedTask: aliveTask?.status === "paused",
     } as const;
-  }, [data, sessionId]);
+  }, [aliveTasks, sessionId]);
 
   return taskInfo;
 };

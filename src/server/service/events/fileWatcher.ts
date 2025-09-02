@@ -1,8 +1,7 @@
-import { EventEmitter } from "node:events";
 import { type FSWatcher, watch } from "node:fs";
 import z from "zod";
 import { claudeProjectPath } from "../paths";
-import type { WatcherEvent } from "./types";
+import { type EventBus, getEventBus } from "./EventBus";
 
 const fileRegExp = /(?<projectId>.*?)\/(?<sessionId>.*?)\.jsonl/;
 const fileRegExpGroupSchema = z.object({
@@ -10,16 +9,16 @@ const fileRegExpGroupSchema = z.object({
   sessionId: z.string(),
 });
 
-export class FileWatcherService extends EventEmitter {
+export class FileWatcherService {
   private watcher: FSWatcher | null = null;
   private projectWatchers: Map<string, FSWatcher> = new Map();
+  private eventBus: EventBus;
 
   constructor() {
-    super();
-    this.startWatching();
+    this.eventBus = getEventBus();
   }
 
-  private startWatching(): void {
+  public startWatching(): void {
     try {
       console.log("Starting file watcher on:", claudeProjectPath);
       // メインプロジェクトディレクトリを監視
@@ -37,19 +36,22 @@ export class FileWatcherService extends EventEmitter {
 
           const { projectId, sessionId } = groups.data;
 
-          this.emit("project_changed", {
-            eventType: "project_changed",
-            data: { projectId, fileEventType: eventType },
-          } satisfies WatcherEvent);
+          this.eventBus.emit("project_changed", {
+            type: "project_changed",
+            data: {
+              fileEventType: eventType,
+              projectId,
+            },
+          });
 
-          this.emit("session_changed", {
-            eventType: "session_changed",
+          this.eventBus.emit("session_changed", {
+            type: "session_changed",
             data: {
               projectId,
               sessionId,
               fileEventType: eventType,
             },
-          } satisfies WatcherEvent);
+          });
         },
       );
       console.log("File watcher initialization completed");
