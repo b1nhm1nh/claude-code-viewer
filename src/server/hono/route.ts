@@ -11,6 +11,7 @@ import type { SerializableAliveTask } from "../service/claude-code/types";
 import { getEventBus } from "../service/events/EventBus";
 import { getFileWatcher } from "../service/events/fileWatcher";
 import { sseEventResponse } from "../service/events/sseEventResponse";
+import { getMcpList } from "../service/mcp/getMcpList";
 import { getProject } from "../service/project/getProject";
 import { getProjects } from "../service/project/getProjects";
 import { getSession } from "../service/session/getSession";
@@ -167,6 +168,11 @@ export const routes = (app: HonoAppType) => {
             projectCommands.status === "fulfilled" ? projectCommands.value : [],
           defaultCommands: ["init", "compact"],
         });
+      })
+
+      .get("/mcp/list", async (c) => {
+        const { servers } = await getMcpList();
+        return c.json({ servers });
       })
 
       .post(
