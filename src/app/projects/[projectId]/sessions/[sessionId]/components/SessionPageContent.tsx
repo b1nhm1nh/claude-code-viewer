@@ -1,7 +1,13 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { ArrowLeftIcon, LoaderIcon, PauseIcon, XIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  LoaderIcon,
+  MenuIcon,
+  PauseIcon,
+  XIcon,
+} from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -41,6 +47,7 @@ export const SessionPageContent: FC<{
 
   const [previousConversationLength, setPreviousConversationLength] =
     useState(0);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // 自動スクロール処理
@@ -62,27 +69,44 @@ export const SessionPageContent: FC<{
 
   return (
     <div className="flex h-screen">
-      <SessionSidebar currentSessionId={sessionId} projectId={projectId} />
+      <SessionSidebar
+        currentSessionId={sessionId}
+        projectId={projectId}
+        isMobileOpen={isMobileSidebarOpen}
+        onMobileOpenChange={setIsMobileSidebarOpen}
+      />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div
           ref={scrollContainerRef}
           className="max-w-none flex-1 overflow-y-auto"
         >
-          <header className="px-3 py-3 sticky top-0 z-10 bg-background w-full">
-            <Button asChild variant="ghost">
-              <Link
-                href={`/projects/${projectId}`}
-                className="flex items-center gap-2"
+          <header className="px-2 sm:px-3 py-3 sticky top-0 z-10 bg-background w-full">
+            <div className="flex items-center gap-2 mb-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="md:hidden"
+                onClick={() => setIsMobileSidebarOpen(true)}
               >
-                <ArrowLeftIcon className="w-4 h-4" />
-                Back to Session List
-              </Link>
-            </Button>
+                <MenuIcon className="w-4 h-4" />
+              </Button>
+
+              <Button asChild variant="ghost">
+                <Link
+                  href={`/projects/${projectId}`}
+                  className="flex items-center gap-2"
+                >
+                  <ArrowLeftIcon className="w-4 h-4" />
+                  <span className="hidden sm:inline">Back to Session List</span>
+                  <span className="sm:hidden">Back</span>
+                </Link>
+              </Button>
+            </div>
 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <h1 className="text-3xl font-bold break-all overflow-ellipsis line-clamp-2 px-5">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold break-words overflow-ellipsis line-clamp-2 px-2 sm:px-5">
                   {session.meta.firstCommand !== null
                     ? firstCommandToTitle(session.meta.firstCommand)
                     : sessionId}
@@ -137,7 +161,7 @@ export const SessionPageContent: FC<{
             </div>
           </header>
 
-          <main className="w-full px-20 pb-10 relative z-5">
+          <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pb-10 relative z-5">
             <ConversationList
               conversations={conversations}
               getToolResult={getToolResult}

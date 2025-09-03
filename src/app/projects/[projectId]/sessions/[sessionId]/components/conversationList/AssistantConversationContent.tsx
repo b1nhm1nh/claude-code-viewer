@@ -26,7 +26,7 @@ export const AssistantConversationContent: FC<{
 }> = ({ content, getToolResult }) => {
   if (content.type === "text") {
     return (
-      <div className="w-full mx-2 my-6">
+      <div className="w-full mx-1 sm:mx-2 my-4 sm:my-6">
         <MarkdownContent content={content.text} />
       </div>
     );
@@ -111,7 +111,7 @@ export const AssistantConversationContent: FC<{
               <CollapsibleContent>
                 <div className="bg-background rounded border p-2 mt-1">
                   {typeof toolResult.content === "string" ? (
-                    <pre className="text-xs overflow-x-auto whitespace-pre-line">
+                    <pre className="text-xs overflow-x-auto whitespace-pre-wrap break-words">
                       {toolResult.content}
                     </pre>
                   ) : (
@@ -129,7 +129,7 @@ export const AssistantConversationContent: FC<{
                         return (
                           <pre
                             key={item.text}
-                            className="text-xs overflow-x-auto whitespace-pre-line"
+                            className="text-xs overflow-x-auto whitespace-pre-wrap break-words"
                           >
                             {item.text}
                           </pre>

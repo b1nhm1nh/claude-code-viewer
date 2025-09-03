@@ -66,7 +66,7 @@ export const ConversationList: FC<ConversationListProps> = ({
             }`}
             key={getConversationKey(conversation)}
           >
-            <div className="w-[85%]">{elm}</div>
+            <div className="w-full max-w-4xl sm:w-[90%] md:w-[85%]">{elm}</div>
           </li>,
         ];
       })}

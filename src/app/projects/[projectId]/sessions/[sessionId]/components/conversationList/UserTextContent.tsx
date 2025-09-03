@@ -78,7 +78,9 @@ export const UserTextContent: FC<{ text: string; id?: string }> = ({
           </div>
         </CardHeader>
         <CardContent className="py-0 px-4">
-          <pre className="text-xs overflow-x-auto">{parsed.stdout}</pre>
+          <pre className="text-xs overflow-x-auto whitespace-pre-wrap break-words">
+            {parsed.stdout}
+          </pre>
         </CardContent>
       </Card>
     );
