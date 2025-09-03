@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.1
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Responsive design &nbsp;-&nbsp; by **d-kimsuon** [<samp>(35329)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/3532988)
+- Add some default commands &nbsp;-&nbsp; by **d-kimsuon** [<samp>(adccb)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/adccbb8)
+- Remove alive sessoins tab &nbsp;-&nbsp; by **d-kimsuon** [<samp>(730eb)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/730eb35)
+- Add error report message on invalid schema message &nbsp;-&nbsp; by **d-kimsuon** [<samp>(bac15)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/bac15be)
+- Add mcp tab &nbsp;-&nbsp; by **d-kimsuon** [<samp>(155af)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/155afea)
+- Display project info in session page &nbsp;-&nbsp; by **d-kimsuon** [<samp>(1b1a8)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/1b1a8ab)
+
+### &nbsp;&nbsp;&nbsp;Bug Fixes
+
+- Remove unnecessary slash from default command &nbsp;-&nbsp; by **d-kimsuon** [<samp>(78000)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/7800037)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.2.0...0.2.1)
+
 ## 0.2.0
 
 ### &nbsp;&nbsp;&nbsp;Features
