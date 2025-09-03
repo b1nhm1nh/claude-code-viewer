@@ -21,7 +21,11 @@ const extractProjectPathFromJsonl = async (filePath: string) => {
   for (const line of lines) {
     const conversation = parseJsonl(line).at(0);
 
-    if (conversation === undefined || conversation.type === "summary") {
+    if (
+      conversation === undefined ||
+      conversation.type === "summary" ||
+      conversation.type === "x-error"
+    ) {
       continue;
     }
 

@@ -26,6 +26,11 @@ export type SessionMeta = {
   lastModifiedAt: string | null;
 };
 
+export type ErrorJsonl = {
+  type: "x-error";
+  line: string;
+};
+
 export type SessionDetail = Session & {
-  conversations: Conversation[];
+  conversations: (Conversation | ErrorJsonl)[];
 };

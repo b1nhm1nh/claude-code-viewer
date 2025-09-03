@@ -119,7 +119,9 @@ export const routes = (app: HonoAppType) => {
               filteredSessions = Array.from(sessionMap.values());
             }
 
-            return { sessions: filteredSessions };
+            return {
+              sessions: filteredSessions,
+            };
           }),
         ] as const);
 
