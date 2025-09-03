@@ -1,13 +1,12 @@
 "use client";
 
-import { ListTodoIcon, MessageSquareIcon, SettingsIcon } from "lucide-react";
+import { MessageSquareIcon, SettingsIcon } from "lucide-react";
 import { type FC, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { useProject } from "../../../../hooks/useProject";
 import { SessionsTab } from "./SessionsTab";
 import { SettingsTab } from "./SettingsTab";
-import { TasksTab } from "./TasksTab";
 
 export const SessionSidebar: FC<{
   currentSessionId: string;
@@ -25,12 +24,12 @@ export const SessionSidebar: FC<{
   const {
     data: { sessions },
   } = useProject(projectId);
-  const [activeTab, setActiveTab] = useState<"sessions" | "tasks" | "settings">(
+  const [activeTab, setActiveTab] = useState<"sessions" | "settings">(
     "sessions",
   );
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const handleTabClick = (tab: "sessions" | "tasks" | "settings") => {
+  const handleTabClick = (tab: "sessions" | "settings") => {
     if (activeTab === tab && isExpanded) {
       // If clicking the active tab while expanded, collapse
       setIsExpanded(false);
@@ -51,8 +50,6 @@ export const SessionSidebar: FC<{
             projectId={projectId}
           />
         );
-      case "tasks":
-        return <TasksTab projectId={projectId} />;
       case "settings":
         return <SettingsTab />;
       default:
@@ -83,21 +80,6 @@ export const SessionSidebar: FC<{
             title="Sessions"
           >
             <MessageSquareIcon className="w-4 h-4" />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleTabClick("tasks")}
-            className={cn(
-              "w-8 h-8 flex items-center justify-center rounded-md transition-colors",
-              "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-              activeTab === "tasks" && isExpanded
-                ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
-                : "text-sidebar-foreground/70",
-            )}
-            title="Tasks"
-          >
-            <ListTodoIcon className="w-4 h-4" />
           </button>
 
           <button

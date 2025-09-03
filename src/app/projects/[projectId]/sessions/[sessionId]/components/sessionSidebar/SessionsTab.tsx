@@ -19,6 +19,39 @@ export const SessionsTab: FC<{
 }> = ({ sessions, currentSessionId, projectId }) => {
   const aliveTasks = useAtomValue(aliveTasksAtom);
 
+  // Sort sessions: Running > Paused > Others, then by lastModifiedAt (newest first)
+  const sortedSessions = [...sessions].sort((a, b) => {
+    const aTask = aliveTasks.find((task) => task.sessionId === a.id);
+    const bTask = aliveTasks.find((task) => task.sessionId === b.id);
+
+    const aStatus = aTask?.status;
+    const bStatus = bTask?.status;
+
+    // Define priority: running = 0, paused = 1, others = 2
+    const getPriority = (status: string | undefined) => {
+      if (status === "running") return 0;
+      if (status === "paused") return 1;
+      return 2;
+    };
+
+    const aPriority = getPriority(aStatus);
+    const bPriority = getPriority(bStatus);
+
+    // First sort by priority
+    if (aPriority !== bPriority) {
+      return aPriority - bPriority;
+    }
+
+    // Then sort by lastModifiedAt (newest first)
+    const aTime = a.meta.lastModifiedAt
+      ? new Date(a.meta.lastModifiedAt).getTime()
+      : 0;
+    const bTime = b.meta.lastModifiedAt
+      ? new Date(b.meta.lastModifiedAt).getTime()
+      : 0;
+    return bTime - aTime;
+  });
+
   return (
     <div className="h-full flex flex-col">
       <div className="border-b border-sidebar-border p-4">
@@ -40,7 +73,7 @@ export const SessionsTab: FC<{
       </div>
 
       <div className="flex-1 overflow-y-auto p-2 space-y-0.5">
-        {sessions.map((session) => {
+        {sortedSessions.map((session) => {
           const isActive = session.id === currentSessionId;
           const title =
             session.meta.firstCommand !== null
