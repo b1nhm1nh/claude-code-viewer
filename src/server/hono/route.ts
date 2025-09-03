@@ -165,7 +165,7 @@ export const routes = (app: HonoAppType) => {
             globalCommands.status === "fulfilled" ? globalCommands.value : [],
           projectCommands:
             projectCommands.status === "fulfilled" ? projectCommands.value : [],
-          defaultCommands: ["/init", "/compact"],
+          defaultCommands: ["init", "compact"],
         });
       })
 
