@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Adjust style for mobile &nbsp;-&nbsp; by **d-kimsuon** [<samp>(35e72)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/35e72ed)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.2.1...0.2.2)
+
 ## 0.2.1
 
 ### &nbsp;&nbsp;&nbsp;Features
