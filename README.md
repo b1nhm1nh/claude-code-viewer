@@ -1,24 +1,40 @@
 # Claude Code Viewer
 
-A web-based viewer for browsing Claude Code conversation history files. View and navigate your Claude Code project conversations through a clean, intuitive interface.
+A full-featured web-based Claude Code client that provides complete interactive functionality for managing Claude Code projects. Start new conversations, resume existing sessions, monitor running tasks in real-time, and browse your conversation history - all through a modern web interface.
+
+![demo](./docs/assets/claude-code-viewer-demo-min.gif)
 
 ## Overview
 
-Claude Code Viewer parses JSONL conversation files stored in `~/.claude/projects/` and presents them in a human-readable web UI. Browse projects, sessions, and detailed conversation history with support for tool usage, subtasks, and real-time file monitoring.
+Claude Code Viewer has evolved from a simple conversation viewer into a comprehensive web-based Claude Code client. It provides all essential Claude Code functionality through an intuitive web interface, including creating new sessions, resuming conversations, real-time task management, and live synchronization with your local Claude Code projects.
 
-![](./docs/assets/basic.png)
+The application leverages Server-Sent Events (SSE) for real-time bidirectional communication, automatically syncing with JSONL conversation files in `~/.claude/projects/` and providing instant updates as conversations progress.
 
 ## Features
 
+### Interactive Claude Code Client
+
+- **New Chat Creation** - Start new Claude sessions directly from the web interface
+- **Session Resumption** - Continue paused Claude conversations with full context
+- **Real-time Task Management** - Monitor, control, and abort running Claude tasks
+- **Command Autocompletion** - Smart completion for both global and project-specific Claude commands
+- **Live Status Indicators** - Visual feedback for running, paused, and completed tasks
+
+### Real-time Synchronization
+
+- **Server-Sent Events (SSE)** - Instant bidirectional communication and updates
+- **File System Monitoring** - Automatic detection of conversation file changes
+- **Live Task Updates** - Real-time progress tracking for active Claude sessions
+- **Auto-refresh UI** - Instant updates when conversations are modified externally
+
+### Advanced Conversation Management
+
 - **Project Browser** - View all Claude Code projects with metadata and session counts
-- **Session Navigation** - Browse conversation sessions within projects with filtering options  
-- **Conversation Display** - Human-readable format for Claude Code logs with syntax highlighting
-- **Command Detection** - Parses XML-like command structures for enhanced display
-- **Real-time Updates** - Server-Sent Events provide live updates when files change
-- **Tool Usage Display** - Clear presentation of tool calls, parameters, and results
-  - ![](./docs/assets/expand_tool_use.png)
-- **Sub Task Display**
-  - ![](./docs/assets/sub_task.png)
+- **Smart Session Filtering** - Hide empty sessions, unify duplicates, filter by status
+- **Multi-tab Interface** - Sessions, Tasks, and Settings in an organized sidebar
+- **Conversation Display** - Human-readable format with syntax highlighting and tool usage
+- **Command Detection** - Enhanced display of XML-like command structures
+- **Task Controller** - Full lifecycle management of Claude processes
 
 ## Installation & Usage
 
