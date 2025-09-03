@@ -136,7 +136,10 @@ export const SessionSidebar: FC<{
       {/* Mobile sidebar - rendered in dialog */}
       <div className="md:hidden">
         <Dialog open={isMobileOpen} onOpenChange={onMobileOpenChange}>
-          <DialogContent className="p-0 max-w-sm w-full h-[90vh] max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogContent
+            className="p-0 max-w-sm w-full h-[85vh] max-h-[85vh] overflow-hidden flex flex-col top-4 left-[50%] translate-x-[-50%] translate-y-0"
+            showCloseButton={false}
+          >
             <div className="flex-1 overflow-hidden">{sidebarContent}</div>
           </DialogContent>
         </Dialog>
