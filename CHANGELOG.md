@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Adjust response design &nbsp;-&nbsp; by **d-kimsuon** [<samp>(dca1b)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/dca1be7)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.2.2...0.2.3)
+
 ## 0.2.2
 
 ### &nbsp;&nbsp;&nbsp;Features
