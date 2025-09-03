@@ -13,6 +13,7 @@ import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { honoClient } from "../../../../../../lib/api/client";
+import { useProject } from "../../../hooks/useProject";
 import { firstCommandToTitle } from "../../../services/firstCommandToTitle";
 import { useAliveTask } from "../hooks/useAliveTask";
 import { useSession } from "../hooks/useSession";
@@ -28,6 +29,7 @@ export const SessionPageContent: FC<{
     projectId,
     sessionId,
   );
+  const { data: project } = useProject(projectId);
 
   const abortTask = useMutation({
     mutationFn: async (sessionId: string) => {
@@ -106,11 +108,24 @@ export const SessionPageContent: FC<{
 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold break-words overflow-ellipsis line-clamp-2 px-2 sm:px-5">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold break-words overflow-ellipsis line-clamp-1 px-2 sm:px-5">
                   {session.meta.firstCommand !== null
                     ? firstCommandToTitle(session.meta.firstCommand)
                     : sessionId}
                 </h1>
+              </div>
+
+              <div className="px-2 sm:px-5 space-y-1">
+                {project?.project.claudeProjectPath && (
+                  <p className="text-sm text-muted-foreground font-mono break-all">
+                    Project:{" "}
+                    {project.project.meta.projectPath ??
+                      project.project.claudeProjectPath}
+                  </p>
+                )}
+                <p className="text-sm text-muted-foreground font-mono">
+                  Session ID: {sessionId}
+                </p>
               </div>
 
               {isRunningTask && (
@@ -154,10 +169,6 @@ export const SessionPageContent: FC<{
                   </Button>
                 </div>
               )}
-
-              <p className="text-muted-foreground font-mono text-sm">
-                Session ID: {sessionId}
-              </p>
             </div>
           </header>
 
