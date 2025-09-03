@@ -172,7 +172,7 @@ export const SessionPageContent: FC<{
           ref={scrollContainerRef}
           className="flex-1 overflow-y-auto min-h-0"
         >
-          <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pb-10 relative z-5">
+          <main className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pb-20 sm:pb-10 relative z-5">
             <ConversationList
               conversations={conversations}
               getToolResult={getToolResult}
