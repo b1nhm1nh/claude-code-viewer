@@ -58,6 +58,7 @@ export const CommandCompletion = forwardRef<
   // メモ化されたコマンドフィルタリング
   const { shouldShowCompletion, filteredCommands } = useMemo(() => {
     const allCommands = [
+      ...(commandData?.defaultCommands || []),
       ...(commandData?.globalCommands || []),
       ...(commandData?.projectCommands || []),
     ];
