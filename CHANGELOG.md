@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.4
+
+### &nbsp;&nbsp;&nbsp;Features
+
+- Add Node.js >=20.12.0 requirement to package.json &nbsp;-&nbsp; by **d-kimsuon** and **Claude** [<samp>(7027f)</samp>](https://github.com/d-kimuson/claude-code-viewer/commit/7027f39)
+
+##### &nbsp;&nbsp;&nbsp;&nbsp;[View changes on GitHub](https://github.com/d-kimuson/claude-code-viewer/compare/v0.2.3...0.2.4)
+
 ## 0.2.3
 
 ### &nbsp;&nbsp;&nbsp;Features
