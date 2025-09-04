@@ -69,11 +69,6 @@ pnpm build
 pnpm start
 ```
 
-## Requirements
-
-- **Node.js** 18 or later
-- **Claude Code** with conversation history in `~/.claude/projects/`
-
 ## Data Source
 
 The application reads Claude Code conversation files from:
