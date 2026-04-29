@@ -20,7 +20,7 @@
     "dev:frontend": "vite",
     "dev:backend": "CCV_ENV=development node --watch --env-file-if-exists=.env.local src/server/main.ts",
     "start": "node dist/main.js",
-    "build": "./scripts/build.sh",
+    "build": "bash ./scripts/build.sh",
     "build:frontend": "vite build",
     "build:backend": "esbuild src/server/main.ts --format=esm --bundle --packages=external --sourcemap --platform=node --outfile=dist/main.js",
     "lint": "pnpm lint:oxlint && pnpm lint:oxfmt",
