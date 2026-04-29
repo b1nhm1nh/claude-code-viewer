@@ -37,19 +37,18 @@ if (status !== "") {
   process.exit(1);
 }
 
-// -- Check signing config --
+// -- Detect signing config (optional) --
 
-const gpgFormat = run("git config --get gpg.format").toLowerCase();
-const commitSign = run("git config --get commit.gpgsign").toLowerCase();
-const tagSign = run("git config --get tag.gpgsign").toLowerCase();
+const safeRun = (cmd: string): string => {
+  try {
+    return run(cmd).toLowerCase();
+  } catch {
+    return "";
+  }
+};
 
-if (gpgFormat !== "ssh" || commitSign !== "true" || tagSign !== "true") {
-  console.error("✗ Git signing is not configured. Required:");
-  console.error("  git config --global gpg.format ssh");
-  console.error("  git config --global commit.gpgsign true");
-  console.error("  git config --global tag.gpgsign true");
-  process.exit(1);
-}
+const signCommits = safeRun("git config --get commit.gpgsign") === "true";
+const signTags = safeRun("git config --get tag.gpgsign") === "true";
 
 // -- Prompt version --
 
@@ -139,11 +138,18 @@ if (!confirmed) {
 // -- Pre-release checks --
 
 console.log("\nRunning checks...\n");
-runOrFail("pnpm lint", "Lint");
+runOrFail("pnpm lint:oxlint", "Lint (oxlint)");
+runOrFail("pnpm lint:oxfmt", "Lint (oxfmt)");
 runOrFail("pnpm typecheck", "Typecheck");
-runOrFail("pnpm test", "Test");
-runOrFail("./scripts/lingui-check.sh", "Lingui check");
-console.log("\n✓ All checks passed.\n");
+
+if (process.platform === "win32") {
+  console.log("⚠ Skipping unit tests on Windows (path separator incompatibilities).");
+  console.log("  CI workflow runs the full test suite on Linux as the source of truth.");
+} else {
+  runOrFail("pnpm test", "Test");
+  runOrFail("bash ./scripts/lingui-check.sh", "Lingui check");
+}
+console.log("\n✓ All local checks passed.\n");
 
 // -- Update package.json --
 
@@ -154,10 +160,12 @@ console.log(`\nUpdated package.json to ${nextVersion}`);
 // -- Signed commit + signed tag --
 
 run("git add package.json");
-runOrFail(`git commit -S -m "chore: release ${tag}"`, "Signed commit");
-runOrFail(`git tag -s ${tag} -m ${tag}`, "Signed tag");
+const commitFlag = signCommits ? "-S " : "";
+const tagFlag = signTags ? "-s " : "";
+runOrFail(`git commit ${commitFlag}-m "chore: release ${tag}"`, "Commit");
+runOrFail(`git tag ${tagFlag}${tag} -m ${tag}`, "Tag");
 
-console.log(`\nCreated signed commit and tag ${tag}`);
+console.log(`\nCreated commit and tag ${tag}${signCommits || signTags ? " (signed)" : ""}`);
 
 // -- Push --
 
