@@ -26,12 +26,18 @@ pre-push:
       run: pnpm typecheck
 
     test:
+      # Skipped on Windows: test suite has path-separator incompatibilities; Linux CI is the source of truth.
+      skip:
+        - run: 'if [ "$OS" = "Windows_NT" ]; then echo skip; fi'
       run: pnpm test
 
     lingui-check:
+      # Skipped on Windows: lingui-check.sh and `git diff --exit-code` have shell quirks on Windows.
+      skip:
+        - run: 'if [ "$OS" = "Windows_NT" ]; then echo skip; fi'
       run: |
         pnpm lingui:extract
         pnpm lingui:compile
         ./scripts/lingui-check.sh
         ./scripts/i18n-check-key-equals-translation.sh
-        git diff ./src/lib/i18n/locales/ --exit-code || echo "Warning: lingui compilation produced unexpected changes"
+        git diff --exit-code ./src/lib/i18n/locales/ || echo "Warning: lingui compilation produced unexpected changes"
