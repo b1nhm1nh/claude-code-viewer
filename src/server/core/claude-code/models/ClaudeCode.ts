@@ -9,15 +9,22 @@ type AgentSdkQuery = typeof agentSdk.query;
 type AgentSdkPrompt = Parameters<AgentSdkQuery>[0]["prompt"];
 type AgentSdkQueryOptions = NonNullable<Parameters<AgentSdkQuery>[0]["options"]>;
 
-const npxCacheRegExp = /_npx[/\\].*node_modules[\\/]\.bin/;
-const localNodeModulesBinRegExp = new RegExp(`${process.cwd()}/node_modules/.bin`);
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const toPosixPath = (p: string) => p.replace(/\\/g, "/");
+
+const npxCacheRegExp = /_npx\/.*node_modules\/\.bin/;
+const localNodeModulesBinRegExp = new RegExp(
+  `${escapeRegExp(toPosixPath(process.cwd()))}/node_modules/\\.bin`,
+);
 
 export const claudeCodePathPriority = (path: string): number => {
-  if (npxCacheRegExp.test(path)) {
+  const normalized = toPosixPath(path);
+
+  if (npxCacheRegExp.test(normalized)) {
     return 0;
   }
 
-  if (localNodeModulesBinRegExp.test(path)) {
+  if (localNodeModulesBinRegExp.test(normalized)) {
     return 1;
   }
 
@@ -44,12 +51,16 @@ const resolveClaudeCodePath = Effect.gen(function* () {
     return path.resolve(specifiedExecutablePath);
   }
 
-  // System PATH lookup
-  const claudePaths = yield* Command.string(Command.make("which", "-a", "claude")).pipe(
+  // System PATH lookup (where on Windows, which -a elsewhere)
+  const lookupCommand =
+    process.platform === "win32"
+      ? Command.make("where", "claude")
+      : Command.make("which", "-a", "claude");
+  const claudePaths = yield* Command.string(lookupCommand).pipe(
     Effect.map(
       (output) =>
         output
-          .split("\n")
+          .split(/\r?\n/)
           .map((line) => line.trim())
           .filter((line) => line !== "") ?? [],
     ),

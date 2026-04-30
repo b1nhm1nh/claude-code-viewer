@@ -42,7 +42,47 @@ Claude Code Viewer is a web-based Claude Code client focused on **comprehensive 
 
 - **Node.js**: Version 22.13.0 or later
 - **Claude Code**: v1.0.125 or later
-- **Operating Systems**: macOS and Linux (Windows is not supported)
+- **Operating Systems**: macOS, Linux, and Windows (experimental — see [Windows Support Status](#windows-support-status))
+
+## Windows Support Status
+
+> [!NOTE]
+> The upstream project ([d-kimuson/claude-code-viewer](https://github.com/d-kimuson/claude-code-viewer)) does **not** support Windows. This `@ibootz` fork is the result of an ongoing effort to make Claude Code Viewer run natively on Windows (PowerShell / `cmd.exe`, no WSL or Git Bash required for the server itself).
+
+### What we changed to make Windows work
+
+| Area                                                     | Original behavior                                                                                                                                                                                                                             | Windows-compatible change                                                                                                                   |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude CLI lookup                                        | Hard-coded `which -a claude` (POSIX-only)                                                                                                                                                                                                     | Switches to `where claude` on `process.platform === "win32"`; output parsing handles both `\n` and `\r\n`                                   |
+| `node_modules/.bin` priority regex                       | Built `new RegExp(\`${process.cwd()}/node_modules/.bin\`)`directly — Windows backslashes in`cwd` were silently swallowed by the regex compiler                                                                                                | Escapes regex specials and normalizes both the regex source and the path under test to forward slashes before matching                      |
+| Command / skill name resolution                          | `pathToCommandName` did `filePath.startsWith(baseDir)` and only replaced `/` with `:`, so a directory layout with mixed `\` / `/` separators (typical when the test or caller hand-builds paths) leaked the absolute path into the command id | Normalizes both sides to forward slashes before the prefix comparison and the colon substitution                                            |
+| Database migrations                                      | `migrations/` folder path resolution                                                                                                                                                                                                          | Resolved with the platform path module (commit `359668b`)                                                                                   |
+| `lint` and pre-push hooks                                | POSIX `sh` only                                                                                                                                                                                                                               | Made hook scripts and `build.sh` invocable via `bash` on Windows (commits `e700db0`, `5038392`)                                             |
+| Release script                                           | Hard-coded `.sh` invocation                                                                                                                                                                                                                   | Detects `process.platform === "win32"` and adapts (commit `8c2a466`)                                                                        |
+| `@replit/ruspty` (PTY backend for the built-in terminal) | Listed as a hard dependency; failed to load loudly on every Windows startup with `Cannot find module '@replit/ruspty-win32-x64-msvc'`                                                                                                         | Moved to `optionalDependencies`; on `win32` the terminal service is short-circuited to the disabled path with a single calm `INFO` log line |
+
+### What still does **not** work on Windows
+
+- **Built-in terminal panel.** `@replit/ruspty` does not publish a `win32-x64-msvc` (or `arm64`) binary. Until we either (a) replace the backend with a cross-platform PTY library such as [`node-pty`](https://github.com/microsoft/node-pty), or (b) ruspty itself ships a Windows binary, the bottom-of-screen terminal panel will return _"Terminal support is unavailable"_. Everything else — chat, sessions, git diff, file watcher, SSE live updates, MCP viewer — works.
+- **End-to-end (E2E) test scripts.** `scripts/e2e/*.sh` still assume a POSIX shell. The unit-test suite (`pnpm test`) runs cleanly on Windows, but Playwright snapshot capture has not been validated.
+- **Path-separator edge cases in user content.** Project paths that already contain mixed `/` and `\` (for example, paths typed by hand into config files) may still surprise some downstream consumers; please file an issue with a reproduction if you hit one.
+
+### Workaround for the terminal
+
+If you need the terminal panel on Windows today, run Claude Code Viewer inside **WSL2** — the Linux build of `@replit/ruspty` works there and you get the full experience. Native Windows users can pop a separate `pwsh` / `cmd` window to run the `claude` CLI commands the **Copy** button generates.
+
+### Verifying the Windows build locally
+
+```powershell
+git clone https://github.com/ibootz/claude-code-viewer.git
+cd claude-code-viewer
+pnpm install
+pnpm gatecheck check       # should report 4 passed, 0 failed
+pnpm build
+node .\dist\main.js --port 3400
+```
+
+The server should start with a single `INFO` line about the terminal panel being disabled and otherwise produce no warnings on stdout.
 
 ## Installation & Usage
 

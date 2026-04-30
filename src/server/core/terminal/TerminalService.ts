@@ -76,6 +76,15 @@ const LayerImpl = Effect.gen(function* () {
     };
   };
 
+  // @replit/ruspty has no published Windows binary (no @replit/ruspty-win32-* package).
+  // Skip the import entirely on win32 so we don't spam a WARN on every startup.
+  if (process.platform === "win32") {
+    yield* Effect.logInfo(
+      "Built-in terminal panel is disabled on Windows (PTY backend @replit/ruspty has no win32 binary).",
+    );
+    return disabledService("Windows is not supported by @replit/ruspty");
+  }
+
   const ruspty: RusptyModule | null = yield* Effect.tryPromise({
     try: () => import("@replit/ruspty"),
     catch: (error) => new Error(`Failed to load @replit/ruspty: ${String(error)}`),
