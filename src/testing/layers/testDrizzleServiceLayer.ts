@@ -8,9 +8,7 @@ import { Layer } from "effect";
 import { type DrizzleDb, DrizzleService } from "../../server/lib/db/DrizzleService";
 import * as schema from "../../server/lib/db/schema";
 
-const migrationsFolder = fileURLToPath(
-  new URL("../../server/lib/db/migrations", import.meta.url),
-);
+const migrationsFolder = fileURLToPath(new URL("../../server/lib/db/migrations", import.meta.url));
 
 const FTS5_DDL = `
   CREATE VIRTUAL TABLE IF NOT EXISTS session_messages_fts USING fts5(
