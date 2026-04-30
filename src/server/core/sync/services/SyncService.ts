@@ -570,14 +570,16 @@ const LayerImpl = Effect.gen(function* () {
         const filePath = path.join(projectPath, fileName);
         seenFilePaths.add(filePath);
 
-        if (!knownSessionPaths.has(filePath)) {
-          // New file
-          const fileStat = yield* fs
-            .stat(filePath)
-            .pipe(Effect.catchAll(() => Effect.succeed(null)));
-          if (!fileStat) continue;
+        const fileStat = yield* fs.stat(filePath).pipe(Effect.catchAll(() => Effect.succeed(null)));
+        if (!fileStat) continue;
 
-          const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
+        const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
+
+        const knownSession = knownSessions.find((s) => s.filePath === filePath);
+        const isNew = !knownSessionPaths.has(filePath);
+        const isModified = knownSession !== undefined && fileMtimeMs > knownSession.fileMtimeMs;
+
+        if (isNew || isModified) {
           const sessionId = encodeSessionId(filePath);
 
           yield* parseAndUpsertSession(projectId, sessionId, filePath, fileMtimeMs).pipe(
