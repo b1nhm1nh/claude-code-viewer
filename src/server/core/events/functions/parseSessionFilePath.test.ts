@@ -86,6 +86,35 @@ describe("parseSessionFilePath", () => {
     });
   });
 
+  describe("Windows-style separators", () => {
+    it("parses session file path with backslashes", () => {
+      const result = parseSessionFilePath("project-name\\session-id.jsonl");
+      expect(result).toEqual({
+        type: "session",
+        projectId: "project-name",
+        sessionId: "session-id",
+      });
+    });
+
+    it("parses agent file path with backslashes", () => {
+      const result = parseSessionFilePath("project-name\\agent-abc123.jsonl");
+      expect(result).toEqual({
+        type: "agent",
+        projectId: "project-name",
+        agentSessionId: "abc123",
+      });
+    });
+
+    it("parses agent file with nested backslash path", () => {
+      const result = parseSessionFilePath("home\\user\\projects\\my-app\\agent-def456.jsonl");
+      expect(result).toEqual({
+        type: "agent",
+        projectId: "home/user/projects/my-app",
+        agentSessionId: "def456",
+      });
+    });
+  });
+
   describe("edge cases", () => {
     it("handles project name containing 'agent' but not as prefix", () => {
       // my-agent-project/session.jsonl should be a session file
