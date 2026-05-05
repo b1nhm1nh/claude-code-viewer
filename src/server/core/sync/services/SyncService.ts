@@ -413,7 +413,9 @@ const LayerImpl = Effect.gen(function* () {
           .where(eq(sessions.projectId, projectId))
           .all();
         // Normalize stored paths to forward slashes for cross-platform comparison.
-        const knownSessionPaths = new Set(knownSessions.map((s) => s.filePath.replaceAll("\\", "/")));
+        const knownSessionPaths = new Set(
+          knownSessions.map((s) => s.filePath.replaceAll("\\", "/")),
+        );
         const seenFilePaths = new Set<string>();
 
         for (const fileName of sessionFiles) {
@@ -429,7 +431,9 @@ const LayerImpl = Effect.gen(function* () {
           const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
 
           // Check if new file or mtime changed
-          const knownSession = knownSessions.find((s) => s.filePath.replaceAll("\\", "/") === filePath);
+          const knownSession = knownSessions.find(
+            (s) => s.filePath.replaceAll("\\", "/") === filePath,
+          );
           const isNew = !knownSessionPaths.has(filePath);
           const isModified = knownSession !== undefined && fileMtimeMs > knownSession.fileMtimeMs;
 
@@ -574,12 +578,16 @@ const LayerImpl = Effect.gen(function* () {
         const filePath = rawFilePath.replaceAll("\\", "/");
         seenFilePaths.add(filePath);
 
-        const fileStat = yield* fs.stat(rawFilePath).pipe(Effect.catchAll(() => Effect.succeed(null)));
+        const fileStat = yield* fs
+          .stat(rawFilePath)
+          .pipe(Effect.catchAll(() => Effect.succeed(null)));
         if (!fileStat) continue;
 
         const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
 
-        const knownSession = knownSessions.find((s) => s.filePath.replaceAll("\\", "/") === filePath);
+        const knownSession = knownSessions.find(
+          (s) => s.filePath.replaceAll("\\", "/") === filePath,
+        );
         const isNew = !knownSessionPaths.has(filePath);
         const isModified = knownSession !== undefined && fileMtimeMs > knownSession.fileMtimeMs;
 
