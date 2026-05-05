@@ -412,22 +412,24 @@ const LayerImpl = Effect.gen(function* () {
           .from(sessions)
           .where(eq(sessions.projectId, projectId))
           .all();
-        const knownSessionPaths = new Set(knownSessions.map((s) => s.filePath));
+        // Normalize stored paths to forward slashes for cross-platform comparison.
+        const knownSessionPaths = new Set(knownSessions.map((s) => s.filePath.replaceAll("\\", "/")));
         const seenFilePaths = new Set<string>();
 
         for (const fileName of sessionFiles) {
-          const filePath = path.join(projectPath, fileName);
+          const rawFilePath = path.join(projectPath, fileName);
+          const filePath = rawFilePath.replaceAll("\\", "/");
           seenFilePaths.add(filePath);
 
           const fileStat = yield* fs
-            .stat(filePath)
+            .stat(rawFilePath)
             .pipe(Effect.catchAll(() => Effect.succeed(null)));
           if (!fileStat) continue;
 
           const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
 
           // Check if new file or mtime changed
-          const knownSession = knownSessions.find((s) => s.filePath === filePath);
+          const knownSession = knownSessions.find((s) => s.filePath.replaceAll("\\", "/") === filePath);
           const isNew = !knownSessionPaths.has(filePath);
           const isModified = knownSession !== undefined && fileMtimeMs > knownSession.fileMtimeMs;
 
@@ -448,7 +450,7 @@ const LayerImpl = Effect.gen(function* () {
 
         // Delete sessions whose files no longer exist
         for (const knownSession of knownSessions) {
-          if (!seenFilePaths.has(knownSession.filePath)) {
+          if (!seenFilePaths.has(knownSession.filePath.replaceAll("\\", "/"))) {
             db.delete(sessions).where(eq(sessions.filePath, knownSession.filePath)).run();
             rawDb
               .prepare("DELETE FROM session_messages_fts WHERE session_id = ?")
@@ -563,19 +565,21 @@ const LayerImpl = Effect.gen(function* () {
         .from(sessions)
         .where(eq(sessions.projectId, projectId))
         .all();
-      const knownSessionPaths = new Set(knownSessions.map((s) => s.filePath));
+      // Normalize stored paths to forward slashes for cross-platform comparison.
+      const knownSessionPaths = new Set(knownSessions.map((s) => s.filePath.replaceAll("\\", "/")));
       const seenFilePaths = new Set<string>();
 
       for (const fileName of sessionFiles) {
-        const filePath = path.join(projectPath, fileName);
+        const rawFilePath = path.join(projectPath, fileName);
+        const filePath = rawFilePath.replaceAll("\\", "/");
         seenFilePaths.add(filePath);
 
-        const fileStat = yield* fs.stat(filePath).pipe(Effect.catchAll(() => Effect.succeed(null)));
+        const fileStat = yield* fs.stat(rawFilePath).pipe(Effect.catchAll(() => Effect.succeed(null)));
         if (!fileStat) continue;
 
         const fileMtimeMs = Option.getOrElse(fileStat.mtime, () => new Date(0)).getTime();
 
-        const knownSession = knownSessions.find((s) => s.filePath === filePath);
+        const knownSession = knownSessions.find((s) => s.filePath.replaceAll("\\", "/") === filePath);
         const isNew = !knownSessionPaths.has(filePath);
         const isModified = knownSession !== undefined && fileMtimeMs > knownSession.fileMtimeMs;
 
@@ -595,7 +599,7 @@ const LayerImpl = Effect.gen(function* () {
 
       // Delete sessions whose files no longer exist
       for (const knownSession of knownSessions) {
-        if (!seenFilePaths.has(knownSession.filePath)) {
+        if (!seenFilePaths.has(knownSession.filePath.replaceAll("\\", "/"))) {
           db.delete(sessions).where(eq(sessions.filePath, knownSession.filePath)).run();
           rawDb
             .prepare("DELETE FROM session_messages_fts WHERE session_id = ?")

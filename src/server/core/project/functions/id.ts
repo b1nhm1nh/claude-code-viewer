@@ -39,7 +39,9 @@ const normalizeAbsolutePath = (inputPath: string): string => {
 };
 
 export const encodeProjectId = (fullPath: string) => {
-  return Buffer.from(fullPath).toString("base64url");
+  // Normalize to forward slashes before encoding so that the same physical
+  // directory always maps to the same ID regardless of OS path separator.
+  return Buffer.from(fullPath.replaceAll("\\", "/")).toString("base64url");
 };
 
 export const decodeProjectId = (id: string) => {
