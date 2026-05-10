@@ -121,6 +121,14 @@ Options:
   -e, --executable <executable>    Path to Claude Code executable
   --claude-dir <claude-dir>        Path to Claude directory
   --api-only                       Run in API-only mode without Web UI
+  --sync-token <token>             Enable LAN peer-sync at /api/peer (>= 32 chars)
+```
+
+Subcommands:
+
+```bash
+# Mirror session history from another machine running claude-code-viewer with --sync-token.
+claude-code-viewer pull <peer-url> --token <TOKEN> --all
 ```
 
 ### Remote Access via Tailscale (Mobile / PWA)
@@ -137,6 +145,25 @@ Claude Code Viewer works great as a persistent server you access from your phone
 3. **Access from your phone** via the Tailscale HTTPS URL (e.g. `https://your-machine.ts.net:3400`).
 
 Claude Code Viewer is a **PWA (Progressive Web App)**. On mobile, tap "Add to Home Screen" to get an app-like experience with an optimized UI and push notifications when sessions complete.
+
+### LAN Peer Sync (mirror session history across machines)
+
+Two machines on the same network can share Claude Code session history without setting up a database or cloud. On the source machine, expose a read-only sync surface by binding to the LAN and enabling a token:
+
+```bash
+TOKEN=$(openssl rand -base64 24)   # 32-char URL-safe random
+claude-code-viewer --hostname 0.0.0.0 --port 3400 --sync-token "$TOKEN"
+```
+
+On the peer machine, run the `pull` subcommand with the same token:
+
+```bash
+claude-code-viewer pull http://<source-ip>:3400 --token "$TOKEN" --all
+```
+
+The peer downloads each JSONL into its own `~/.claude/projects/`, verifies `sha256` against both the manifest and an `X-Sync-Sha256` header, and skips files that already exist locally (`--force` overwrites). The sync token is independent of `--password` and grants only read access to `/api/peer/*` — it cannot start chats, run terminal commands, or write files.
+
+For threat model, every endpoint, every flag, and how to deploy this safely over Tailscale or SSH, see [docs/peer-sync.md](./docs/peer-sync.md).
 
 ## Configuration
 
@@ -156,6 +183,7 @@ Claude Code Viewer can be configured using command-line options or environment v
 | `--terminal-shell <path>`       | `CCV_TERMINAL_SHELL`        | Shell executable for terminal sessions (e.g. `/bin/zsh`)                                                                                                                                                                                                                                                       | (auto-detect) |
 | `--terminal-unrestricted`       | `CCV_TERMINAL_UNRESTRICTED` | When set to `1` (env) or when the flag is present (CLI), disables the restricted shell flags for bash                                                                                                                                                                                                          | (unset)       |
 | `--api-only`                    | `CCV_API_ONLY`              | Run in API-only mode. Disables Web UI, terminal WebSocket, and non-essential endpoints. Only core API routes (`/api/version`, `/api/config`, `/api/projects`, `/api/claude-code`, `/api/search`, `/api/sse`) are exposed. Useful for integrating with external tools like n8n                                  | (unset)       |
+| `--sync-token <token>`          | `CCV_SYNC_TOKEN`            | Bearer token enabling the LAN peer-sync routes at `/api/peer/*` (read-only mirror of `~/.claude/projects/` for other machines). Must be at least 32 characters. When unset, the routes return 503. Independent of `--password`. See [docs/peer-sync.md](./docs/peer-sync.md)                                   | (unset)       |
 
 **Breaking Change**: Environment variable names have been changed. If you're using environment variables, update them as follows:
 
@@ -225,6 +253,7 @@ Settings can be configured from the sidebar in Claude Code Viewer.
 | Inline Approvals        | Tool permission requests and custom questions from the `CCVAskUserQuestion` MCP tool are surfaced as inline panels directly in the chat, removing the need to switch to another window for approval                                                                                                                                                                      |
 | Terminal Panel          | Bottom panel terminal over WebSocket for running shell commands without leaving the UI                                                                                                                                                                                                                                                                                   |
 | MCP Server Viewer       | View MCP server configurations directly in the session sidebar. Lists all configured servers with their names and commands, with real-time reload capability                                                                                                                                                                                                             |
+| Peer Sync (LAN mirror)  | Read-only HTTP API at `/api/peer/*` for mirroring `~/.claude/projects/` JSONLs to another machine on the same network. Use the `claude-code-viewer pull <peer-url>` CLI subcommand on the peer. Guarded by a separate `--sync-token` independent of the app password. See [docs/peer-sync.md](./docs/peer-sync.md)                                                       |
 | PWA Support             | Install Claude Code Viewer as a Progressive Web App on desktop or mobile. Supports home screen installation and push notifications for session completion events                                                                                                                                                                                                         |
 | System Information      | Monitor Claude Code and Claude Code Viewer versions, feature compatibility, and system status                                                                                                                                                                                                                                                                            |
 | Multi-language Support  | Full internationalization support with English, Japanese, and Simplified Chinese language options                                                                                                                                                                                                                                                                        |
