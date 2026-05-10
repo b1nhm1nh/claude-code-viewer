@@ -38,7 +38,7 @@ export const extractLastNonEmptyLine = (content: string): string => {
  * @example
  * ```typescript
  * const effect = readLastLine("/path/to/session.jsonl");
- * const lastLine = await Effect.runPromise(effect.pipe(Effect.provide(NodeContext.layer)));
+ * const lastLine = await Effect.runPromise(effect.pipe(Effect.provide(BunContext.layer)));
  * ```
  */
 export const readLastLine = (

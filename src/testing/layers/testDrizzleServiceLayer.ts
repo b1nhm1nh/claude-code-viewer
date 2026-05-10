@@ -1,5 +1,6 @@
 /* oxlint-disable no-restricted-imports */
-/* Exception: this test-only layer intentionally uses Node built-ins because migrating all DB tests to the new runtime abstraction at once is high-cost. Keep this exception scoped to this file only. */
+/* Exception: vitest workers run on Node 24+; node:sqlite is the right driver
+ * for the in-memory test DB. Production uses bun:sqlite via DrizzleService.ts. */
 import { DatabaseSync } from "node:sqlite";
 import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/node-sqlite";
@@ -21,7 +22,7 @@ const FTS5_DDL = `
   )
 `;
 
-export const createInMemoryDrizzle = () => {
+export const createInMemoryDrizzle = (): { db: DrizzleDb; rawDb: DatabaseSync } => {
   const sqlite = new DatabaseSync(":memory:");
   sqlite.exec("PRAGMA foreign_keys = ON");
   const db = drizzle({ client: sqlite, schema });

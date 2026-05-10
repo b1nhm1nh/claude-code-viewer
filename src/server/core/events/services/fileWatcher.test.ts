@@ -1,5 +1,5 @@
 import { Path } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect } from "effect";
 import { describe, expect } from "vitest";
@@ -23,7 +23,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
 
@@ -42,7 +42,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
 
@@ -61,7 +61,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
 
@@ -86,7 +86,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
   });
@@ -124,7 +124,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
   });
@@ -145,7 +145,7 @@ describe("FileWatcherService", () => {
         Effect.provide(FileWatcherService.Live),
         Effect.provide(testPlatformLayer()),
         Effect.provide(Path.layer),
-        Effect.provide(NodeContext.layer),
+        Effect.provide(BunContext.layer),
       ),
     );
   });

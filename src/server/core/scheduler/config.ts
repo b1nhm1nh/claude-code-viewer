@@ -25,7 +25,9 @@ export class SchedulerConfigBaseDir extends Context.Tag("SchedulerConfigBaseDir"
     Effect.gen(function* () {
       const envService = yield* EnvService;
       const path = yield* Path.Path;
-      const homeDirectory = yield* envService.getEnv("HOME");
+      const homeEnv = yield* envService.getEnv("HOME");
+      const userProfileEnv = yield* envService.getEnv("USERPROFILE");
+      const homeDirectory = homeEnv ?? userProfileEnv;
       return path.resolve(homeDirectory ?? "/", ".claude-code-viewer");
     }),
   );

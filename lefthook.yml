@@ -8,36 +8,36 @@ pre-commit:
 
     oxlint:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: pnpm fix:oxlint {staged_files}
+      run: bun run fix:oxlint {staged_files}
       stage_fixed: true
 
     oxfmt:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: pnpm fix:oxfmt {staged_files}
+      run: bun run fix:oxfmt {staged_files}
       stage_fixed: true
 
 pre-push:
   parallel: true
   commands:
     lint:
-      run: pnpm lint
+      run: bun run lint
 
     typecheck:
-      run: pnpm typecheck
+      run: bun run typecheck
 
     test:
       # Skipped on Windows: test suite has path-separator incompatibilities; Linux CI is the source of truth.
       skip:
         - run: 'if [ "$OS" = "Windows_NT" ]; then echo skip; fi'
-      run: pnpm test
+      run: bun run test
 
     lingui-check:
       # Skipped on Windows: lingui-check.sh and `git diff --exit-code` have shell quirks on Windows.
       skip:
         - run: 'if [ "$OS" = "Windows_NT" ]; then echo skip; fi'
       run: |
-        pnpm lingui:extract
-        pnpm lingui:compile
+        bun run lingui:extract
+        bun run lingui:compile
         ./scripts/lingui-check.sh
         ./scripts/i18n-check-key-equals-translation.sh
         git diff --exit-code ./src/lib/i18n/locales/ || echo "Warning: lingui compilation produced unexpected changes"

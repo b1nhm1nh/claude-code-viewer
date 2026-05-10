@@ -635,7 +635,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        125
+        147
       ]
     ],
     "translation": "Start New Chat"
@@ -1049,6 +1049,10 @@
       [
         "src/web/app/projects/components/SetupProjectDialog.tsx",
         82
+      ],
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        257
       ]
     ],
     "translation": "Cancel"
@@ -1142,7 +1146,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        212
+        234
       ]
     ],
     "translation": "Loading..."
@@ -1325,7 +1329,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        209
+        207
       ]
     ],
     "translation": "Raw Data: "
@@ -1336,7 +1340,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        202
+        200
       ]
     ],
     "translation": "Report This Issue"
@@ -1347,7 +1351,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        180
+        178
       ]
     ],
     "translation": "Schema Error"
@@ -1358,7 +1362,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        192
+        190
       ]
     ],
     "translation": "Schema Validation Error"
@@ -1369,7 +1373,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        195
+        193
       ]
     ],
     "translation": "Failed to parse this conversation entry. This may be due to format changes or parsing issues."
@@ -2507,13 +2511,215 @@
     ],
     "translation": "Set Up New Project"
   },
+  "project.transfer.action.submit": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        266
+      ]
+    ],
+    "translation": "Transfer"
+  },
+  "project.transfer.action.transferring": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        263
+      ]
+    ],
+    "translation": "Transferring…"
+  },
+  "project.transfer.conflict.overwrite": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        231
+      ]
+    ],
+    "translation": "Overwrite existing"
+  },
+  "project.transfer.conflict.skip": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        223
+      ]
+    ],
+    "translation": "Skip existing"
+  },
+  "project.transfer.conflict_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        214
+      ]
+    ],
+    "translation": "If a session already exists in target"
+  },
+  "project.transfer.dialog.description": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        118
+      ]
+    ],
+    "translation": "Move or copy this project's session history into another project."
+  },
+  "project.transfer.dialog.title": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        115
+      ]
+    ],
+    "translation": "Transfer sessions"
+  },
+  "project.transfer.menu_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
+        113
+      ],
+      [
+        "src/web/app/projects/components/ProjectList.tsx",
+        86
+      ]
+    ],
+    "translation": "Transfer sessions…"
+  },
+  "project.transfer.mode.copy": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        199
+      ]
+    ],
+    "translation": "Copy"
+  },
+  "project.transfer.mode.move": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        207
+      ]
+    ],
+    "translation": "Move"
+  },
+  "project.transfer.mode_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        187
+      ]
+    ],
+    "translation": "Mode"
+  },
+  "project.transfer.move_confirm": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        248
+      ]
+    ],
+    "translation": "I understand this will remove the JSONL files from the source project."
+  },
+  "project.transfer.move_warning": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        239
+      ]
+    ],
+    "translation": "Move will empty the source project."
+  },
+  "project.transfer.source_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        125
+      ]
+    ],
+    "translation": "Source project"
+  },
+  "project.transfer.target_empty": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        157
+      ]
+    ],
+    "translation": "No matching project."
+  },
+  "project.transfer.target_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        132
+      ]
+    ],
+    "translation": "Target project"
+  },
+  "project.transfer.target_placeholder": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        145
+      ]
+    ],
+    "translation": "Pick a project…"
+  },
+  "project.transfer.target_search": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/components/TransferSessionsDialog.tsx",
+        154
+      ]
+    ],
+    "translation": "Search projects…"
+  },
   "project_list.last_modified": {
     "placeholders": {},
     "comments": [],
     "origin": [
       [
         "src/web/app/projects/components/ProjectList.tsx",
-        54
+        60
       ]
     ],
     "translation": "Last Modified: "
@@ -2524,7 +2730,7 @@
     "origin": [
       [
         "src/web/app/projects/components/ProjectList.tsx",
-        63
+        69
       ]
     ],
     "translation": "Messages: "
@@ -2535,7 +2741,7 @@
     "origin": [
       [
         "src/web/app/projects/components/ProjectList.tsx",
-        31
+        34
       ]
     ],
     "translation": "No Claude Code projects found in your ~/.claude/projects directory. Start a conversation with Claude Code to set up your first project."
@@ -2546,7 +2752,7 @@
     "origin": [
       [
         "src/web/app/projects/components/ProjectList.tsx",
-        28
+        31
       ]
     ],
     "translation": "No Projects Found"
@@ -2557,7 +2763,7 @@
     "origin": [
       [
         "src/web/app/projects/components/ProjectList.tsx",
-        69
+        76
       ]
     ],
     "translation": "View Conversations"
@@ -3326,7 +3532,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        173
+        195
       ]
     ],
     "translation": "Paused"
@@ -3345,7 +3551,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        171
+        193
       ]
     ],
     "translation": "Running"
@@ -3360,7 +3566,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        214
+        236
       ]
     ],
     "translation": "Load More"
@@ -3371,7 +3577,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        99
+        102
       ]
     ],
     "translation": "Sessions"
@@ -3386,7 +3592,7 @@
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
-        103
+        118
       ]
     ],
     "translation": "Total"

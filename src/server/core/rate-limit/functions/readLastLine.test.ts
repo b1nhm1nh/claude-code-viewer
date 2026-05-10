@@ -1,12 +1,12 @@
 import { FileSystem } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
 import { testPlatformLayer } from "../../../../testing/layers/testPlatformLayer.ts";
 import { extractLastNonEmptyLine, readLastLine } from "./readLastLine.ts";
 
-const testLayer = Layer.provide(NodeContext.layer, testPlatformLayer());
+const testLayer = Layer.provide(BunContext.layer, testPlatformLayer());
 
 describe("extractLastNonEmptyLine", () => {
   it("should return the last line from content", () => {

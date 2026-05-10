@@ -1,7 +1,5 @@
 # Claude Code Viewer
 
-**English** | [简体中文](./README.zh-CN.md)
-
 [![License](https://img.shields.io/github/license/d-kimuson/claude-code-viewer)](https://github.com/d-kimuson/claude-code-viewer/blob/main/LICENSE)
 [![CI](https://github.com/d-kimuson/claude-code-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/d-kimuson/claude-code-viewer/actions/workflows/ci.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/d-kimuson/claude-code-viewer)](https://github.com/d-kimuson/claude-code-viewer/releases)
@@ -42,7 +40,7 @@ Claude Code Viewer is a web-based Claude Code client focused on **comprehensive 
 
 ## System Requirements
 
-- **Node.js**: Version 22.13.0 or later
+- **Bun**: Version 1.3.0 or later (the project is Bun-native — Node.js is no longer supported)
 - **Claude Code**: v1.0.125 or later
 - **Operating Systems**: macOS, Linux, and Windows (experimental — see [Windows Support Status](#windows-support-status))
 
@@ -62,6 +60,9 @@ Claude Code Viewer is a web-based Claude Code client focused on **comprehensive 
 | `lint` and pre-push hooks                                | POSIX `sh` only                                                                                                                                                                                                                               | Made hook scripts and `build.sh` invocable via `bash` on Windows (commits `e700db0`, `5038392`)                                             |
 | Release script                                           | Hard-coded `.sh` invocation                                                                                                                                                                                                                   | Detects `process.platform === "win32"` and adapts (commit `8c2a466`)                                                                        |
 | `@replit/ruspty` (PTY backend for the built-in terminal) | Listed as a hard dependency; failed to load loudly on every Windows startup with `Cannot find module '@replit/ruspty-win32-x64-msvc'`                                                                                                         | Moved to `optionalDependencies`; on `win32` the terminal service is short-circuited to the disabled path with a single calm `INFO` log line |
+| Home directory resolution                               | Read only the `HOME` env var. Windows does not set `HOME` by default — only `USERPROFILE` — so the resolver fell back to `/`, which `path.resolve` interprets as the current drive root. The file watcher ended up on `D:\.claude\projects` (empty), so projects never appeared and the chat list stayed blank | Falls back to `HOME ?? USERPROFILE` in `ApplicationContext` and `SchedulerConfigBaseDir`. Watcher now correctly resolves to `C:\Users\<you>\.claude\projects` |
+| Shell script line endings (`scripts/*.sh`)              | With Git's default `core.autocrlf=true` on Windows, `build.sh` was checked out with CRLF line endings; bash rejected them with `./scripts/build.sh: line 2: $'\r': command not found` and the build aborted before ever calling Vite/the bundler | Added a top-level `.gitattributes` that pins `*.sh` (and other text files) to LF, so `bun run build` works out of the box after `git clone` on Windows |
+| Runtime                                                 | Originally Node.js 24+, with `node:sqlite`, `@hono/node-server`, `@effect/platform-node`, and `ws` for WebSocket — none of which are needed any more | Migrated to Bun 1.3+: `bun:sqlite`, `Bun.serve`, `@effect/platform-bun`, and Hono's native `upgradeWebSocket`. Backend bundled with `bun build --target=bun`; package manager is `bun` (no pnpm, no npm) |
 
 ### What still does **not** work on Windows
 
@@ -78,10 +79,10 @@ If you need the terminal panel on Windows today, run Claude Code Viewer inside *
 ```powershell
 git clone https://github.com/ibootz/claude-code-viewer.git
 cd claude-code-viewer
-pnpm install
-pnpm gatecheck check       # should report 4 passed, 0 failed
-pnpm build
-node .\dist\main.js --port 3400
+bun install
+bun run gatecheck check       # should report 4 passed, 0 failed
+bun run build
+bun .\dist\main.js --port 3400
 ```
 
 The server should start with a single `INFO` line about the terminal panel being disabled and otherwise produce no warnings on stdout.
@@ -90,20 +91,22 @@ The server should start with a single `INFO` line about the terminal panel being
 
 ### Quick Start (CLI)
 
-Run directly from npm without installation:
+Run directly without installation using Bun:
 
 ```bash
-npx @ibootz/claude-code-viewer@latest --port 3400
+bunx @ibootz/claude-code-viewer@latest --port 3400
 ```
 
 Alternatively, install globally:
 
 ```bash
-npm install -g @ibootz/claude-code-viewer
+bun install -g @ibootz/claude-code-viewer
 claude-code-viewer --port 3400
 ```
 
 The server will start on port 3400 (or the default port 3000). Open `http://localhost:3400` in your browser to access the interface.
+
+> **Bun is required.** The runtime relies on `bun:sqlite`, `Bun.serve`, and `@effect/platform-bun`. Running with `node dist/main.js` will exit with a clear error.
 
 **Available Options:**
 

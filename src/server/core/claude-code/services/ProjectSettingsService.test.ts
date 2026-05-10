@@ -2,7 +2,7 @@ import { mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { FileSystem, type Path } from "@effect/platform";
-import { NodeFileSystem, NodePath } from "@effect/platform-node";
+import { BunFileSystem, BunPath } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
@@ -16,7 +16,7 @@ describe("ProjectSettingsService", () => {
     testDir = join(tmpdir(), `project-settings-test-${Date.now()}`);
     await mkdir(testDir, { recursive: true });
 
-    const fsAndPath = Layer.mergeAll(NodeFileSystem.layer, NodePath.layer);
+    const fsAndPath = Layer.mergeAll(BunFileSystem.layer, BunPath.layer);
     testLayer = Layer.mergeAll(fsAndPath, Layer.provide(ProjectSettingsService.Live, fsAndPath));
   });
 

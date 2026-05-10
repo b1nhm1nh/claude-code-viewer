@@ -1,16 +1,24 @@
-import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import inquirer from "inquirer";
 
 const root = join(import.meta.dirname, "..");
 
-const run = (cmd: string): string => execSync(cmd, { cwd: root, encoding: "utf-8" }).trim();
+const shellArgs = (cmd: string): string[] =>
+  process.platform === "win32" ? ["powershell", "-Command", cmd] : ["sh", "-c", cmd];
+
+const run = (cmd: string): string => {
+  const proc = Bun.spawnSync(shellArgs(cmd), { cwd: root });
+  return new TextDecoder().decode(proc.stdout).trim();
+};
 
 const runOrFail = (cmd: string, label: string): void => {
-  try {
-    execSync(cmd, { cwd: root, stdio: "inherit" });
-  } catch {
+  const proc = Bun.spawnSync(shellArgs(cmd), {
+    cwd: root,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  if (proc.exitCode !== 0) {
     console.error(`\n✗ ${label} failed. Aborting release.`);
     process.exit(1);
   }
@@ -138,15 +146,15 @@ if (!confirmed) {
 // -- Pre-release checks --
 
 console.log("\nRunning checks...\n");
-runOrFail("pnpm lint:oxlint", "Lint (oxlint)");
-runOrFail("pnpm lint:oxfmt", "Lint (oxfmt)");
-runOrFail("pnpm typecheck", "Typecheck");
+runOrFail("bun run lint:oxlint", "Lint (oxlint)");
+runOrFail("bun run lint:oxfmt", "Lint (oxfmt)");
+runOrFail("bun run typecheck", "Typecheck");
 
 if (process.platform === "win32") {
   console.log("⚠ Skipping unit tests on Windows (path separator incompatibilities).");
   console.log("  CI workflow runs the full test suite on Linux as the source of truth.");
 } else {
-  runOrFail("pnpm test", "Test");
+  runOrFail("bun run test", "Test");
   runOrFail("bash ./scripts/lingui-check.sh", "Lingui check");
 }
 console.log("\n✓ All local checks passed.\n");

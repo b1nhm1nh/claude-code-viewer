@@ -1,5 +1,5 @@
 import { CommandExecutor } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { describe, expect } from "vitest";
@@ -113,7 +113,7 @@ describe("ClaudeCode.Config", () => {
               return Effect.succeed("");
             },
           })),
-        ).pipe(Layer.provide(NodeContext.layer));
+        ).pipe(Layer.provide(BunContext.layer));
 
         const config = yield* ClaudeCode.Config.pipe(Effect.provide(CommandExecutorTest));
 
@@ -133,7 +133,7 @@ describe("ClaudeCode.Config", () => {
               return () => Effect.succeed(responses.shift() ?? "");
             })(),
           })),
-        ).pipe(Layer.provide(NodeContext.layer));
+        ).pipe(Layer.provide(BunContext.layer));
 
         const config = yield* ClaudeCode.Config.pipe(Effect.provide(CommandExecutorTest));
 
@@ -163,7 +163,7 @@ describe("ClaudeCode.Config", () => {
               return () => Effect.succeed(responses.shift() ?? "");
             })(),
           })),
-        ).pipe(Layer.provide(NodeContext.layer));
+        ).pipe(Layer.provide(BunContext.layer));
 
         const config = yield* ClaudeCode.Config.pipe(Effect.provide(CommandExecutorTest));
 
@@ -193,7 +193,7 @@ describe("ClaudeCode.Config", () => {
               return () => Effect.succeed(responses.shift() ?? "");
             })(),
           })),
-        ).pipe(Layer.provide(NodeContext.layer));
+        ).pipe(Layer.provide(BunContext.layer));
 
         const config = yield* ClaudeCode.Config.pipe(Effect.provide(CommandExecutorTest));
 
@@ -225,7 +225,7 @@ describe("ClaudeCode.Config", () => {
               return () => Effect.succeed(responses.shift() ?? "");
             })(),
           })),
-        ).pipe(Layer.provide(NodeContext.layer));
+        ).pipe(Layer.provide(BunContext.layer));
 
         const config = yield* ClaudeCode.Config.pipe(Effect.provide(CommandExecutorTest));
 

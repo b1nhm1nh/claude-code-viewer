@@ -9,6 +9,11 @@ import { UserConfigService } from "../../platform/services/UserConfigService.ts"
 import { SessionRepository } from "../../session/infrastructure/SessionRepository.ts";
 import { encodeProjectId } from "../functions/id.ts";
 import { ProjectRepository } from "../infrastructure/ProjectRepository.ts";
+import {
+  SessionTransferService,
+  type TransferConflict,
+  type TransferMode,
+} from "../services/SessionTransferService.ts";
 
 const LayerImpl = Effect.gen(function* () {
   const projectRepository = yield* ProjectRepository;
@@ -18,6 +23,7 @@ const LayerImpl = Effect.gen(function* () {
   const context = yield* ApplicationContext;
   const fileSystem = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
+  const sessionTransferService = yield* SessionTransferService;
 
   const getProjects = () =>
     Effect.gen(function* () {
@@ -150,11 +156,39 @@ const LayerImpl = Effect.gen(function* () {
       } as const satisfies ControllerResponse;
     });
 
+  const transferSessions = (options: {
+    sourceProjectId: string;
+    targetProjectId: string;
+    mode: TransferMode;
+    conflict: TransferConflict;
+  }) =>
+    Effect.gen(function* () {
+      const either = yield* Effect.either(sessionTransferService.transfer(options));
+
+      if (either._tag === "Left") {
+        const error = either.left;
+        const status: 400 | 404 = error.code === "PROJECT_NOT_FOUND" ? 404 : 400;
+        return {
+          status,
+          response: {
+            code: error.code,
+            message: error.message,
+          },
+        } as const satisfies ControllerResponse;
+      }
+
+      return {
+        status: 200,
+        response: either.right,
+      } as const satisfies ControllerResponse;
+    });
+
   return {
     getProjects,
     getProject,
     getProjectLatestSession,
     createProject,
+    transferSessions,
   };
 });
 

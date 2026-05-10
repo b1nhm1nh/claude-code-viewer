@@ -1,4 +1,4 @@
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { Layer } from "effect";
 import { EventBus } from "../../core/events/services/EventBus.ts";
 import { ApplicationContext } from "../../core/platform/services/ApplicationContext.ts";
@@ -15,5 +15,5 @@ export const platformLayer = Layer.mergeAll(
 ).pipe(
   Layer.provide(EnvService.Live),
   Layer.provide(CcvOptionsService.Live),
-  Layer.provide(NodeContext.layer),
+  Layer.provide(BunContext.layer),
 );

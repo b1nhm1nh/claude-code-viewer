@@ -1,4 +1,4 @@
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { expect } from "vitest";
@@ -26,7 +26,7 @@ const makeNullProjectPathLayer = () => {
   return GitController.Live.pipe(
     Layer.provide(GitService.Live),
     Layer.provide(projectLayer),
-    Layer.provide(NodeContext.layer),
+    Layer.provide(BunContext.layer),
     Layer.provide(testPlatformLayer()),
   );
 };
@@ -41,7 +41,7 @@ describe("GitController.commitFiles", () => {
           files: ["src/foo.ts"],
           message: "test commit",
         })
-        .pipe(Effect.provide(NodeContext.layer));
+        .pipe(Effect.provide(BunContext.layer));
 
       expect(result.status).toBe(400);
       expect(result.response).toHaveProperty("error");
@@ -69,7 +69,7 @@ describe("GitController.pushCommits", () => {
         .pushCommits({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer));
+        .pipe(Effect.provide(BunContext.layer));
 
       expect(result.status).toBe(400);
       expect(result.response).toHaveProperty("error");

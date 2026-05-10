@@ -1,4 +1,4 @@
-import { NodeFileSystem } from "@effect/platform-node";
+import { BunFileSystem } from "@effect/platform-bun";
 import { describe, it } from "@effect/vitest";
 import { Effect, Layer, Ref } from "effect";
 import { expect } from "vitest";
@@ -56,7 +56,7 @@ const mockLifeCycleService = Layer.succeed(ClaudeCodeLifeCycleService, {
 const mockSchedulerConfigBaseDir = Layer.succeed(SchedulerConfigBaseDir, "/tmp/test-scheduler");
 
 const schedulerDependencies = Layer.mergeAll(
-  NodeFileSystem.layer,
+  BunFileSystem.layer,
   mockSchedulerService,
   mockLifeCycleService,
   mockSchedulerConfigBaseDir,

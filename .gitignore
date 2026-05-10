@@ -44,6 +44,10 @@ dist/*
 !dist/index.js
 # dist/standalone/node_modules
 
+# Bun-on-TS dev mode creates a junction here; production build also writes to it.
+# Either way, generated content — never commit.
+/src/server/static/
+
 # playwright
 .user-data/
 

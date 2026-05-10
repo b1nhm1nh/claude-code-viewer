@@ -2,7 +2,7 @@
 import { mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { NodeContext, NodeFileSystem, NodePath } from "@effect/platform-node";
+import { BunContext, BunFileSystem, BunPath } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
@@ -72,7 +72,7 @@ describe("SchedulerService", () => {
     // oxlint-disable-next-line typescript-eslint/consistent-type-imports -- type-only import() needed for Layer type parameter
     | import("@effect/platform").Path.Path
     // oxlint-disable-next-line typescript-eslint/consistent-type-imports -- type-only import() needed for Layer type parameter
-    | import("@effect/platform-node").NodeContext.NodeContext
+    | import("@effect/platform-bun").BunContext.BunContext
     | ClaudeCodeSessionProcessService
     | ClaudeCodeLifeCycleService
     | ProjectRepository
@@ -90,9 +90,9 @@ describe("SchedulerService", () => {
     testConfigBaseDir = Layer.succeed(SchedulerConfigBaseDir, testDir);
 
     const baseLayers = Layer.mergeAll(
-      NodeFileSystem.layer,
-      NodePath.layer,
-      NodeContext.layer,
+      BunFileSystem.layer,
+      BunPath.layer,
+      BunContext.layer,
       EventBus.Live,
       mockSessionProcessService,
       mockLifeCycleService,

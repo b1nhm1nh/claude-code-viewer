@@ -14,7 +14,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": true,
     "allowJs": true,
-    "types": ["node", "vitest/globals", "vite/client", "vite-plugin-pwa/client"],
+    "types": ["@types/bun", "vitest/globals", "vite/client", "vite-plugin-pwa/client"],
     "noEmit": true,
     "erasableSyntaxOnly": true,
     "target": "es2024",

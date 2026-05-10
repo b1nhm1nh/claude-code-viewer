@@ -1,5 +1,5 @@
 import { FileSystem } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
@@ -10,7 +10,7 @@ import {
   scanSkillFilesRecursively,
 } from "./scanCommandFiles.ts";
 
-const testLayer = Layer.provide(NodeContext.layer, testPlatformLayer());
+const testLayer = Layer.provide(BunContext.layer, testPlatformLayer());
 
 describe("pathToCommandName", () => {
   it("should convert flat file path to command name", () => {

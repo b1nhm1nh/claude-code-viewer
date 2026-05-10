@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { NodeFileSystem } from "@effect/platform-node";
+import { BunFileSystem } from "@effect/platform-bun";
 import { describe, it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { expect } from "vitest";
@@ -7,7 +7,7 @@ import { testPlatformLayer } from "../../../../testing/layers/testPlatformLayer.
 import { encodeProjectId } from "../../project/functions/id.ts";
 import { AgentSessionMappingService } from "./AgentSessionMappingService.ts";
 
-const testLayer = Layer.mergeAll(testPlatformLayer(), NodeFileSystem.layer);
+const testLayer = Layer.mergeAll(testPlatformLayer(), BunFileSystem.layer);
 
 describe("AgentSessionMappingService", () => {
   const sampleProjectPath = resolve(

@@ -1,6 +1,6 @@
 import { Context, Effect, Layer } from "effect";
+import type { WSContext } from "hono/ws";
 import { ulid } from "ulid";
-import type WebSocket from "ws";
 import type { InferEffect } from "../../lib/effect/types.ts";
 import { CcvOptionsService } from "../platform/services/CcvOptionsService.ts";
 import { EnvService } from "../platform/services/EnvService.ts";
@@ -10,6 +10,8 @@ import {
   type RusptyModule,
   type TerminalPtyProcess,
 } from "./rusptyAdapter.ts";
+
+export type TerminalClient = WSContext;
 
 type PtyProcess = TerminalPtyProcess;
 
@@ -25,7 +27,7 @@ type TerminalSession = {
   buffer: TerminalOutputChunk[];
   bufferBytes: number;
   lastActivity: number;
-  clients: Set<WebSocket>;
+  clients: Set<TerminalClient>;
   exited: boolean;
   inputBuffer: string;
 };
@@ -110,7 +112,7 @@ const LayerImpl = Effect.gen(function* () {
     }
   };
 
-  const sendJson = (client: WebSocket, payload: unknown) => {
+  const sendJson = (client: TerminalClient, payload: unknown) => {
     if (client.readyState !== 1) return;
     client.send(JSON.stringify(payload));
   };
@@ -198,7 +200,7 @@ const LayerImpl = Effect.gen(function* () {
       buffer: [],
       bufferBytes: 0,
       lastActivity: Date.now(),
-      clients: new Set<WebSocket>(),
+      clients: new Set<TerminalClient>(),
       exited: false,
       inputBuffer: "",
     };
@@ -260,7 +262,7 @@ const LayerImpl = Effect.gen(function* () {
       });
     });
 
-  const registerClient = (sessionId: string, client: WebSocket) =>
+  const registerClient = (sessionId: string, client: TerminalClient) =>
     Effect.sync(() => {
       const session = getSession(sessionId);
       if (!session) {
@@ -270,7 +272,7 @@ const LayerImpl = Effect.gen(function* () {
       session.lastActivity = Date.now();
     });
 
-  const unregisterClient = (sessionId: string, client: WebSocket) =>
+  const unregisterClient = (sessionId: string, client: TerminalClient) =>
     Effect.sync(() => {
       const session = getSession(sessionId);
       if (!session) {

@@ -1,10 +1,8 @@
-import type { IncomingMessage } from "node:http";
-import type { Duplex } from "node:stream";
-import type { ServerType } from "@hono/node-server";
 import { Effect, Runtime } from "effect";
-import WebSocket, { WebSocketServer } from "ws";
+import type { UpgradeWebSocket, WSContext } from "hono/ws";
 import { z } from "zod";
 import { TerminalService } from "../core/terminal/TerminalService.ts";
+import type { HonoAppType } from "../hono/app.ts";
 import { AuthMiddleware } from "../hono/middleware/auth.middleware.ts";
 
 type ServerMessage =
@@ -50,17 +48,12 @@ const parseClientMessage = (payload: string): ClientMessage | undefined => {
   }
 };
 
-const sendJson = (client: WebSocket, payload: ServerMessage) => {
-  if (client.readyState !== WebSocket.OPEN) return;
+const sendJson = (client: WSContext, payload: ServerMessage) => {
+  if (client.readyState !== 1) return;
   client.send(JSON.stringify(payload));
 };
 
-const baseUrlForRequest = (req: IncomingMessage) => {
-  const host = req.headers.host ?? "localhost";
-  return `http://${host}`;
-};
-
-export const setupTerminalWebSocket = (server: ServerType) =>
+export const setupTerminalWebSocket = (app: HonoAppType, upgradeWebSocket: UpgradeWebSocket) =>
   Effect.gen(function* () {
     const terminalService = yield* TerminalService;
     const { getAuthState } = yield* AuthMiddleware;
@@ -68,68 +61,76 @@ export const setupTerminalWebSocket = (server: ServerType) =>
     const runtime = yield* Effect.runtime<TerminalService>();
     const runPromise = Runtime.runPromise(runtime);
 
-    const wss = new WebSocketServer({ noServer: true });
+    app.get(
+      "/ws/terminal",
+      upgradeWebSocket((c) => {
+        const cookieHeader = c.req.header("cookie");
+        const authorized =
+          !authEnabled || parseCookies(cookieHeader)["ccv-session"] === validSessionToken;
 
-    server.on("upgrade", (req: IncomingMessage, socket: Duplex, head: Buffer) => {
-      const url = new URL(req.url ?? "/", baseUrlForRequest(req));
-      if (url.pathname !== "/ws/terminal") return;
+        const url = new URL(c.req.url);
+        const sessionIdParam = url.searchParams.get("sessionId");
+        const requestedSessionId =
+          sessionIdParam !== null && sessionIdParam.length > 0 ? sessionIdParam : undefined;
+        const cwdParam = url.searchParams.get("cwd");
+        const cwd = cwdParam !== null && cwdParam.length > 0 ? cwdParam : undefined;
 
-      if (authEnabled) {
-        const cookies = parseCookies(req.headers.cookie);
-        if (cookies["ccv-session"] !== validSessionToken) {
-          socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
-          socket.destroy();
-          return;
-        }
-      }
+        let activeSessionId: string | undefined;
+        let activeClient: WSContext | undefined;
 
-      wss.handleUpgrade(req, socket, head, (ws: WebSocket) => {
-        wss.emit("connection", ws, req);
-      });
-    });
-
-    wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
-      const url = new URL(req.url ?? "/", baseUrlForRequest(req));
-      const sessionIdParam = url.searchParams.get("sessionId");
-      const requestedSessionId =
-        sessionIdParam !== null && sessionIdParam.length > 0 ? sessionIdParam : undefined;
-      const cwdParam = url.searchParams.get("cwd");
-      const cwd = cwdParam !== null && cwdParam.length > 0 ? cwdParam : undefined;
-
-      runPromise(terminalService.getOrCreateSession(requestedSessionId, cwd))
-        .then((session) => {
-          sendJson(ws, {
-            type: "hello",
-            sessionId: session.id,
-            seq: session.seq,
-          });
-          return runPromise(terminalService.registerClient(session.id, ws)).then(() => session);
-        })
-        .then((session) => {
-          ws.on("message", (data: WebSocket.RawData) => {
+        return {
+          onOpen: (_evt, ws) => {
+            if (!authorized) {
+              ws.close(1008, "Unauthorized");
+              return;
+            }
+            activeClient = ws;
+            void (async () => {
+              try {
+                const session = await runPromise(
+                  terminalService.getOrCreateSession(requestedSessionId, cwd),
+                );
+                activeSessionId = session.id;
+                sendJson(ws, {
+                  type: "hello",
+                  sessionId: session.id,
+                  seq: session.seq,
+                });
+                await runPromise(terminalService.registerClient(session.id, ws));
+              } catch {
+                ws.close(1011, "Session initialization failed");
+              }
+            })();
+          },
+          onMessage: (evt, ws) => {
+            if (!authorized || activeSessionId === undefined) return;
+            const sessionId = activeSessionId;
+            const data = evt.data;
             const text =
               typeof data === "string"
                 ? data
-                : data instanceof Buffer
-                  ? data.toString("utf8")
-                  : undefined;
+                : data instanceof ArrayBuffer
+                  ? new TextDecoder().decode(data)
+                  : data instanceof Uint8Array
+                    ? new TextDecoder().decode(data)
+                    : undefined;
             if (text === undefined || text === "") return;
             const message = parseClientMessage(text);
             if (!message) return;
             if (message.type === "input") {
-              void runPromise(terminalService.writeInput(session.id, message.data));
+              void runPromise(terminalService.writeInput(sessionId, message.data));
               return;
             }
             if (message.type === "resize") {
-              void runPromise(terminalService.resize(session.id, message.cols, message.rows));
+              void runPromise(terminalService.resize(sessionId, message.cols, message.rows));
               return;
             }
             if (message.type === "signal") {
-              void runPromise(terminalService.signal(session.id, message.name));
+              void runPromise(terminalService.signal(sessionId, message.name));
               return;
             }
             if (message.type === "sync") {
-              void runPromise(terminalService.snapshotSince(session.id, message.lastSeq)).then(
+              void runPromise(terminalService.snapshotSince(sessionId, message.lastSeq)).then(
                 (snapshot) => {
                   if (!snapshot) return;
                   sendJson(ws, {
@@ -144,14 +145,13 @@ export const setupTerminalWebSocket = (server: ServerType) =>
             if (message.type === "ping") {
               sendJson(ws, { type: "pong" });
             }
-          });
-
-          ws.on("close", () => {
-            void runPromise(terminalService.unregisterClient(session.id, ws));
-          });
-        })
-        .catch(() => {
-          ws.close(1011, "Session initialization failed");
-        });
-    });
+          },
+          onClose: () => {
+            if (activeSessionId !== undefined && activeClient !== undefined) {
+              void runPromise(terminalService.unregisterClient(activeSessionId, activeClient));
+            }
+          },
+        };
+      }),
+    );
   });

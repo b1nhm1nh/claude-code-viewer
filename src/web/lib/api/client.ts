@@ -1,7 +1,7 @@
 import { hc } from "hono/client";
 import type { RouteType } from "@/server/hono/routes";
 
-type Fetch = typeof fetch;
+type Fetch = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
 export class HttpError extends Error {
   public readonly status: number;
@@ -14,8 +14,8 @@ export class HttpError extends Error {
   }
 }
 
-const customFetch: Fetch = async (...args) => {
-  const response = await fetch(...args);
+const customFetch: Fetch = async (input, init) => {
+  const response = await fetch(input, init);
   if (!response.ok) {
     console.error(response);
     throw new HttpError(response.status, response.statusText);

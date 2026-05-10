@@ -1,8 +1,7 @@
 import { FileSystem, Path } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
-import { createAdaptorServer } from "@hono/node-server";
-import { serveStatic } from "@hono/node-server/serve-static";
+import { BunContext } from "@effect/platform-bun";
 import { Effect, Layer } from "effect";
+import { serveStatic, upgradeWebSocket, websocket } from "hono/bun";
 import { AgentSessionLayer } from "./core/agent-session/index.ts";
 import { AgentSessionController } from "./core/agent-session/presentation/AgentSessionController.ts";
 import { SessionAllowlistRepository } from "./core/claude-code/infrastructure/SessionAllowlistRepository.ts";
@@ -29,6 +28,7 @@ import type { CliOptions } from "./core/platform/services/CcvOptionsService.ts";
 import { ProjectRepository } from "./core/project/infrastructure/ProjectRepository.ts";
 import { ProjectController } from "./core/project/presentation/ProjectController.ts";
 import { ProjectMetaService } from "./core/project/services/ProjectMetaService.ts";
+import { SessionTransferService } from "./core/project/services/SessionTransferService.ts";
 import { RateLimitAutoScheduleService } from "./core/rate-limit/services/RateLimitAutoScheduleService.ts";
 import { SchedulerConfigBaseDir } from "./core/scheduler/config.ts";
 import { SchedulerService } from "./core/scheduler/domain/Scheduler.ts";
@@ -46,7 +46,7 @@ import { honoApp } from "./hono/app.ts";
 import { InitializeService } from "./hono/initialize.ts";
 import { AuthMiddleware } from "./hono/middleware/auth.middleware.ts";
 import { routes } from "./hono/routes/index.ts";
-import { DrizzleService } from "./lib/db/DrizzleService.ts";
+import { DrizzleServiceLive } from "./lib/db/DrizzleServiceLive.ts";
 import { platformLayer } from "./lib/effect/layers.ts";
 import { serverLoggerLayer, withServerLogLevel } from "./logging.ts";
 import { setupTerminalWebSocket } from "./terminal/terminalWebSocket.ts";
@@ -67,7 +67,7 @@ export const startServer = async (options: CliOptions) => {
       Effect.gen(function* () {
         const path = yield* Path.Path;
         return path.resolve(import.meta.dirname, "static");
-      }).pipe(Effect.provide(NodeContext.layer)),
+      }).pipe(Effect.provide(BunContext.layer)),
     );
     await runWithLogger(Effect.logInfo(`Serving static files from ${staticPath}`));
     const indexHtml = await Effect.runPromise(
@@ -75,7 +75,7 @@ export const startServer = async (options: CliOptions) => {
         const fs = yield* FileSystem.FileSystem;
         const path = yield* Path.Path;
         return yield* fs.readFileString(path.resolve(staticPath, "index.html"));
-      }).pipe(Effect.provide(NodeContext.layer)),
+      }).pipe(Effect.provide(BunContext.layer)),
     );
 
     honoApp.use(
@@ -94,14 +94,10 @@ export const startServer = async (options: CliOptions) => {
     });
   }
 
-  const server = createAdaptorServer({
-    fetch: honoApp.fetch,
-  });
-
   const program = Effect.gen(function* () {
     yield* routes(honoApp, options);
     if (!apiOnly) {
-      yield* setupTerminalWebSocket(server);
+      yield* setupTerminalWebSocket(honoApp, upgradeWebSocket);
     }
   })
     // 依存の浅い順にコンテナに pipe する必要がある
@@ -121,23 +117,26 @@ export const startServer = async (options: CliOptions) => {
   // oxlint-disable-next-line node/no-process-env -- configuration boundary
   const hostname = options.hostname ?? process.env.HOSTNAME ?? "localhost";
 
-  server.listen(parseInt(port, 10), hostname, () => {
-    const info = server.address();
-    const serverPort = typeof info === "object" && info !== null ? info.port : port;
-    const mode = apiOnly ? " (API-only mode)" : "";
-    void runWithLogger(
-      Effect.logInfo(`Server is running on http://${hostname}:${serverPort}${mode}`),
-    );
+  const bunServer = Bun.serve({
+    fetch: honoApp.fetch,
+    websocket,
+    port: parseInt(port, 10),
+    hostname,
   });
+
+  const mode = apiOnly ? " (API-only mode)" : "";
+  void runWithLogger(
+    Effect.logInfo(`Server is running on http://${hostname}:${bunServer.port}${mode}`),
+  );
 };
 
-const PlatformLayer = Layer.mergeAll(platformLayer, NodeContext.layer);
+const PlatformLayer = Layer.mergeAll(platformLayer, BunContext.layer);
 
 const InfraBasics = Layer.mergeAll(
   ProjectMetaService.Live,
   SessionMetaService.Live,
   SessionAllowlistRepository.Live,
-).pipe(Layer.provideMerge(SyncService.Live), Layer.provideMerge(DrizzleService.Live));
+).pipe(Layer.provideMerge(SyncService.Live), Layer.provideMerge(DrizzleServiceLive));
 
 const InfraRepos = Layer.mergeAll(ProjectRepository.Live, SessionRepository.Live).pipe(
   Layer.provideMerge(InfraBasics),
@@ -155,6 +154,7 @@ const DomainBase = Layer.mergeAll(
   SchedulerService.Live,
   SchedulerConfigBaseDir.Live,
   SearchService.Live,
+  SessionTransferService.Live,
   TasksService.Live,
 ).pipe(Layer.provideMerge(ProjectSettingsService.Live));
 

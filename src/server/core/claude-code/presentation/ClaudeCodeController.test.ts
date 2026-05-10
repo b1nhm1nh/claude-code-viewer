@@ -1,5 +1,5 @@
 import { FileSystem } from "@effect/platform";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
@@ -55,7 +55,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
           projectDir: projDir,
           projectCommandsDir,
         };
-      }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+      }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
     );
 
     testDir = result.tmpDir;
@@ -111,7 +111,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -120,7 +120,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toHaveLength(2);
@@ -136,7 +136,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         "security-review",
         "review",
       ]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should return subdirectory commands with colon-separated names", () =>
@@ -189,7 +189,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -198,7 +198,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toHaveLength(3);
@@ -209,7 +209,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
       expect(result.response.projectCommandsLegacy).toContain("api:create");
       expect(result.response.globalSkillsLegacy).toEqual([]);
       expect(result.response.projectSkillsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should return deeply nested commands with multiple colons", () =>
@@ -256,7 +256,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -265,14 +265,14 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toHaveLength(1);
       expect(result.response.globalCommandsLegacy).toContain("frontend:components:buttons:primary");
       expect(result.response.globalSkillsLegacy).toEqual([]);
       expect(result.response.projectSkillsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should return empty arrays when command directories do not exist", () =>
@@ -309,7 +309,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -318,14 +318,14 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toEqual([]);
       expect(result.response.projectCommandsLegacy).toEqual([]);
       expect(result.response.globalSkillsLegacy).toEqual([]);
       expect(result.response.projectSkillsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should return empty project commands when projectPath is null", () =>
@@ -365,7 +365,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -374,7 +374,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toHaveLength(1);
@@ -382,7 +382,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
       expect(result.response.projectCommandsLegacy).toEqual([]);
       expect(result.response.globalSkillsLegacy).toEqual([]);
       expect(result.response.projectSkillsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should exclude hidden files and directories from command list", () =>
@@ -428,7 +428,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -437,7 +437,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
       expect(result.response.globalCommandsLegacy).toHaveLength(1);
@@ -446,7 +446,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
       expect(result.response.globalCommandsLegacy).not.toContain(".hidden-dir:impl");
       expect(result.response.globalSkillsLegacy).toEqual([]);
       expect(result.response.projectSkillsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 
   it.live("should return skills when runSkillsDirectly flag is enabled", () =>
@@ -548,7 +548,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         Layer.provide(testClaudeCodeServiceWithSkillsLayer),
         Layer.provide(projectLayer),
         Layer.provide(appContextLayer),
-        Layer.provide(NodeContext.layer),
+        Layer.provide(BunContext.layer),
         Layer.provide(testPlatformLayer()),
       );
 
@@ -557,7 +557,7 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
         .getClaudeCommands({
           projectId: "test-project",
         })
-        .pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer()));
+        .pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer()));
 
       expect(result.status).toBe(200);
 
@@ -575,6 +575,6 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
       // Commands should still be empty in this test
       expect(result.response.globalCommandsLegacy).toEqual([]);
       expect(result.response.projectCommandsLegacy).toEqual([]);
-    }).pipe(Effect.provide(NodeContext.layer), Effect.provide(testPlatformLayer())),
+    }).pipe(Effect.provide(BunContext.layer), Effect.provide(testPlatformLayer())),
   );
 });

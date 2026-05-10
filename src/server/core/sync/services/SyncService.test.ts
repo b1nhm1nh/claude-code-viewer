@@ -1,7 +1,7 @@
 import { mkdirSync, mkdtempSync, rmSync, statSync, utimesSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { eq } from "drizzle-orm";
 import { Effect } from "effect";
@@ -107,7 +107,7 @@ describe("SyncService.syncProjectList", () => {
     }).pipe(
       Effect.provide(SyncService.Live),
       Effect.provide(drizzleLayer),
-      Effect.provide(NodeContext.layer),
+      Effect.provide(BunContext.layer),
       Effect.provide(
         testPlatformLayer({
           claudeCodePaths: { claudeProjectsDirPath: tempRoot },
@@ -177,7 +177,7 @@ describe("SyncService.syncProjectList", () => {
     }).pipe(
       Effect.provide(SyncService.Live),
       Effect.provide(drizzleLayer),
-      Effect.provide(NodeContext.layer),
+      Effect.provide(BunContext.layer),
       Effect.provide(
         testPlatformLayer({
           claudeCodePaths: { claudeProjectsDirPath: tempRoot },

@@ -1,8 +1,8 @@
 import { Trans } from "@lingui/react";
 import { Link } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
-import { MessageSquareIcon, PlusIcon } from "lucide-react";
-import { type FC, useEffect, useMemo, useRef } from "react";
+import { Copy, MessageSquareIcon, PlusIcon } from "lucide-react";
+import { type FC, useEffect, useMemo, useRef, useState } from "react";
 import { formatLocaleDate } from "@/lib/date/formatLocaleDate";
 import { createVirtualSessionEntries } from "@/lib/virtual-messages/createVirtualSessionEntries";
 import {
@@ -13,6 +13,7 @@ import { Badge } from "@/web/components/ui/badge";
 import { Button } from "@/web/components/ui/button";
 import { cn } from "@/web/utils";
 import { useConfig } from "../../../../../../hooks/useConfig";
+import { TransferSessionsDialog } from "../../../../../components/TransferSessionsDialog";
 import { useProject } from "../../../../hooks/useProject";
 import { resolveSessionTitle } from "../../../../services/firstCommandToTitle";
 import { sessionProcessesAtom } from "../../store/sessionProcessesAtom";
@@ -50,6 +51,8 @@ export const SessionsTab: FC<{
 
   const { config } = useConfig();
   const activeSessionRef = useRef<HTMLAnchorElement>(null);
+  const [transferOpen, setTransferOpen] = useState(false);
+  const sourceProject = projectData.pages[0]?.project;
 
   // Scroll the active session into view when switching sessions.
   // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally fires on currentSessionId change only
@@ -98,11 +101,30 @@ export const SessionsTab: FC<{
           <h2 className="font-semibold text-lg">
             <Trans id="sessions.title" />
           </h2>
+          {sourceProject !== undefined && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-7 px-2 text-xs gap-1"
+              onClick={() => setTransferOpen(true)}
+              title="Copy or move sessions to another project"
+            >
+              <Copy className="h-3.5 w-3.5" />
+              <Trans id="project.transfer.menu_label" />
+            </Button>
+          )}
         </div>
         <p className="text-xs text-sidebar-foreground/70">
           {sessions.length} <Trans id="sessions.total" />
         </p>
       </div>
+      {sourceProject !== undefined && transferOpen && (
+        <TransferSessionsDialog
+          project={sourceProject}
+          open={transferOpen}
+          onOpenChange={setTransferOpen}
+        />
+      )}
 
       <div className="flex-1 overflow-y-auto p-2 space-y-0.5">
         <Link

@@ -68,6 +68,33 @@ const projectRoutes = Effect.gen(function* () {
           return response;
         },
       )
+      .post(
+        "/:projectId/transfer-sessions",
+        zValidator(
+          "json",
+          z.object({
+            targetProjectId: z.string().min(1, "targetProjectId is required"),
+            mode: z.enum(["copy", "move"]),
+            conflict: z.enum(["skip", "overwrite"]).optional().default("skip"),
+          }),
+        ),
+        async (c) => {
+          const { projectId } = c.req.param();
+          const body = c.req.valid("json");
+          const response = await effectToResponse(
+            c,
+            projectController
+              .transferSessions({
+                sourceProjectId: projectId,
+                targetProjectId: body.targetProjectId,
+                mode: body.mode,
+                conflict: body.conflict,
+              })
+              .pipe(Effect.provide(runtime)),
+          );
+          return response;
+        },
+      )
       .get("/:projectId/latest-session", async (c) => {
         const response = await effectToResponse(
           c,

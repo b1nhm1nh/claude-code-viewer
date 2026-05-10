@@ -2,7 +2,7 @@ import { mkdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { FileSystem, Path } from "@effect/platform";
-import { NodeFileSystem, NodePath } from "@effect/platform-node";
+import { BunFileSystem, BunPath } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Layer } from "effect";
 import { afterEach, beforeEach, describe, expect } from "vitest";
@@ -26,7 +26,7 @@ describe("scheduler config", () => {
     // Use test directory as base for config files
     const testConfigBaseDir = Layer.succeed(SchedulerConfigBaseDir, testDir);
 
-    testLayer = Layer.mergeAll(NodeFileSystem.layer, NodePath.layer, testConfigBaseDir);
+    testLayer = Layer.mergeAll(BunFileSystem.layer, BunPath.layer, testConfigBaseDir);
   });
 
   afterEach(async () => {

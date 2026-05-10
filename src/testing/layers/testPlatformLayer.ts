@@ -34,39 +34,30 @@ export const testPlatformLayer = (overrides?: {
     }),
   });
 
+  const fullCcvOptions: CcvOptions = {
+    port: 3000,
+    hostname: "localhost",
+    ...overrides?.ccvOptions,
+  };
+
   const ccvOptionsServiceLayer = Layer.mock(CcvOptionsService, {
-    getCcvOptions: <Key extends keyof CcvOptions>(key: Key) =>
-      Effect.sync((): CcvOptions[Key] => {
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- test mock returns partial overrides, the cast is safe in test context
-        return overrides?.ccvOptions?.[key] as CcvOptions[Key];
-      }),
+    getCcvOptions: <Key extends keyof CcvOptions>(key: Key) => Effect.succeed(fullCcvOptions[key]),
   });
 
+  const fullEnv: EnvSchema = {
+    CCV_ENV: overrides?.env?.CCV_ENV ?? "development",
+    NEXT_PHASE: overrides?.env?.NEXT_PHASE ?? "phase-test",
+    HOME: overrides?.env?.HOME ?? process.cwd(),
+    USERPROFILE: overrides?.env?.USERPROFILE,
+    PATH: overrides?.env?.PATH,
+    SHELL: overrides?.env?.SHELL,
+    CCV_TERMINAL_SHELL: overrides?.env?.CCV_TERMINAL_SHELL,
+    CCV_TERMINAL_UNRESTRICTED: overrides?.env?.CCV_TERMINAL_UNRESTRICTED,
+    CCV_TERMINAL_DISABLED: overrides?.env?.CCV_TERMINAL_DISABLED,
+  };
+
   const envServiceLayer = Layer.mock(EnvService, {
-    getEnv: <Key extends keyof EnvSchema>(key: Key) =>
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- test mock with generic key requires cast for return type
-      Effect.sync(() => {
-        switch (key) {
-          case "CCV_ENV":
-            return overrides?.env?.CCV_ENV ?? "development";
-          case "NEXT_PHASE":
-            return overrides?.env?.NEXT_PHASE ?? "phase-test";
-          case "HOME":
-            return overrides?.env?.HOME ?? process.cwd();
-          case "PATH":
-            return overrides?.env?.PATH ?? undefined;
-          case "SHELL":
-            return overrides?.env?.SHELL ?? undefined;
-          case "CCV_TERMINAL_SHELL":
-            return overrides?.env?.CCV_TERMINAL_SHELL ?? undefined;
-          case "CCV_TERMINAL_UNRESTRICTED":
-            return overrides?.env?.CCV_TERMINAL_UNRESTRICTED ?? undefined;
-          case "CCV_TERMINAL_DISABLED":
-            return overrides?.env?.CCV_TERMINAL_DISABLED ?? undefined;
-          default:
-            return undefined;
-        }
-      }) as Effect.Effect<EnvSchema[Key]>,
+    getEnv: <Key extends keyof EnvSchema>(key: Key) => Effect.succeed(fullEnv[key]),
   });
 
   const userConfigServiceLayer = Layer.mock(UserConfigService, {

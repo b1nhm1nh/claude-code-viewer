@@ -1,4 +1,4 @@
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { it } from "@effect/vitest";
 import { Effect, Either, Layer } from "effect";
 import { expect } from "vitest";
@@ -6,7 +6,7 @@ import { testPlatformLayer } from "../../../../testing/layers/testPlatformLayer.
 import { GitService } from "./GitService.ts";
 
 const testLayer = GitService.Live.pipe(
-  Layer.provide(NodeContext.layer),
+  Layer.provide(BunContext.layer),
   Layer.provide(testPlatformLayer()),
 );
 
@@ -16,7 +16,7 @@ describe("GitService.stageFiles", () => {
       const gitService = yield* GitService;
 
       const result = yield* Effect.either(
-        gitService.stageFiles("/tmp/repo", []).pipe(Effect.provide(NodeContext.layer)),
+        gitService.stageFiles("/tmp/repo", []).pipe(Effect.provide(BunContext.layer)),
       );
 
       expect(Either.isLeft(result)).toBe(true);
@@ -33,7 +33,7 @@ describe("GitService.commit", () => {
       const gitService = yield* GitService;
 
       const result = yield* Effect.either(
-        gitService.commit("/tmp/repo", "   ").pipe(Effect.provide(NodeContext.layer)),
+        gitService.commit("/tmp/repo", "   ").pipe(Effect.provide(BunContext.layer)),
       );
 
       expect(Either.isLeft(result)).toBe(true);
@@ -47,7 +47,7 @@ describe("GitService.commit", () => {
       // This test verifies the trimming logic
       // Actual git commit would fail without a proper repo
       const result = yield* Effect.either(
-        gitService.commit("/tmp/nonexistent", "  test  ").pipe(Effect.provide(NodeContext.layer)),
+        gitService.commit("/tmp/nonexistent", "  test  ").pipe(Effect.provide(BunContext.layer)),
       );
 
       // Should fail due to missing repo, but message should have been trimmed
@@ -73,7 +73,7 @@ describe("GitService.findBaseBranch", () => {
       const result = yield* Effect.either(
         gitService
           .findBaseBranch("/tmp/nonexistent", "feature-branch")
-          .pipe(Effect.provide(NodeContext.layer)),
+          .pipe(Effect.provide(BunContext.layer)),
       );
 
       // Should fail due to missing repo
@@ -90,7 +90,7 @@ describe("GitService.getDiff", () => {
       const result = yield* Effect.either(
         gitService
           .getDiff("/tmp/nonexistent", "base:main", "compare:main")
-          .pipe(Effect.provide(NodeContext.layer)),
+          .pipe(Effect.provide(BunContext.layer)),
       );
 
       expect(Either.isRight(result)).toBe(true);
@@ -109,7 +109,7 @@ describe("GitService.getDiff", () => {
       const result = yield* Effect.either(
         gitService
           .getDiff("/tmp/nonexistent", "invalid-ref-format", "compare:feature")
-          .pipe(Effect.provide(NodeContext.layer)),
+          .pipe(Effect.provide(BunContext.layer)),
       );
 
       expect(Either.isLeft(result)).toBe(true);
@@ -128,7 +128,7 @@ describe("GitService.getCommitsBetweenBranches", () => {
       const result = yield* Effect.either(
         gitService
           .getCommitsBetweenBranches("/tmp/nonexistent", "base-branch", "HEAD")
-          .pipe(Effect.provide(NodeContext.layer)),
+          .pipe(Effect.provide(BunContext.layer)),
       );
 
       // Should fail due to missing repo

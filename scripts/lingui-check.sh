@@ -3,7 +3,7 @@
 set -ueo pipefail
 
 # lingui:extract を実行して Missing をチェック
-output=$(pnpm lingui:extract 2>&1)
+output=$(bun run lingui:extract 2>&1)
 
 # Missing の値を抽出
 missing_values=$(echo "$output" | grep -A 100 "Catalog statistics" | grep -E "│.*│.*│.*│" | grep -v "Language" | grep -v "─" | awk -F'│' '{gsub(/^[ \t]+|[ \t]+$/, "", $4); if ($4 != "-" && $4 != "") print $4}')

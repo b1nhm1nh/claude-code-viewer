@@ -12,14 +12,15 @@ This document provides technical details for developers contributing to Claude C
 
 ### Backend
 
-- **API Framework**: Hono (standalone server with @hono/node-server)
+- **API Framework**: Hono served by `Bun.serve`
   - Type-safe communication via Hono RPC
   - Validation using `@hono/zod-validator`
+  - WebSocket via Hono's `upgradeWebSocket` (`hono/bun`) — terminal stream lives at `/ws/terminal`
 - **Effect-TS**: All backend business logic is implemented using Effect-TS
   - Service layer managed through Effect Context (dependency injection container)
   - Controller → Service layered architecture, with each layer implemented in Effect
   - Type-safe error handling and side effect control
-  - Abstracts Node.js built-ins (`FileSystem.FileSystem`, `Path.Path`, `Command.string`) for testability
+  - Platform abstractions provided by `@effect/platform-bun` (`BunContext.layer` covers `FileSystem.FileSystem`, `Path.Path`, `Command.string`)
 
 ### Data Source and Storage
 
@@ -52,14 +53,14 @@ Claude Code Viewer provides advanced control over Claude Code session processes:
 
 ### Requirements
 
-- **Node.js**: Version 24.0.0 or later (see [.node-version](../.node-version))
-- **Package Manager**: pnpm 10.8.1 or later
+- **Bun**: Version 1.3.0 or later (see [.bun-version](../.bun-version))
+- **Package Manager**: `bun` (no pnpm, npm, or yarn)
 
 ### Initial Setup
 
 ```bash
 # Install dependencies
-pnpm install
+bun install
 ```
 
 ## Starting the Development Server
@@ -67,13 +68,13 @@ pnpm install
 ### Development Mode
 
 ```bash
-pnpm dev
+bun run dev
 ```
 
 This command starts both servers in parallel using `npm-run-all2`:
 
 - Frontend: Vite development server (port 3400 by default, configurable via `DEV_FE_PORT`)
-- Backend: Node server with tsx watch (port 3401 by default, configurable via `DEV_BE_PORT`)
+- Backend: `bun --watch src/server/main.ts` (port 3401 by default, configurable via `DEV_BE_PORT`)
 
 Frontend proxy configuration forwards `/api` requests to the backend server.
 
@@ -83,10 +84,10 @@ Build and run in production mode:
 
 ```bash
 # Build
-pnpm build
+bun run build
 
 # Start production server
-pnpm start
+bun run start
 ```
 
 **Build Process** (`./scripts/build.sh`):
@@ -94,7 +95,8 @@ pnpm start
 1. Clean `dist/` directory
 2. Compile i18n files (`lingui:compile`)
 3. Build frontend with Vite → `dist/static/`
-4. Bundle backend with esbuild → `dist/main.js` (ESM format, external dependencies excluded)
+4. Bundle backend with `bun build --target=bun` → `dist/main.js` (with `#!/usr/bin/env bun` shebang)
+5. Copy `src/server/lib/db/migrations/` → `dist/migrations/`
 
 **Build Output Structure**:
 
@@ -119,10 +121,10 @@ The production server serves static files and handles API requests on a single p
 
 ```bash
 # Auto-fix issues (lint fix + format)
-pnpm fix
+bun run fix
 
 # Check only (lint + format check, run in CI)
-pnpm lint
+bun run lint
 ```
 
 **Configuration**: `/.oxlintrc.json` (linting), `/.oxfmtrc.json` (formatting)
@@ -142,10 +144,10 @@ Vitest-based tests are written for backend core logic (Effect-TS based service l
 
 ```bash
 # Run once
-pnpm test
+bun run test
 
 # Watch mode
-pnpm test:watch
+bun run test:watch
 ```
 
 **Configuration**:
@@ -160,7 +162,7 @@ pnpm test:watch
 ### Type Checking: TypeScript
 
 ```bash
-pnpm typecheck
+bun run typecheck
 ```
 
 Strict type configuration (`@tsconfig/strictest`) is adopted, emphasizing type safety.
@@ -177,11 +179,11 @@ Playwright-based snapshot capture is implemented to visually confirm UI changes.
 
 ```bash
 # Run server startup and snapshot capture together
-pnpm e2e
+bun run e2e
 
 # Or execute manually
-pnpm e2e:start-server        # Start server
-pnpm e2e:capture-snapshots   # Capture snapshots
+bun run e2e:start-server        # Start server
+bun run e2e:capture-snapshots   # Capture snapshots
 ```
 
 **Important**: In local environments, UI varies based on the current path. **Do not commit locally captured snapshots**.
@@ -236,7 +238,7 @@ We welcome contributions! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes with appropriate tests
-4. Ensure all quality checks pass (`pnpm lint`, `pnpm test`, `pnpm typecheck`)
+4. Ensure all quality checks pass (`bun run lint`, `bun run test`, `bun run typecheck`)
 5. Submit a pull request with a clear description of your changes
 
 For UI changes, add the `vrt` label to your PR to update visual snapshots.

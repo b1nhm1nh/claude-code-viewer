@@ -11,11 +11,11 @@ mkdir -p "${OUTPUT_DIR}"
 echo "=== Security Check ===" >&2
 echo "Output: ${OUTPUT_DIR}" >&2
 
-# pnpm audit
+# bun audit
 echo "" >&2
-echo "--- [1/2] pnpm audit ---" >&2
+echo "--- [1/2] bun audit ---" >&2
 cd "${PROJECT_ROOT}"
-pnpm audit --json > "${OUTPUT_DIR}/pnpm-audit.json" 2>&1 || true
+bun audit --json > "${OUTPUT_DIR}/bun-audit.json" 2>&1 || true
 echo "Done." >&2
 
 # CodeQL
@@ -41,7 +41,7 @@ echo "Done." >&2
 
 echo "" >&2
 echo "=== Results ===" >&2
-echo "pnpm audit : ${OUTPUT_DIR}/pnpm-audit.json" >&2
+echo "bun audit : ${OUTPUT_DIR}/bun-audit.json" >&2
 echo "CodeQL     : ${OUTPUT_DIR}/codeql.sarif" >&2
 echo "" >&2
 

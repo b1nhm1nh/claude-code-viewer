@@ -1,7 +1,7 @@
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { Effect } from "effect";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { getDirectoryListing } from "./getDirectoryListing.ts";
@@ -10,7 +10,7 @@ describe("getDirectoryListing", () => {
   let testDir: string;
   const runListing = (rootPath: string, basePath?: string, showHidden?: boolean) =>
     Effect.runPromise(
-      getDirectoryListing(rootPath, basePath, showHidden).pipe(Effect.provide(NodeContext.layer)),
+      getDirectoryListing(rootPath, basePath, showHidden).pipe(Effect.provide(BunContext.layer)),
     );
 
   beforeEach(async () => {

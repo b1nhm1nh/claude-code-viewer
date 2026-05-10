@@ -1,13 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 import { Command } from "commander";
 import { Effect } from "effect";
 import packageJson from "../../package.json" with { type: "json" };
+import { checkBunVersion } from "./bunVersionCheck.ts";
 import type { CliOptions } from "./core/platform/services/CcvOptionsService.ts";
 import { checkDeprecatedEnvs } from "./core/platform/services/DeprecatedEnvDetector.ts";
-import { checkNodeVersion } from "./nodeVersionCheck.ts";
 import { startServer } from "./startServer.ts";
 
-checkNodeVersion();
+checkBunVersion();
 
 const program = new Command();
 

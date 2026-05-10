@@ -1,7 +1,7 @@
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { NodeContext } from "@effect/platform-node";
+import { BunContext } from "@effect/platform-bun";
 import { Effect } from "effect";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import {
@@ -36,7 +36,7 @@ describe("getFileContent", () => {
         projectRoot,
         filePath,
         maxFileSize === undefined ? {} : { maxFileSize },
-      ).pipe(Effect.provide(NodeContext.layer)),
+      ).pipe(Effect.provide(BunContext.layer)),
     );
 
   beforeEach(async () => {

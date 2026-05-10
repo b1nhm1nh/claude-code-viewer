@@ -2,6 +2,8 @@
 
 ## Critical Rules (Read First)
 
+**Runtime**: This is a **Bun-native** project. Bun 1.3+ is the only supported runtime. Node.js will fail at startup.
+
 **Language**:
 
 - Code, comments, and commit messages should be in English
@@ -10,15 +12,17 @@
 
 - Use `as` type casting in ANY context including test code (explain the problem to the user instead)
 - Use raw `fetch` or bypass TanStack Query for API calls
-- Run `pnpm dev` or `pnpm start` (dev servers)
-- Use `node:fs`, `node:path`, etc. directly (use Effect-TS equivalents)
+- Run `bun run dev` or `bun run start` (dev servers — they don't exit)
+- Use `node:fs`, `node:path`, `child_process` directly (use Effect-TS `FileSystem.FileSystem`, `Path.Path`, `Command.string`)
+- Re-introduce `pnpm`, `npm`, `npx`, `node`, or `@hono/node-server` — the project migrated off them
 
 **ALWAYS**:
 
 - Use Effect-TS for all backend side effects
 - Use Hono RPC + TanStack Query for all API calls
 - Follow TDD: write tests first, then implement
-- Run `pnpm typecheck` and `pnpm fix` before committing
+- Run `bun run typecheck` and `bun run fix` before committing
+- Use `bun` as the package manager (`bun install`, `bun add`, `bun remove`)
 
 ## Commit Message Rules
 
@@ -52,9 +56,12 @@ Claude Code Viewer reads Claude Code session logs directly from JSONL files (`~/
 **Core Architecture**:
 
 - Frontend: Vite + TanStack Router + React 19 + TanStack Query
-- Backend: Hono (standalone server) + Effect-TS (all business logic)
+- Backend: Hono served by `Bun.serve` + Effect-TS (all business logic)
+- Cache DB: `bun:sqlite` via `drizzle-orm/bun-sqlite` (production) / `node:sqlite` (vitest workers)
+- WebSocket: Hono `upgradeWebSocket` from `hono/bun` (terminal stream at `/ws/terminal`)
 - Data: Direct JSONL reads with strict Zod validation
 - Real-time: Server-Sent Events (SSE) for live updates
+- Bundler: `bun build --target=bun` for the backend, Vite for the frontend
 
 ## Recommended Coding Process
 
@@ -66,7 +73,7 @@ This project is designed with the philosophy of achieving both rapid feedback an
 
 For development, we recommend implementing with t-wada's TDD development style.
 
-For checks, you can run `pnpm gatecheck check` to execute all the above checks against the diff at once, so proceed with implementation in a loop of problem detection and fixing with gatecheck.
+For checks, you can run `bun run gatecheck check` to execute all the above checks against the diff at once, so proceed with implementation in a loop of problem detection and fixing with gatecheck.
 
 By utilizing this, you can quickly inspect code with static checks and unit tests.
 
@@ -75,7 +82,7 @@ By utilizing this, you can quickly inspect code with static checks and unit test
 After changing source code, always run before committing:
 
 ```bash
-pnpm gatecheck check
+bun run gatecheck check
 ./scripts/lingui-check.sh
 ```
 
@@ -83,8 +90,10 @@ pnpm gatecheck check
 
 - `src/server/hono/route.ts` - Hono API routes definition (all routes defined here)
 - `src/server/core/` - Effect-TS business logic (domain modules: session, project, git, etc.)
+- `src/server/lib/db/DrizzleService.ts` - SQLite Tag (no driver imports — keeps `bun:sqlite` out of test runtime)
+- `src/server/lib/db/DrizzleServiceLive.ts` - Production Live layer using `bun:sqlite`
 - `src/lib/conversation-schema/` - Zod schemas for JSONL validation
-- `src/testing/layers/` - Reusable Effect test layers (`testPlatformLayer` is the foundation)
+- `src/testing/layers/` - Reusable Effect test layers (`testPlatformLayer` is the foundation; `testDrizzleServiceLayer` uses `node:sqlite`)
 - `src/routes/` - TanStack Router routes
 
 ## Coding Standards
@@ -103,6 +112,8 @@ pnpm gatecheck check
 - Avoid class-based implementations or mutable variables for state
 - Use Effect-TS's functional patterns for state management
 - Reference: https://effect.website/llms.txt
+
+**Platform Layer**: Use `@effect/platform-bun` (`BunContext.layer`) — not `@effect/platform-node`. Tests provide the same `BunContext.layer`; vitest workers run on Node but the Effect platform abstraction works identically.
 
 **Testing with Layers**:
 
@@ -125,6 +136,13 @@ test("example", async () => {
 - Use `Command.string` instead of `child_process`
 
 This enables dependency injection and proper testing.
+
+**Database Driver Split** (important):
+
+- `src/server/lib/db/DrizzleService.ts` exports only the `DrizzleService` Tag and structural types (`DrizzleDb`, `RawSqliteDb`) — no runtime imports of `bun:sqlite`.
+- `src/server/lib/db/DrizzleServiceLive.ts` is the production Live layer using `bun:sqlite` + `drizzle-orm/bun-sqlite`. Imported by `startServer.ts` only.
+- `src/testing/layers/testDrizzleServiceLayer.ts` constructs an in-memory DB via `node:sqlite` + `drizzle-orm/node-sqlite` because vitest workers run on Node. Both drivers satisfy `DrizzleDb = BaseSQLiteDatabase<"sync", unknown, schema>`.
+- **Never** add a top-level `import "bun:sqlite"` to `DrizzleService.ts` — it would break test imports.
 
 **Type Safety - NO `as` Casting**:
 
@@ -150,11 +168,17 @@ Raw `fetch` and direct requests are prohibited.
 
 ### Tech Standards
 
-- **Linter/Formatter**: oxlint + oxfmt (not ESLint/Prettier/Biome)
-- **Type Config**: `@tsconfig/strictest`
+- **Runtime/Package Manager**: Bun 1.3+ (`bun-version` pinned in `.bun-version`)
+- **Linter/Formatter**: oxlint + oxfmt (not ESLint/Prettier/Biome). Custom plugin at `dev/lints/conventions.js` (no-barrel-file, colocated-tests, module-boundaries) is wired via `.oxlintrc.json`.
+- **Type Config**: `@tsconfig/strictest` with `types: ["@types/bun", ...]`
 - **Path Alias**: `@/*` maps to `./src/*`
+- **Tests**: Vitest (`bun run vitest`) — workers run on Node, so node-only APIs (`node:sqlite`, `node:fs/promises`) are safe in test files.
 
 ## Architecture Details
+
+### HTTP & WebSocket (Bun.serve)
+
+`startServer.ts` boots the server via `Bun.serve({ fetch: honoApp.fetch, websocket, port, hostname })`. Static files are served by `serveStatic` from `hono/bun`. Terminal WebSocket lives at `/ws/terminal` and is registered with `upgradeWebSocket` from `hono/bun`; auth is checked inside the upgrade handler before `onOpen` is allowed to register the client.
 
 ### SSE (Server-Sent Events)
 
@@ -172,18 +196,27 @@ Raw `fetch` and direct requests are prohibited.
 ### Data Layer
 
 - **Single Source of Truth**: `~/.claude/projects/*.jsonl`
-- **Cache**: `~/.claude-code-viewer/` (invalidated via SSE when source changes)
+- **Cache DB**: `~/.claude-code-viewer/cache.db` (SQLite via `bun:sqlite`, schema migrated on startup; invalidated via SSE when source changes)
 - **Validation**: Strict Zod schemas ensure every field is captured
+
+### Home Directory Resolution (Cross-Platform)
+
+`ApplicationContext` and `SchedulerConfigBaseDir` resolve the home directory via `HOME ?? USERPROFILE`. Windows does not set `HOME` by default — only `USERPROFILE` — so any new code that needs the home dir should follow the same fallback pattern (or read it through these services).
 
 ### Session Process Management
 
 Claude Code processes remain alive in the background (unless aborted), allowing session continuation without changing session-id.
+
+### Terminal (PTY)
+
+`@replit/ruspty` is an `optionalDependency`. On Windows, `TerminalService` short-circuits to a disabled stub with a single `INFO` log line because ruspty has no `win32` binary. Linux/macOS load the binary lazily via dynamic `import()`.
 
 ## Development Tips
 
 1. **Session Logs**: Examine `~/.claude/projects/` JSONL files to understand data structures
 2. **Mock Data**: `mock-global-claude-dir/` contains E2E test mocks (useful reference for schema examples)
 3. **Effect-TS Help**: https://effect.website/llms.txt
+4. **Bun-only debugging**: If you ever see `Cannot find package 'bun:sqlite'` from a test, you accidentally hoisted a `bun:sqlite` import into the Tag file — move it back to `DrizzleServiceLive.ts`.
 
 ## References
 

@@ -19,7 +19,9 @@ const LayerImpl = Effect.gen(function* () {
 
   const claudeCodePaths = Effect.gen(function* () {
     const cliClaudeDir = yield* ccvOptionsService.getCcvOptions("claudeDir");
-    const homeDirectory = yield* envService.getEnv("HOME");
+    const homeEnv = yield* envService.getEnv("HOME");
+    const userProfileEnv = yield* envService.getEnv("USERPROFILE");
+    const homeDirectory = homeEnv ?? userProfileEnv;
     const globalClaudeDirectoryPath =
       cliClaudeDir === undefined
         ? path.resolve(homeDirectory ?? "/", ".claude")
