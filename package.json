@@ -153,7 +153,7 @@
     "serialize-javascript": ">=7.0.3",
     "seroval": ">=1.4.1",
     "tar": ">=7.5.11",
-    "undici": ">=6.24.0",
+    "undici": ">=7.25.0 <8",
     "yaml": ">=2.8.3"
   },
   "engines": {
