@@ -109,9 +109,7 @@ const getSearchableText = (conversation: Conversation | ErrorJsonl): string => {
     return conversation.customTitle;
   }
 
-  if (conversation.type === "last-prompt") {
-    return conversation.lastPrompt;
-  }
+  // Claude Code 实际写出 leafUuid 而非文本，本展示分支已禁用
 
   return "";
 };

@@ -63,7 +63,7 @@ const makePrLink = (): Extract<Conversation, { type: "pr-link" }> => ({
 const makeLastPrompt = (): Extract<Conversation, { type: "last-prompt" }> => ({
   type: "last-prompt",
   sessionId: "session-1",
-  lastPrompt: "What is the meaning of life?",
+  leafUuid: "a81b9919-b143-4c96-bd1a-163b0b9c835f",
 });
 
 const makeAssistantWithNoTextContent = (): Extract<Conversation, { type: "assistant" }> => ({

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const LastPromptEntrySchema = z.object({
   type: z.literal("last-prompt"),
-  lastPrompt: z.string(),
+  leafUuid: z.string(),
   sessionId: z.string(),
 });
 

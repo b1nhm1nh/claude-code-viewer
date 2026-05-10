@@ -482,7 +482,7 @@ describe("parseJsonl", () => {
     it("last-prompt entry parses correctly", () => {
       const jsonl = JSON.stringify({
         type: "last-prompt",
-        lastPrompt: "Read docs/2026-03-12-phase-2-raise-only-hires.md...",
+        leafUuid: "a81b9919-b143-4c96-bd1a-163b0b9c835f",
         sessionId: "28fc793f-fbe6-4062-8b4a-3d6e28f65b8b",
       });
 
@@ -491,7 +491,7 @@ describe("parseJsonl", () => {
       expect(result).toHaveLength(1);
       expect(result[0]).toHaveProperty("type", "last-prompt");
       const entry = expectLastPromptEntry(result[0]);
-      expect(entry.lastPrompt).toBe("Read docs/2026-03-12-phase-2-raise-only-hires.md...");
+      expect(entry.leafUuid).toBe("a81b9919-b143-4c96-bd1a-163b0b9c835f");
     });
 
     it("pr-link and last-prompt mixed with regular entries parse without x-error", () => {
@@ -518,7 +518,7 @@ describe("parseJsonl", () => {
         }),
         JSON.stringify({
           type: "last-prompt",
-          lastPrompt: "Some prompt text",
+          leafUuid: "a81b9919-b143-4c96-bd1a-163b0b9c835f",
           sessionId: "session-1",
         }),
         JSON.stringify({
