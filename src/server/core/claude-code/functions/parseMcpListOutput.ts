@@ -1,4 +1,4 @@
-export type McpServerStatus = "connected" | "failed" | "unknown";
+export type McpServerStatus = "connected" | "failed" | "needs_auth" | "unknown";
 
 export type McpServer = {
   name: string;
@@ -22,16 +22,19 @@ export const parseMcpListOutput = (output: string) => {
       const name = line.substring(0, colonIndex).trim();
       const rest = line.substring(colonIndex + 1).trim();
 
-      // Extract status from indicators (✓ Connected, ✗ Failed, etc.)
+      // Extract status from indicators (✓ Connected, ✗ Failed, ! Needs authentication)
       let status: McpServerStatus = "unknown";
-      if (rest.includes("✓") || rest.toLowerCase().includes("connected")) {
+      const lowered = rest.toLowerCase();
+      if (rest.includes("✓") || lowered.includes("connected")) {
         status = "connected";
-      } else if (rest.includes("✗") || rest.toLowerCase().includes("failed")) {
+      } else if (rest.includes("✗") || lowered.includes("failed")) {
         status = "failed";
+      } else if (lowered.includes("needs authentication") || /\s-\s!/.test(rest)) {
+        status = "needs_auth";
       }
 
       // Remove status indicators to get clean command
-      const command = rest.replace(/\s*-\s*[✓✗].*$/, "").trim();
+      const command = rest.replace(/\s*-\s*[✓✗!].*$/, "").trim();
 
       if (name && command) {
         servers.push({ name, command, status });

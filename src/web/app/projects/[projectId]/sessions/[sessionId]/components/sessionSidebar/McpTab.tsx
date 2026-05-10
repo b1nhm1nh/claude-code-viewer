@@ -1,6 +1,12 @@
 import { Trans, useLingui } from "@lingui/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CheckCircle2Icon, CircleHelpIcon, RefreshCwIcon, XCircleIcon } from "lucide-react";
+import {
+  CheckCircle2Icon,
+  CircleHelpIcon,
+  KeyIcon,
+  RefreshCwIcon,
+  XCircleIcon,
+} from "lucide-react";
 import type { FC } from "react";
 import { Button } from "@/web/components/ui/button";
 import { mcpListQuery } from "@/web/lib/api/queries";
@@ -79,7 +85,9 @@ export const McpTab: FC<{ projectId: string }> = ({ projectId }) => {
                 className={`p-3 bg-sidebar-accent/50 rounded-md border ${
                   server.status === "failed"
                     ? "border-red-500/50 bg-red-500/10"
-                    : "border-sidebar-border"
+                    : server.status === "needs_auth"
+                      ? "border-amber-500/50 bg-amber-500/10"
+                      : "border-sidebar-border"
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -90,6 +98,9 @@ export const McpTab: FC<{ projectId: string }> = ({ projectId }) => {
                       )}
                       {server.status === "failed" && (
                         <XCircleIcon className="w-4 h-4 text-red-500 flex-shrink-0" />
+                      )}
+                      {server.status === "needs_auth" && (
+                        <KeyIcon className="w-4 h-4 text-amber-500 flex-shrink-0" />
                       )}
                       {server.status === "unknown" && (
                         <CircleHelpIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />

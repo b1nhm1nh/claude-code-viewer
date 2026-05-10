@@ -157,7 +157,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        46
+        52
       ]
     ],
     "translation": "重新加载 MCP 服务器"
@@ -1939,7 +1939,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        64
+        70
       ]
     ],
     "translation": "加载 MCP 服务器失败:{error}"
@@ -1950,7 +1950,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        70
+        76
       ]
     ],
     "translation": "未找到 MCP 服务器"
@@ -1961,7 +1961,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        38
+        44
       ]
     ],
     "translation": "MCP 服务器"
@@ -2572,7 +2572,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        118
+        116
       ]
     ],
     "translation": "将此项目的会话历史复制或移动到另一个项目。"
@@ -2583,7 +2583,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        115
+        113
       ]
     ],
     "translation": "转移会话"
@@ -2664,7 +2664,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        125
+        123
       ]
     ],
     "translation": "源项目"
@@ -2686,7 +2686,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        132
+        130
       ]
     ],
     "translation": "目标项目"

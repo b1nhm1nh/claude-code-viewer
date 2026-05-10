@@ -157,7 +157,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        46
+        52
       ]
     ],
     "translation": "MCPサーバーを再読み込み"
@@ -1939,7 +1939,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        64
+        70
       ]
     ],
     "translation": "MCPサーバーの読み込みに失敗しました: {error}"
@@ -1950,7 +1950,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        70
+        76
       ]
     ],
     "translation": "MCPサーバーが見つかりません"
@@ -1961,7 +1961,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        38
+        44
       ]
     ],
     "translation": "MCPサーバー"
@@ -2572,7 +2572,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        118
+        116
       ]
     ],
     "translation": "このプロジェクトのセッション履歴を別プロジェクトへコピーまたは移動します。"
@@ -2583,7 +2583,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        115
+        113
       ]
     ],
     "translation": "セッションを転送"
@@ -2664,7 +2664,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        125
+        123
       ]
     ],
     "translation": "移動元プロジェクト"
@@ -2686,7 +2686,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        132
+        130
       ]
     ],
     "translation": "移動先プロジェクト"

@@ -157,7 +157,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        46
+        52
       ]
     ],
     "translation": "Reload MCP Servers"
@@ -1939,7 +1939,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        64
+        70
       ]
     ],
     "translation": "Failed to load MCP servers: {error}"
@@ -1950,7 +1950,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        70
+        76
       ]
     ],
     "translation": "No MCP Servers Found"
@@ -1961,7 +1961,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
-        38
+        44
       ]
     ],
     "translation": "MCP Servers"
@@ -2572,7 +2572,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        118
+        116
       ]
     ],
     "translation": "Move or copy this project's session history into another project."
@@ -2583,7 +2583,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        115
+        113
       ]
     ],
     "translation": "Transfer sessions"
@@ -2664,7 +2664,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        125
+        123
       ]
     ],
     "translation": "Source project"
@@ -2686,7 +2686,7 @@
     "origin": [
       [
         "src/web/app/projects/components/TransferSessionsDialog.tsx",
-        132
+        130
       ]
     ],
     "translation": "Target project"

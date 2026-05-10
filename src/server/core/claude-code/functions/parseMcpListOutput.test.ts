@@ -61,6 +61,52 @@ Checking MCP server health...
     expect(result).toEqual([]);
   });
 
+  it("should detect needs_auth status with bare URL command", () => {
+    const output = `Checking MCP server health…
+
+claude.ai Google Drive: https://drivemcp.googleapis.com/mcp/v1 - ! Needs authentication
+`;
+
+    const result = parseMcpListOutput(output);
+
+    expect(result).toEqual([
+      {
+        name: "claude.ai Google Drive",
+        command: "https://drivemcp.googleapis.com/mcp/v1",
+        status: "needs_auth",
+      },
+    ]);
+  });
+
+  it("should handle mixed statuses including needs_auth", () => {
+    const output = `Checking MCP server health…
+
+context7: npx -y @upstash/context7-mcp@latest - ✓ Connected
+gdrive: https://drivemcp.googleapis.com/mcp/v1 - ! Needs authentication
+broken: docker run x - ✗ Failed
+`;
+
+    const result = parseMcpListOutput(output);
+
+    expect(result).toEqual([
+      {
+        name: "context7",
+        command: "npx -y @upstash/context7-mcp@latest",
+        status: "connected",
+      },
+      {
+        name: "gdrive",
+        command: "https://drivemcp.googleapis.com/mcp/v1",
+        status: "needs_auth",
+      },
+      {
+        name: "broken",
+        command: "docker run x",
+        status: "failed",
+      },
+    ]);
+  });
+
   it("should skip malformed lines", () => {
     const output = `2.0.21 (Claude Code)
 Checking MCP server health...
