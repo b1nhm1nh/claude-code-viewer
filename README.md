@@ -1,5 +1,7 @@
 # Claude Code Viewer
 
+**English** | [简体中文](./README.zh-CN.md)
+
 [![License](https://img.shields.io/github/license/d-kimuson/claude-code-viewer)](https://github.com/d-kimuson/claude-code-viewer/blob/main/LICENSE)
 [![CI](https://github.com/d-kimuson/claude-code-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/d-kimuson/claude-code-viewer/actions/workflows/ci.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/d-kimuson/claude-code-viewer)](https://github.com/d-kimuson/claude-code-viewer/releases)
@@ -91,13 +93,13 @@ The server should start with a single `INFO` line about the terminal panel being
 Run directly from npm without installation:
 
 ```bash
-npx @kimuson/claude-code-viewer@latest --port 3400
+npx @ibootz/claude-code-viewer@latest --port 3400
 ```
 
 Alternatively, install globally:
 
 ```bash
-npm install -g @kimuson/claude-code-viewer
+npm install -g @ibootz/claude-code-viewer
 claude-code-viewer --port 3400
 ```
 
