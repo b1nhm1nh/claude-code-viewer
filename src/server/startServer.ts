@@ -23,6 +23,8 @@ import { GitController } from "./core/git/presentation/GitController.ts";
 import { GitService } from "./core/git/services/GitService.ts";
 import { NotificationController } from "./core/notification/presentation/NotificationController.ts";
 import { NotificationService } from "./core/notification/services/NotificationService.ts";
+import { isStrongSyncToken } from "./core/peer-sync/functions/syncToken.ts";
+import { PeerSyncService } from "./core/peer-sync/services/PeerSyncService.ts";
 import { isDevelopmentEnv } from "./core/platform/ccvEnv.ts";
 import type { CliOptions } from "./core/platform/services/CcvOptionsService.ts";
 import { ProjectRepository } from "./core/project/infrastructure/ProjectRepository.ts";
@@ -128,6 +130,22 @@ export const startServer = async (options: CliOptions) => {
   void runWithLogger(
     Effect.logInfo(`Server is running on http://${hostname}:${bunServer.port}${mode}`),
   );
+
+  const syncTokenConfigured = isStrongSyncToken(options.syncToken);
+  const lanExposed = hostname !== "localhost" && hostname !== "127.0.0.1" && hostname !== "::1";
+  if (syncTokenConfigured) {
+    void runWithLogger(
+      Effect.logInfo(
+        `[Peer Sync] enabled at /api/peer (Bearer token required, ${options.syncToken?.length ?? 0} chars)`,
+      ),
+    );
+  } else if (lanExposed) {
+    void runWithLogger(
+      Effect.logWarning(
+        "[Peer Sync] hostname is non-loopback but CCV_SYNC_TOKEN is unset. /api/peer routes will reject all requests with 503 until you set a token (>= 32 chars).",
+      ),
+    );
+  }
 };
 
 const PlatformLayer = Layer.mergeAll(platformLayer, BunContext.layer);
@@ -151,6 +169,7 @@ const DomainBase = Layer.mergeAll(
   ClaudeCodeService.Live,
   GitService.Live,
   NotificationService.Live,
+  PeerSyncService.Live,
   SchedulerService.Live,
   SchedulerConfigBaseDir.Live,
   SearchService.Live,

@@ -12,6 +12,7 @@ export type CliOptions = {
   terminalShell?: string | undefined;
   terminalUnrestricted?: boolean | undefined;
   apiOnly?: boolean | undefined;
+  syncToken?: string | undefined;
 };
 
 export type CcvOptions = {
@@ -25,6 +26,7 @@ export type CcvOptions = {
   terminalShell?: string | undefined;
   terminalUnrestricted?: boolean | undefined;
   apiOnly?: boolean | undefined;
+  syncToken?: string | undefined;
 };
 
 const getOptionalEnv = (key: string): string | undefined => {
@@ -56,6 +58,7 @@ const toCcvOptions = (cliOptions?: CliOptions): CcvOptions => {
       (isFlagEnabled(getOptionalEnv("CCV_TERMINAL_UNRESTRICTED")) ? true : undefined),
     apiOnly:
       cliOptions?.apiOnly ?? (isFlagEnabled(getOptionalEnv("CCV_API_ONLY")) ? true : undefined),
+    syncToken: cliOptions?.syncToken ?? getOptionalEnv("CCV_SYNC_TOKEN") ?? undefined,
   };
 };
 

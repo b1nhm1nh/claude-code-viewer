@@ -21,6 +21,7 @@ import { claudeCodeRoutes } from "./claudeCodeRoutes.ts";
 import { featureFlagRoutes } from "./featureFlagRoutes.ts";
 import { fileSystemRoutes } from "./fileSystemRoutes.ts";
 import { notificationRoutes } from "./notificationRoutes.ts";
+import { peerSyncRoutes } from "./peerSyncRoutes.ts";
 import { projectRoutes } from "./projectRoutes.ts";
 import { schedulerRoutes } from "./schedulerRoutes.ts";
 import { searchRoutes } from "./searchRoutes.ts";
@@ -35,6 +36,7 @@ const API_ONLY_ALLOWED_PREFIXES = [
   "/api/search",
   "/api/notifications",
   "/api/sse",
+  "/api/peer",
 ];
 
 const createApiOnlyMiddleware = (apiOnly: boolean) =>
@@ -100,6 +102,12 @@ export const routes = (app: HonoAppType, options: CliOptions) =>
         })
 
         .route("/api/auth", yield* authRoutes)
+
+        /**
+         * Peer sync routes use their own bearer-token auth (sync token), not the app password.
+         * Registered BEFORE the global authRequiredMiddleware so it does not gate them.
+         */
+        .route("/api/peer", yield* peerSyncRoutes)
 
         .use(authRequiredMiddleware)
 

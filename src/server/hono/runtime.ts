@@ -1,6 +1,7 @@
 import type { CommandExecutor, FileSystem, Path } from "@effect/platform";
 import { Effect } from "effect";
 import type { ClaudeCodeLifeCycleService } from "../core/claude-code/services/ClaudeCodeLifeCycleService.ts";
+import type { PeerSyncService } from "../core/peer-sync/services/PeerSyncService.ts";
 import type { ApplicationContext } from "../core/platform/services/ApplicationContext.ts";
 import type { CcvOptionsService } from "../core/platform/services/CcvOptionsService.ts";
 import type { EnvService } from "../core/platform/services/EnvService.ts";
@@ -19,6 +20,7 @@ export type HonoRuntime =
   | UserConfigService
   | ClaudeCodeLifeCycleService
   | ProjectRepository
+  | PeerSyncService
   | SchedulerConfigBaseDir
   | ApplicationContext;
 
