@@ -4,11 +4,30 @@ import { Effect } from "effect";
 import packageJson from "../../package.json" with { type: "json" };
 import { checkBunVersion } from "./bunVersionCheck.ts";
 import { runPull } from "./cli/pull.ts";
+import { applyDotEnvToProcess, loadDotEnv } from "./core/platform/dotenv.ts";
 import type { CliOptions } from "./core/platform/services/CcvOptionsService.ts";
 import { checkDeprecatedEnvs } from "./core/platform/services/DeprecatedEnvDetector.ts";
 import { startServer } from "./startServer.ts";
 
 checkBunVersion();
+
+const loadEnvNextToExecutable = async (): Promise<void> => {
+  const dir = import.meta.dir;
+  const readBunFile = async (path: string): Promise<string | undefined> => {
+    const file = Bun.file(path);
+    if (!(await file.exists())) return undefined;
+    return file.text();
+  };
+  for (const name of [".env", ".env.local"]) {
+    const values = await loadDotEnv(`${dir}/${name}`, readBunFile);
+    // biome-ignore lint/style/noProcessEnv: CLI entry point — populating env before option parsing.
+    // oxlint-disable-next-line node/no-process-env -- configuration boundary
+    const applied = applyDotEnvToProcess(values, process.env);
+    if (applied.length > 0) {
+      process.stderr.write(`[ccv] loaded ${applied.length} env var(s) from ${name}\n`);
+    }
+  }
+};
 
 const program = new Command();
 
@@ -93,6 +112,7 @@ program
   );
 
 const main = async () => {
+  await loadEnvNextToExecutable();
   await program.parseAsync(process.argv);
 };
 

@@ -30,6 +30,25 @@ export CCV_SYNC_TOKEN="$TOKEN"
 bun dist/main.js --hostname 0.0.0.0 --port 3000
 ```
 
+### Loading the token from a `.env` file
+
+At startup the CLI reads `.env` and `.env.local` from the directory of the executable (`import.meta.dir`, i.e. `dist/` for production builds). Values are only applied to variables that are currently unset or empty — your shell environment always wins.
+
+```sh
+# dist/.env.local — next to the bundled main.js
+CCV_SYNC_TOKEN=replace-with-a-32-plus-char-secret-string
+# HOSTNAME=0.0.0.0
+# PORT=3000
+```
+
+```sh
+bun dist/main.js --hostname 0.0.0.0 --port 3000
+# [ccv] loaded 1 env var(s) from .env.local
+# [Peer Sync] enabled at /api/peer (Bearer token required, NN chars)
+```
+
+The loader is intentionally simple: `KEY=VALUE` per line, `#` comments, surrounding single or double quotes stripped, no shell expansion. Use it for secrets you do not want in shell history; do not check the file in (`.gitignore` already excludes `.env*.local`).
+
 Boot output to watch for:
 
 - `[Peer Sync] enabled at /api/peer (Bearer token required, NN chars)` — token is wired up.

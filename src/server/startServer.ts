@@ -132,12 +132,17 @@ export const startServer = async (options: CliOptions) => {
     Effect.logInfo(`Server is running on http://${hostname}:${bunServer.port}${mode}`),
   );
 
-  const syncTokenConfigured = isStrongSyncToken(options.syncToken);
+  const effectiveSyncToken =
+    options.syncToken ??
+    // biome-ignore lint/style/noProcessEnv: allow only here
+    // oxlint-disable-next-line node/no-process-env -- configuration boundary
+    process.env.CCV_SYNC_TOKEN;
+  const syncTokenConfigured = isStrongSyncToken(effectiveSyncToken);
   const lanExposed = hostname !== "localhost" && hostname !== "127.0.0.1" && hostname !== "::1";
   if (syncTokenConfigured) {
     void runWithLogger(
       Effect.logInfo(
-        `[Peer Sync] enabled at /api/peer (Bearer token required, ${options.syncToken?.length ?? 0} chars)`,
+        `[Peer Sync] enabled at /api/peer (Bearer token required, ${effectiveSyncToken?.length ?? 0} chars)`,
       ),
     );
   } else if (lanExposed) {
