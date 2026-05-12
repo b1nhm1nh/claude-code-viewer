@@ -146,6 +146,28 @@ Claude Code Viewer works great as a persistent server you access from your phone
 
 Claude Code Viewer is a **PWA (Progressive Web App)**. On mobile, tap "Add to Home Screen" to get an app-like experience with an optimized UI and push notifications when sessions complete.
 
+### Transfer Sessions (between local projects)
+
+Claude Code identifies a project by the absolute path of its CWD. Rename a directory, move a repo to a different drive, or run Claude from a different working dir, and a **new** project folder gets created — the previous conversation history stays in the old one. The Transfer Sessions dialog merges them back into one.
+
+How to use:
+
+1. On the **Projects list**, every card has a small **Transfer sessions…** button next to **View Conversations**. (Same button is also available inside a project view, in the sessions sidebar header.)
+2. Pick the **target project** from the combobox (every existing Claude project except the source is listed).
+3. Choose **Copy** (leave source intact) or **Move** (delete source files after transfer; gated behind a confirmation checkbox).
+4. Choose conflict behavior: **Skip existing** (default) or **Overwrite existing**.
+5. Click **Transfer**. The toast reports `Transferred N sessions, skipped K, failed M`.
+
+What it actually does:
+
+- Operates only inside `~/.claude/projects/` — both source and target paths are validated against the Claude projects dir; any traversal attempt (e.g. crafted base64url id) is rejected before any FS op.
+- Iterates the `.jsonl` files in the source dir (filtered by Claude's session-id naming pattern; `agent-*` and non-session files are ignored).
+- Per file: `fs.copyFile` for Copy mode, `fs.rename` for Move with an EXDEV fallback to `copy + remove` when source and target live on different volumes.
+- Re-runs `SyncService.syncProjectList` on the target (and on the source for Move) so the DB rows, FTS index, and SSE listeners reflect the new layout immediately.
+- All operations are routed through `/api/projects/:projectId/transfer-sessions`, so if `--password` is set the caller must be authenticated.
+
+This is a **local** feature — both projects live on the same machine. To move history _across_ machines, see Peer Sync below.
+
 ### LAN Peer Sync (mirror session history across machines)
 
 Two machines on the same network can share Claude Code session history without setting up a database or cloud. On the source machine, expose a read-only sync surface by binding to the LAN and enabling a token:
@@ -253,6 +275,7 @@ Settings can be configured from the sidebar in Claude Code Viewer.
 | Inline Approvals        | Tool permission requests and custom questions from the `CCVAskUserQuestion` MCP tool are surfaced as inline panels directly in the chat, removing the need to switch to another window for approval                                                                                                                                                                      |
 | Terminal Panel          | Bottom panel terminal over WebSocket for running shell commands without leaving the UI                                                                                                                                                                                                                                                                                   |
 | MCP Server Viewer       | View MCP server configurations directly in the session sidebar. Lists all configured servers with their names and commands, with real-time reload capability                                                                                                                                                                                                             |
+| Transfer Sessions       | Copy or move JSONL session history between local Claude projects from the project card or sidebar. Supports skip/overwrite on conflict and EXDEV fallback for cross-volume moves. Useful when Claude Code spawns a fresh project folder after a path rename and you want to merge the old history back in                                                                |
 | Peer Sync (LAN mirror)  | Read-only HTTP API at `/api/peer/*` for mirroring `~/.claude/projects/` JSONLs to another machine on the same network. Use the `claude-code-viewer pull <peer-url>` CLI subcommand on the peer. Guarded by a separate `--sync-token` independent of the app password. See [docs/peer-sync.md](./docs/peer-sync.md)                                                       |
 | PWA Support             | Install Claude Code Viewer as a Progressive Web App on desktop or mobile. Supports home screen installation and push notifications for session completion events                                                                                                                                                                                                         |
 | System Information      | Monitor Claude Code and Claude Code Viewer versions, feature compatibility, and system status                                                                                                                                                                                                                                                                            |
