@@ -1,11 +1,21 @@
 import { Trans, useLingui } from "@lingui/react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { type UseMutationResult, useQuery } from "@tanstack/react-query";
+import { type UseMutationResult, useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, LoaderIcon, PlusIcon, XIcon } from "lucide-react";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  CheckIcon,
+  LoaderIcon,
+  PlusIcon,
+  TerminalIcon,
+  XIcon,
+} from "lucide-react";
 import { type FC, useId, useMemo } from "react";
+import { toast } from "sonner";
 import type { CCOptionsSchema } from "@/server/core/claude-code/schema";
 import type { PublicSessionProcess } from "@/types/session-process";
+import { useConfig } from "@/web/app/hooks/useConfig";
 import { Button } from "@/web/components/ui/button";
 import { Checkbox } from "@/web/components/ui/checkbox";
 import {
@@ -17,6 +27,7 @@ import {
 } from "@/web/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/web/components/ui/tooltip";
 import { useFeatureFlags } from "@/web/hooks/useFeatureFlags";
+import { honoClient } from "@/web/lib/api/client";
 import { claudeCommandsQuery } from "@/web/lib/api/queries";
 
 const AGENT_NONE_VALUE = "__none__";
@@ -56,6 +67,41 @@ export const ChatActionMenu: FC<ChatActionMenuProps> = ({
   const navigate = useNavigate({ from: "/projects/$projectId/session" });
   const { isFlagEnabled } = useFeatureFlags();
   const isToolApprovalAvailable = isFlagEnabled("tool-approval");
+  const { config } = useConfig();
+
+  const launchTerminalMutation = useMutation({
+    mutationFn: async () => {
+      const response = await honoClient.api.projects[":projectId"]["launch-terminal"].$post({
+        param: { projectId },
+        json: { terminal: config?.externalTerminal },
+      });
+      const body = (await response.json()) as { ok: boolean; error?: string; terminal?: string };
+      if (!response.ok || body.ok !== true) {
+        throw new Error(body.error ?? `Launch failed (${response.status})`);
+      }
+      return body;
+    },
+    onSuccess: (body) => {
+      if (body.terminal !== undefined) {
+        toast.success(
+          i18n._({
+            id: "control.launch_terminal.success",
+            message: "Launched {terminal}",
+            values: { terminal: body.terminal },
+          }),
+        );
+      }
+    },
+    onError: (err: Error) => {
+      toast.error(
+        i18n._({
+          id: "control.launch_terminal.error",
+          message: "Failed to launch terminal: {message}",
+          values: { message: err.message },
+        }),
+      );
+    },
+  });
 
   const { data: commandData } = useQuery({
     ...claudeCommandsQuery(projectId),
@@ -129,6 +175,21 @@ export const ChatActionMenu: FC<ChatActionMenuProps> = ({
             <ArrowDownIcon className="w-3.5 h-3.5" />
           </Button>
         )}
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() => launchTerminalMutation.mutate()}
+          disabled={launchTerminalMutation.isPending}
+          className="h-7 px-2 gap-1.5 text-xs bg-muted/20 rounded-lg border border-border/40"
+          data-testid="launch-terminal-button"
+          title={i18n._({
+            id: "control.launch_terminal",
+            message: "Launch Terminal",
+          })}
+        >
+          <TerminalIcon className="w-3.5 h-3.5" />
+        </Button>
         {sessionProcess && abortTask && (
           <Tooltip>
             <TooltipTrigger asChild>

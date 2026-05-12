@@ -4,6 +4,7 @@ import { PlusIcon, XIcon } from "lucide-react";
 import { type FC, useId, useMemo, useState } from "react";
 import { DEFAULT_LOCALE, detectLocaleFromNavigator } from "@/lib/i18n/localeDetection";
 import type { SupportedLocale } from "@/lib/i18n/schema";
+import { TERMINAL_CHOICES } from "@/lib/terminal-launcher/keys";
 import { useConfig } from "@/web/app/hooks/useConfig";
 import { Button } from "@/web/components/ui/button";
 import { Checkbox } from "@/web/components/ui/checkbox";
@@ -48,6 +49,7 @@ export const SettingsControls: FC<SettingsControlsProps> = ({
   const findHotkeyId = useId();
   const localeId = useId();
   const themeId = useId();
+  const externalTerminalId = useId();
   const { config, updateConfig } = useConfig();
   const queryClient = useQueryClient();
   const { theme } = useTheme();
@@ -162,6 +164,13 @@ export const SettingsControls: FC<SettingsControlsProps> = ({
     updateConfig(newConfig);
   };
 
+  const handleExternalTerminalChange = (value: string) => {
+    updateConfig({
+      ...config,
+      externalTerminal: value === "auto" ? undefined : value,
+    });
+  };
+
   const handleThemeChange = (value: "light" | "dark" | "system") => {
     const newConfig = {
       ...config,
@@ -204,6 +213,45 @@ export const SettingsControls: FC<SettingsControlsProps> = ({
             <Trans
               id="settings.usage_mode.description"
               message="Select how you use Claude Code. Subscription mode restricts features that require the Agent SDK."
+            />
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        {showLabels && (
+          <label htmlFor={externalTerminalId} className="text-sm font-medium leading-none">
+            <Trans id="settings.external_terminal" message="External Terminal" />
+          </label>
+        )}
+        <Select
+          value={config?.externalTerminal ?? "auto"}
+          onValueChange={handleExternalTerminalChange}
+        >
+          <SelectTrigger id={externalTerminalId} className="w-full">
+            <SelectValue
+              placeholder={i18n._({
+                id: "settings.external_terminal.select",
+                message: "Auto-detect",
+              })}
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="auto">
+              <Trans id="settings.external_terminal.auto" message="Auto-detect" />
+            </SelectItem>
+            {TERMINAL_CHOICES.map((c) => (
+              <SelectItem key={c.value} value={c.value}>
+                {c.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {showDescriptions && (
+          <p className="text-xs text-muted-foreground mt-1">
+            <Trans
+              id="settings.external_terminal.description"
+              message="Terminal app launched by the 'Launch Terminal' toolbar button. Auto-detect picks Windows Terminal on Windows, Terminal on macOS, GNOME Terminal on Linux."
             />
           </p>
         )}

@@ -25,6 +25,10 @@ program
   .option("--terminal-disabled", "disable the in-app terminal panel when enabled")
   .option("--terminal-shell <path>", "shell executable for terminal sessions")
   .option("--terminal-unrestricted", "disable restricted shell flags for bash sessions")
+  .option(
+    "--external-terminal <name>",
+    "external terminal app to launch (wt|cmd|powershell|pwsh|cmder|terminal|iterm|alacritty|wezterm|kitty|gnome-terminal|konsole|xterm)",
+  )
   .option("--api-only", "run in API-only mode without Web UI")
   .option(
     "--sync-token <token>",

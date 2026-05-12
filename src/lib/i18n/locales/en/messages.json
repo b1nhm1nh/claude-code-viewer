@@ -183,7 +183,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        290
+        338
       ]
     ],
     "translation": "Select Enter key behavior"
@@ -194,7 +194,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        348
+        396
       ]
     ],
     "translation": "Select Find Hotkey"
@@ -205,7 +205,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        434
+        482
       ]
     ],
     "translation": "Select Language"
@@ -216,7 +216,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        322
+        370
       ]
     ],
     "translation": "Select Search Hotkey"
@@ -227,7 +227,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        463
+        511
       ]
     ],
     "translation": "Select Theme"
@@ -873,11 +873,11 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        262
+        323
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        270
+        331
       ]
     ],
     "translation": "No Agent"
@@ -889,7 +889,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        296
+        357
       ]
     ],
     "translation": "Select agent"
@@ -925,7 +925,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        187
+        248
       ]
     ],
     "translation": "Accept Edits"
@@ -937,7 +937,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        193
+        254
       ]
     ],
     "translation": "Bypass"
@@ -949,7 +949,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        184
+        245
       ]
     ],
     "translation": "Default"
@@ -961,7 +961,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        196
+        257
       ]
     ],
     "translation": "Plan"
@@ -973,7 +973,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        203
+        264
       ]
     ],
     "translation": "Select permission mode"
@@ -985,7 +985,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        238
+        299
       ]
     ],
     "translation": "Include default Claude Code prompt"
@@ -1196,6 +1196,50 @@
     ],
     "translation": "Branch"
   },
+  "control.launch_terminal": {
+    "message": "Launch Terminal",
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
+        186
+      ]
+    ],
+    "translation": "Launch Terminal"
+  },
+  "control.launch_terminal.error": {
+    "message": "Failed to launch terminal: {message}",
+    "placeholders": {
+      "message": [
+        "err.message"
+      ]
+    },
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
+        97
+      ]
+    ],
+    "translation": "control.launch_terminal.error"
+  },
+  "control.launch_terminal.success": {
+    "message": "Launched {terminal}",
+    "placeholders": {
+      "terminal": [
+        "body.terminal"
+      ]
+    },
+    "comments": [],
+    "origin": [
+      [
+        "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
+        87
+      ]
+    ],
+    "translation": "control.launch_terminal.success"
+  },
   "control.metadata": {
     "placeholders": {},
     "comments": [],
@@ -1224,7 +1268,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        97
+        143
       ]
     ],
     "translation": "New"
@@ -1236,7 +1280,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        90
+        136
       ]
     ],
     "translation": "New Chat"
@@ -1259,7 +1303,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        124
+        170
       ]
     ],
     "translation": "Scroll to Bottom"
@@ -1271,7 +1315,7 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        108
+        154
       ]
     ],
     "translation": "Scroll to Top"
@@ -3297,11 +3341,11 @@
     "origin": [
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        151
+        212
       ],
       [
         "src/web/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        156
+        217
       ]
     ],
     "translation": "Abort"
@@ -3654,13 +3698,61 @@
     ],
     "translation": "Environment Variables"
   },
+  "settings.external_terminal": {
+    "message": "External Terminal",
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/components/SettingsControls.tsx",
+        224
+      ]
+    ],
+    "translation": "External Terminal"
+  },
+  "settings.external_terminal.auto": {
+    "message": "Auto-detect",
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/components/SettingsControls.tsx",
+        241
+      ]
+    ],
+    "translation": "Auto-detect"
+  },
+  "settings.external_terminal.description": {
+    "message": "Terminal app launched by the 'Launch Terminal' toolbar button. Auto-detect picks Windows Terminal on Windows, Terminal on macOS, GNOME Terminal on Linux.",
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/components/SettingsControls.tsx",
+        252
+      ]
+    ],
+    "translation": "Terminal app launched by the 'Launch Terminal' toolbar button. Auto-detect picks Windows Terminal on Windows, Terminal on macOS, GNOME Terminal on Linux."
+  },
+  "settings.external_terminal.select": {
+    "message": "Auto-detect",
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/web/components/SettingsControls.tsx",
+        233
+      ]
+    ],
+    "translation": "Auto-detect"
+  },
   "settings.input.enter_key_behavior": {
     "placeholders": {},
     "comments": [],
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        282
+        330
       ]
     ],
     "translation": "Enter Key Behavior"
@@ -3671,7 +3763,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        300
+        348
       ]
     ],
     "translation": "Send with Command+Enter"
@@ -3682,7 +3774,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        306
+        354
       ]
     ],
     "translation": "Select Enter key behavior for message input"
@@ -3693,7 +3785,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        297
+        345
       ]
     ],
     "translation": "Send with Enter"
@@ -3704,7 +3796,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        294
+        342
       ]
     ],
     "translation": "Send with Shift+Enter (Default)"
@@ -3715,7 +3807,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        343
+        391
       ]
     ],
     "translation": "Find Hotkey"
@@ -3726,7 +3818,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        355
+        403
       ]
     ],
     "translation": "Command+F"
@@ -3737,7 +3829,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        352
+        400
       ]
     ],
     "translation": "Ctrl+F"
@@ -3748,7 +3840,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        361
+        409
       ]
     ],
     "translation": "Select the hotkey to open in-page find"
@@ -3759,7 +3851,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        314
+        362
       ]
     ],
     "translation": "Search Hotkey"
@@ -3770,7 +3862,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        329
+        377
       ]
     ],
     "translation": "Command+K"
@@ -3781,7 +3873,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        326
+        374
       ]
     ],
     "translation": "Ctrl+K"
@@ -3792,7 +3884,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        335
+        383
       ]
     ],
     "translation": "Select the hotkey to open search dialog"
@@ -3818,7 +3910,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        429
+        477
       ]
     ],
     "translation": "Language"
@@ -3829,7 +3921,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        450
+        498
       ]
     ],
     "translation": "Select your preferred language"
@@ -3840,7 +3932,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        441
+        489
       ]
     ],
     "translation": "English"
@@ -3851,7 +3943,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        438
+        486
       ]
     ],
     "translation": "Japanese"
@@ -3862,7 +3954,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        444
+        492
       ]
     ],
     "translation": "Chinese (Simplified)"
@@ -3910,7 +4002,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        418
+        466
       ]
     ],
     "translation": "Configure the model options available in the session toolbar"
@@ -3922,7 +4014,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        369
+        417
       ]
     ],
     "translation": "Model Choices"
@@ -3934,7 +4026,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        399
+        447
       ]
     ],
     "translation": "Add model choice..."
@@ -4061,7 +4153,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        267
+        315
       ]
     ],
     "translation": "Auto-schedule Continue on Rate Limit"
@@ -4072,7 +4164,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        273
+        321
       ]
     ],
     "translation": "Automatically schedule a continue message when Claude hits rate limits"
@@ -4094,7 +4186,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        223
+        271
       ]
     ],
     "translation": "Hide Sessions Without User Messages"
@@ -4105,7 +4197,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        229
+        277
       ]
     ],
     "translation": "Show only sessions that contain user commands or messages"
@@ -4116,7 +4208,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        244
+        292
       ]
     ],
     "translation": "Unify Sessions with Same Title"
@@ -4127,7 +4219,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        250
+        298
       ]
     ],
     "translation": "When multiple sessions have the same title, show only the latest session"
@@ -4173,7 +4265,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        458
+        506
       ]
     ],
     "translation": "Theme"
@@ -4184,7 +4276,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        470
+        518
       ]
     ],
     "translation": "Dark"
@@ -4195,7 +4287,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        479
+        527
       ]
     ],
     "translation": "Select your preferred color theme"
@@ -4206,7 +4298,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        467
+        515
       ]
     ],
     "translation": "Light"
@@ -4217,7 +4309,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        473
+        521
       ]
     ],
     "translation": "System"
@@ -4245,7 +4337,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        178
+        187
       ]
     ],
     "translation": "Usage Mode"
@@ -4257,7 +4349,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        198
+        207
       ]
     ],
     "translation": "API"
@@ -4269,7 +4361,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        204
+        213
       ]
     ],
     "translation": "Select how you use Claude Code. Subscription mode restricts features that require the Agent SDK."
@@ -4281,7 +4373,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        184
+        193
       ]
     ],
     "translation": "Select usage mode"
@@ -4293,7 +4385,7 @@
     "origin": [
       [
         "src/web/components/SettingsControls.tsx",
-        192
+        201
       ]
     ],
     "translation": "Subscription (Max, Pro, etc.)"

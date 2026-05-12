@@ -9,6 +9,7 @@ import { GitController } from "../../core/git/presentation/GitController.ts";
 import { CommitRequestSchema } from "../../core/git/schema.ts";
 import { ProjectController } from "../../core/project/presentation/ProjectController.ts";
 import { SessionController } from "../../core/session/presentation/SessionController.ts";
+import { TerminalLauncherService } from "../../core/terminal-launcher/TerminalLauncherService.ts";
 import { effectToResponse } from "../../lib/effect/toEffectResponse.ts";
 import type { HonoContext } from "../app.ts";
 import { getHonoRuntime } from "../runtime.ts";
@@ -20,6 +21,7 @@ const projectRoutes = Effect.gen(function* () {
   const claudeCodeController = yield* ClaudeCodeController;
   const fileSystemController = yield* FileSystemController;
   const gitController = yield* GitController;
+  const terminalLauncherService = yield* TerminalLauncherService;
 
   const runtime = yield* getHonoRuntime;
 
@@ -339,6 +341,84 @@ const projectRoutes = Effect.gen(function* () {
               .pipe(Effect.provide(runtime)),
           );
           return response;
+        },
+      )
+
+      /**
+       * external terminal launch
+       */
+      .post(
+        "/:projectId/launch-terminal",
+        zValidator(
+          "json",
+          z.object({
+            terminal: z.string().optional(),
+          }),
+        ),
+        async (c) => {
+          const projectId = c.req.param("projectId");
+          const { terminal } = c.req.valid("json");
+
+          const effect = terminalLauncherService.launch({ projectId, terminal }).pipe(
+            Effect.map(
+              (value) =>
+                ({
+                  status: 200 as const,
+                  response: {
+                    ok: true as const,
+                    terminal: value.terminal,
+                    cwd: value.cwd,
+                  },
+                }) as const,
+            ),
+            Effect.catchTag("TerminalNotAllowedError", (e) =>
+              Effect.succeed({
+                status: 400 as const,
+                response: {
+                  ok: false as const,
+                  error: "terminal-not-allowed" as const,
+                  key: e.key,
+                  reason: e.reason,
+                  platform: e.platform,
+                },
+              }),
+            ),
+            Effect.catchTag("ProjectPathMissingError", (e) =>
+              Effect.succeed({
+                status: 404 as const,
+                response: {
+                  ok: false as const,
+                  error: "project-path-missing" as const,
+                  projectId: e.projectId,
+                },
+              }),
+            ),
+            Effect.catchTag("ProjectLookupError", (e) =>
+              Effect.succeed({
+                status: 404 as const,
+                response: {
+                  ok: false as const,
+                  error: "project-lookup-failed" as const,
+                  projectId: e.projectId,
+                  message: e.message,
+                },
+              }),
+            ),
+            Effect.catchAll((e) =>
+              Effect.succeed({
+                status: 500 as const,
+                response: {
+                  ok: false as const,
+                  error: "launch-failed" as const,
+                  message: String(e),
+                },
+              }),
+            ),
+            Effect.provide(runtime),
+          );
+
+          const result = await Effect.runPromise(effect);
+          return c.json(result.response, result.status);
         },
       )
   );

@@ -43,6 +43,7 @@ import { SessionMetaService } from "./core/session/services/SessionMetaService.t
 import { SyncService } from "./core/sync/services/SyncService.ts";
 import { TasksController } from "./core/tasks/presentation/TasksController.ts";
 import { TasksService } from "./core/tasks/services/TasksService.ts";
+import { TerminalLauncherService } from "./core/terminal-launcher/TerminalLauncherService.ts";
 import { TerminalService } from "./core/terminal/TerminalService.ts";
 import { honoApp } from "./hono/app.ts";
 import { InitializeService } from "./hono/initialize.ts";
@@ -175,6 +176,7 @@ const DomainBase = Layer.mergeAll(
   SearchService.Live,
   SessionTransferService.Live,
   TasksService.Live,
+  TerminalLauncherService.Live,
 ).pipe(Layer.provideMerge(ProjectSettingsService.Live));
 
 const DomainLayer = ClaudeCodeLifeCycleService.Live.pipe(Layer.provideMerge(DomainBase));
