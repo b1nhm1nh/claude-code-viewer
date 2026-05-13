@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["@types/bun", "vitest/globals"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ccv/server": ["./src"],
+      "@ccv/server/*": ["./src/*"],
+      "@ccv/shared": ["../../packages/shared/src"],
+      "@ccv/shared/*": ["../../packages/shared/src/*"],
+      "@ccv/testing": ["../../packages/testing/src"],
+      "@ccv/testing/*": ["../../packages/testing/src/*"]
+    }
+  },
+  "include": ["src"]
+}

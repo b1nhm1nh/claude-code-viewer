@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "types": ["@types/bun", "vitest/globals", "vite/client", "vite-plugin-pwa/client"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ccv/server": ["../../apps/server/src"],
+      "@ccv/server/*": ["../../apps/server/src/*"],
+      "@ccv/shared": ["../../packages/shared/src"],
+      "@ccv/shared/*": ["../../packages/shared/src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

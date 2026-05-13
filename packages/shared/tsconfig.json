@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "types": ["@types/bun", "vitest/globals"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@ccv/shared": ["./src"],
+      "@ccv/shared/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

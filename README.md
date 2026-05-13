@@ -152,7 +152,7 @@ Claude Code identifies a project by the absolute path of its CWD. Rename a direc
 
 How to use:
 
-1. On the **Projects list**, every card has a small **Transfer sessions…** button next to **View Conversations**. (Same button is also available inside a project view, in the sessions sidebar header.)
+1. On the **Projects list**, every card has a small **Transfer** button next to **View**. (Same button is also available inside a project view, in the sessions sidebar header.)
 2. Pick the **target project** from the combobox (every existing Claude project except the source is listed).
 3. Choose **Copy** (leave source intact) or **Move** (delete source files after transfer; gated behind a confirmation checkbox).
 4. Choose conflict behavior: **Skip existing** (default) or **Overwrite existing**.
@@ -309,9 +309,18 @@ The application reads Claude Code conversation logs from:
 - **Format**: JSONL files containing conversation entries
 - **Auto-detection**: Automatically discovers new projects and sessions
 
+> [!NOTE]
+> **30 Day Session Cleanup Default:** Claude Code defaults to auto-delete all session transcripts older than 30 days. Claude Code Viewer does not make backups of your session files so when the `.jsonl` files get deleted those sessions will no longer exist in Claude Code Viewer. To override the 30 day retention default, add [`cleanupPeriodDays`](https://code.claude.com/docs/en/settings) with a number greater than 30 in `~/.claude/settings.json` and restart Claude Code.
+>
+> ```json
+> {
+>   "cleanupPeriodDays": 365
+> }
+> ```
+
 ## Internationalization (i18n)
 
-Claude Code Viewer currently supports **English**, **Japanese**, and **Simplified Chinese (简体中文)**. Adding new languages is straightforward—simply add a new `messages.json` file for your locale (see [src/i18n/locales/](./src/i18n/locales/) for examples).
+Claude Code Viewer currently supports **English**, **Japanese**, and **Simplified Chinese (简体中文)**. Adding new languages is straightforward—simply add a new `messages.json` file for your locale (see [apps/web/src/lib/i18n/locales/](./apps/web/src/lib/i18n/locales/) for examples).
 
 If you'd like support for your language, please open an issue—we'll add it quickly!
 

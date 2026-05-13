@@ -10,7 +10,7 @@ bun run lingui:compile
 bun run build:frontend
 bun run build:backend
 
-cp -r ./src/server/lib/db/migrations ./dist
+cp -r ./apps/server/src/lib/db/migrations ./dist
 
 # `bun build --target=bun` already adds `#!/usr/bin/env bun` shebang, but keep it
 # idempotent in case the bundler config changes.

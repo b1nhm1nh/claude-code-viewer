@@ -66,31 +66,18 @@ const colocatedTests = {
   },
 };
 
-const RE_FRONTEND_FILE = /[/\\]src[/\\]web[/\\]/;
-const RE_BACKEND_FILE = /[/\\]src[/\\]server[/\\]/;
-const RE_WEB_FILE = /[/\\]src[/\\]web[/\\]/;
+const RE_FRONTEND_FILE = /[/\\]apps[/\\]web[/\\]src[/\\]/;
+const RE_BACKEND_FILE = /[/\\]apps[/\\]server[/\\]src[/\\]/;
+const RE_WEB_FILE = /[/\\]apps[/\\]web[/\\]src[/\\]/;
 
 const resolveTargetDomain = (source) => {
   if (typeof source !== "string") {
     return null;
   }
 
-  // Absolute project alias (tsconfig paths: @/* -> src/*)
-  if (/^@\/server(?:[/\\]|$)/.test(source)) {
+  // Package alias (monorepo: @ccv/server/* -> apps/server/src/*)
+  if (/^@ccv\/server(?:[/\\]|$)/.test(source)) {
     return "backend";
-  }
-
-  if (/^@\/web(?:[/\\]|$)/.test(source)) {
-    return "frontend";
-  }
-
-  // Relative paths crossing boundaries
-  if (/(?:^|[/\\])server[/\\]/.test(source)) {
-    return "backend";
-  }
-
-  if (/(?:^|[/\\])web[/\\]/.test(source)) {
-    return "frontend";
   }
 
   return null;
@@ -163,7 +150,7 @@ const noProjectAliasOutsideWeb = {
       context.report({
         node,
         message:
-          "Project alias import (`@/...`) is only allowed in src/web/**. Use relative imports in other areas.",
+          "Project alias import (`@/...`) is only allowed in apps/web/src/**. Use relative imports in other areas.",
       });
     };
 

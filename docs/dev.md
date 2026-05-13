@@ -4,13 +4,13 @@ This document provides technical details for developers contributing to Claude C
 
 ## Architecture Overview
 
-### Frontend
+### Frontend (`apps/web`)
 
 - **Framework**: Vite + TanStack Router
 - **UI Libraries**: React 19, Radix UI, Tailwind CSS
 - **State Management**: Jotai (global state), TanStack Query (server state)
 
-### Backend
+### Backend (`apps/server`)
 
 - **API Framework**: Hono served by `Bun.serve`
   - Type-safe communication via Hono RPC
@@ -21,6 +21,14 @@ This document provides technical details for developers contributing to Claude C
   - Controller → Service layered architecture, with each layer implemented in Effect
   - Type-safe error handling and side effect control
   - Platform abstractions provided by `@effect/platform-bun` (`BunContext.layer` covers `FileSystem.FileSystem`, `Path.Path`, `Command.string`)
+
+### Shared (`packages/shared`)
+
+Pure TypeScript library with no DOM or React dependencies. Contains:
+- Zod schemas for JSONL validation (`conversation-schema/`)
+- Domain types (`types/`)
+- Utilities shared between frontend and backend
+- i18n schema and server-side locale detection
 
 ### Data Source and Storage
 
@@ -33,7 +41,7 @@ This document provides technical details for developers contributing to Claude C
 
 ### Real-time Synchronization
 
-- **Server-Sent Events (SSE)**: Provides `/api/sse` endpoint (src/server/hono/route.ts:430-444)
+- **Server-Sent Events (SSE)**: Provides `/api/sse` endpoint (`apps/server/src/hono/routes/index.ts`)
   - Clients maintain persistent SSE connections to listen for server events
   - Real-time delivery of session log updates, process state changes, etc.
   - Type-safe SSE events (`TypeSafeSSE` service) guarantee payload types for each event kind via `SSEEventDeclaration`
@@ -71,12 +79,14 @@ bun install
 bun run dev
 ```
 
-This command starts both servers in parallel using `npm-run-all2`:
+This command starts both servers in parallel using `concurrently`:
 
-- Frontend: Vite development server (port 3400 by default, configurable via `DEV_FE_PORT`)
-- Backend: `bun --watch src/server/main.ts` (port 3401 by default, configurable via `DEV_BE_PORT`)
+- Frontend: Vite development server (port 3403 by default, configurable via `DEV_FE_PORT`)
+- Backend: `bun --watch apps/server/src/main.ts` (port 3404 by default, configurable via `DEV_BE_PORT`)
 
 Frontend proxy configuration forwards `/api` requests to the backend server.
+
+Lingui messages are compiled automatically before Vite starts on each `dev` invocation.
 
 ### Production Mode
 
@@ -93,10 +103,10 @@ bun run start
 **Build Process** (`./scripts/build.sh`):
 
 1. Clean `dist/` directory
-2. Compile i18n files (`lingui:compile`)
+2. Compile i18n files (`lingui compile --typescript`)
 3. Build frontend with Vite → `dist/static/`
 4. Bundle backend with `bun build --target=bun` → `dist/main.js` (with `#!/usr/bin/env bun` shebang)
-5. Copy `src/server/lib/db/migrations/` → `dist/migrations/`
+5. Copy `apps/server/src/lib/db/migrations/` → `dist/migrations/`
 
 **Build Output Structure**:
 
@@ -143,19 +153,16 @@ Vitest-based tests are written for backend core logic (Effect-TS based service l
 **Commands**:
 
 ```bash
-# Run once
+# Run once (all packages)
 bun run test
 
-# Watch mode
-bun run test:watch
+# Watch mode (in apps/server)
+bun run --cwd apps/server test:watch
 ```
 
-**Configuration**:
+**Configuration**: each package has its own `vitest.config.ts`
 
-- Global mode enabled
-- Setup file: `src/testing/setup/vitest.setup.ts`
-
-**Test Coverage**: Primarily business logic under `src/server/core/`
+**Test Coverage**: Primarily business logic under `apps/server/src/core/`
 
 **CI Requirement**: All tests must pass for PR merges.
 
@@ -165,7 +172,16 @@ bun run test:watch
 bun run typecheck
 ```
 
-Strict type configuration (`@tsconfig/strictest`) is adopted, emphasizing type safety.
+Runs `turbo run check` across all packages in dependency order. Strict type configuration (`@tsconfig/strictest`) is adopted, emphasizing type safety.
+
+### Quality Gate
+
+Run all checks at once before committing:
+
+```bash
+bun run gatecheck check
+./scripts/lingui-check.sh
+```
 
 ### E2E Snapshot Testing (VRT)
 
@@ -192,44 +208,74 @@ bun run e2e:capture-snapshots   # Capture snapshots
 
 When the `vrt` label is added to a PR, the VRT workflow (`.github/workflows/vrt.yml`) automatically captures and commits snapshots. Use this label for PRs with UI changes to update snapshots.
 
-## Project Structure
+## Monorepo Structure
+
+This project uses a Bun workspaces + Turborepo monorepo.
 
 ```
-src/
-├── routes/                # TanStack Router routes
-│   ├── __root.tsx        # Root route with providers
-│   ├── index.tsx         # Home route
-│   └── projects/         # Project-related routes
-├── app/                   # Shared components and hooks (legacy directory name)
-│   ├── components/       # Shared components
-│   ├── hooks/            # Custom hooks
-│   └── projects/         # Project-related page components
-├── components/           # UI components library
-│   └── ui/              # shadcn/ui components
-├── lib/                  # Frontend common logic
-│   ├── api/             # API client (Hono RPC)
-│   ├── sse/             # SSE connection management
-│   └── conversation-schema/  # Zod schemas for conversation logs
-├── server/              # Backend implementation
-│   ├── core/           # Core domain logic (Effect-TS)
-│   │   ├── claude-code/  # Claude Code integration
-│   │   ├── events/       # SSE event management
-│   │   ├── session/      # Session management
-│   │   └── ...
-│   ├── hono/           # Hono application
-│   │   ├── app.ts      # Hono app instance
-│   │   └── route.ts    # API routes definition
-│   ├── lib/            # Backend common utilities
-│   └── main.ts         # Server entry point
-└── testing/            # Test helpers and mocks
+claude-code-viewer/
+├── package.json              # Workspace root (turbo, typescript devDeps only)
+├── turbo.json                # Task orchestration
+├── tsconfig.json             # Base TS config (no DOM, no JSX)
+├── apps/
+│   ├── server/               # @ccv/server — Hono + Effect-TS backend
+│   │   ├── src/
+│   │   │   ├── core/         # Domain modules (session, project, git, …)
+│   │   │   ├── hono/         # Hono app, routes, middleware
+│   │   │   ├── lib/db/       # Drizzle + SQLite (migrations live here)
+│   │   │   └── main.ts       # CLI entry point
+│   │   ├── mock-global-claude-dir/  # Mock ~/.claude for tests
+│   │   └── drizzle.config.ts
+│   └── web/                  # @ccv/web — Vite + React frontend
+│       ├── src/
+│       │   ├── routes/       # TanStack Router routes
+│       │   ├── app/          # Page components and hooks
+│       │   ├── components/   # Shared UI components (shadcn/ui)
+│       │   └── lib/          # Frontend-only logic (atoms, auth, i18n, SSE, …)
+│       ├── index.html
+│       ├── vite.config.ts
+│       └── lingui.config.ts
+├── packages/
+│   ├── shared/               # @ccv/shared — types and utils (no DOM)
+│   │   └── src/
+│   │       ├── conversation-schema/  # Zod schemas for JSONL validation
+│   │       ├── types/
+│   │       ├── utils/
+│   │       └── i18n/         # SupportedLocale type + server-side locale detection
+│   └── testing/              # @ccv/testing — reusable Effect test layers
+│       └── src/layers/
+└── scripts/                  # build.sh, lingui-sort.js, lingui-check.sh, …
 ```
+
+### Package aliases
+
+| Import | Resolves to |
+|--------|-------------|
+| `@ccv/shared/conversation-schema/…` | `packages/shared/src/conversation-schema/…` |
+| `@ccv/server/hono/routes` | `apps/server/src/hono/routes/…` |
+| `@/…` (inside apps/web) | `apps/web/src/…` |
+| `@/…` (inside apps/server) | `apps/server/src/…` |
+
+### i18n workflow
+
+Source JSON lives in `apps/web/src/lib/i18n/locales/{locale}/messages.json`.
+
+```bash
+# Extract new strings from source (updates messages.json)
+bun run --cwd apps/web lingui:extract
+
+# Compile to .ts (done automatically on bun run dev)
+bun run --cwd apps/web lingui:compile
+```
+
+`lingui compile --typescript` runs automatically at the start of `bun run dev` so the compiled `.ts` catalogs are always fresh.
 
 ## Development Tips
 
 1. **Learning Effect-TS**: The backend is built with Effect-TS. Refer to the [official documentation](https://effect.website/)
 2. **Debugging SSE**: Check the Network tab in browser developer tools to inspect SSE connections
 3. **Log Inspection**: Directly reference JSONL files under `~/.claude/projects/` to understand data structures
-4. **Mock Data**: Mock data for E2E tests in `mock-global-claude-dir/` is useful for development reference
+4. **Mock Data**: Mock data for tests in `apps/server/mock-global-claude-dir/` is useful for development reference
 
 ## Contributing
 
@@ -238,7 +284,7 @@ We welcome contributions! Please:
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes with appropriate tests
-4. Ensure all quality checks pass (`bun run lint`, `bun run test`, `bun run typecheck`)
+4. Ensure all quality checks pass (`bun run gatecheck check`)
 5. Submit a pull request with a clear description of your changes
 
 For UI changes, add the `vrt` label to your PR to update visual snapshots.

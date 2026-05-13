@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const rootDir = join(__dirname, "..");
-const localesDir = join(rootDir, "src/lib/i18n/locales");
+const localesDir = join(rootDir, "apps/web/src/lib/i18n/locales");
 
 const locales = readdirSync(localesDir).filter((item) => {
   const itemPath = join(localesDir, item);
@@ -12,7 +12,7 @@ const locales = readdirSync(localesDir).filter((item) => {
 });
 
 for (const locale of locales) {
-  const filePath = join(rootDir, "src/lib/i18n/locales", locale, "messages.json");
+  const filePath = join(rootDir, "apps/web/src/lib/i18n/locales", locale, "messages.json");
 
   try {
     const content = readFileSync(filePath, "utf-8");
