@@ -25,6 +25,7 @@ This document provides technical details for developers contributing to Claude C
 ### Shared (`packages/shared`)
 
 Pure TypeScript library with no DOM or React dependencies. Contains:
+
 - Zod schemas for JSONL validation (`conversation-schema/`)
 - Domain types (`types/`)
 - Utilities shared between frontend and backend
@@ -249,12 +250,12 @@ claude-code-viewer/
 
 ### Package aliases
 
-| Import | Resolves to |
-|--------|-------------|
+| Import                              | Resolves to                                 |
+| ----------------------------------- | ------------------------------------------- |
 | `@ccv/shared/conversation-schema/…` | `packages/shared/src/conversation-schema/…` |
-| `@ccv/server/hono/routes` | `apps/server/src/hono/routes/…` |
-| `@/…` (inside apps/web) | `apps/web/src/…` |
-| `@/…` (inside apps/server) | `apps/server/src/…` |
+| `@ccv/server/hono/routes`           | `apps/server/src/hono/routes/…`             |
+| `@/…` (inside apps/web)             | `apps/web/src/…`                            |
+| `@/…` (inside apps/server)          | `apps/server/src/…`                         |
 
 ### i18n workflow
 
