@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
 import {
+  ArrowRightLeftIcon,
   CopyIcon,
   DownloadIcon,
   EllipsisVertical as EllipsisVerticalIcon,
@@ -20,6 +21,7 @@ import { type FC, type ReactNode, useCallback, useEffect, useMemo, useRef, useSt
 import { toast } from "sonner";
 import { useConfig } from "@/app/hooks/useConfig";
 import { getDefaultCCOptions } from "@/app/projects/[projectId]/components/chatForm/ccOptionsFormSchema";
+import { TransferSessionsDialog } from "@/app/projects/components/TransferSessionsDialog";
 import { InlineApprovalPanel } from "@/components/InlineApprovalPanel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -221,6 +223,8 @@ const SessionPageMainContent: FC<
 
   const [previousConversationLength, setPreviousConversationLength] = useState(0);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isTransferDialogOpen, setIsTransferDialogOpen] = useState(false);
+  const sourceProject = projectData.pages[0]?.project;
   const [showAllRecentSessions, setShowAllRecentSessions] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const scrollSettleRafIdRef = useRef<number | null>(null);
@@ -491,6 +495,17 @@ const SessionPageMainContent: FC<
                           <DownloadIcon className="w-4 h-4 mr-2" />
                           <Trans id="session.menu.export_jsonl" />
                         </Button>
+                        {sourceProject !== undefined && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="justify-start"
+                            onClick={() => setIsTransferDialogOpen(true)}
+                          >
+                            <ArrowRightLeftIcon className="w-4 h-4 mr-2" />
+                            <Trans id="session.menu.transfer_to_project" />
+                          </Button>
+                        )}
                         {sessionData?.session.jsonlFilePath !== undefined &&
                           sessionData.session.jsonlFilePath !== "" && (
                             <Button
@@ -859,6 +874,25 @@ const SessionPageMainContent: FC<
               to: "/projects/$projectId/session",
               params: { projectId },
               search: { tab: "sessions" },
+            });
+          }}
+        />
+      )}
+      {sourceProject !== undefined && isTransferDialogOpen && (
+        <TransferSessionsDialog
+          project={sourceProject}
+          open={isTransferDialogOpen}
+          onOpenChange={setIsTransferDialogOpen}
+          currentSessionId={hasSessionId ? sessionId : undefined}
+          currentSessionTitle={sessionTitle}
+          onAfterMove={(targetProjectId: string, movedSessionId: string) => {
+            void navigate({
+              to: "/projects/$projectId/session",
+              params: { projectId: targetProjectId },
+              search: (prev: Record<string, unknown>) => ({
+                ...prev,
+                sessionId: movedSessionId,
+              }),
             });
           }}
         />
