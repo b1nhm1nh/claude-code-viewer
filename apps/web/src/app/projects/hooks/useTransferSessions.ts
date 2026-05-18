@@ -7,6 +7,7 @@ type TransferInput = {
   targetProjectId: string;
   mode: "copy" | "move";
   conflict: "skip" | "overwrite";
+  sessionIds?: string[];
 };
 
 export const useTransferSessions = () => {
@@ -20,6 +21,7 @@ export const useTransferSessions = () => {
           targetProjectId: input.targetProjectId,
           mode: input.mode,
           conflict: input.conflict,
+          ...(input.sessionIds !== undefined ? { sessionIds: input.sessionIds } : {}),
         },
       });
 
