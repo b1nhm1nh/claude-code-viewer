@@ -608,7 +608,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        775
+        790
       ]
     ],
     "translation": "折りたたむ"
@@ -623,7 +623,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        696
+        711
       ]
     ],
     "translation": "最近のセッション"
@@ -638,7 +638,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        777
+        792
       ]
     ],
     "translation": "すべて表示 ({count})"
@@ -653,11 +653,11 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        414
+        418
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        684
+        699
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
@@ -1078,7 +1078,7 @@
       ],
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        259
+        337
       ]
     ],
     "translation": "キャンセル"
@@ -1217,7 +1217,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        541
+        556
       ]
     ],
     "translation": "ブランチ"
@@ -1272,7 +1272,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        522
+        537
       ]
     ],
     "translation": "メタデータ"
@@ -1283,7 +1283,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        568
+        583
       ]
     ],
     "translation": "モデル"
@@ -1317,7 +1317,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        528
+        543
       ]
     ],
     "translation": "プロジェクトパス"
@@ -1352,7 +1352,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        555
+        570
       ]
     ],
     "translation": "セッションID"
@@ -2587,7 +2587,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        268
+        346
       ]
     ],
     "translation": "実行"
@@ -2598,7 +2598,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        265
+        343
       ]
     ],
     "translation": "転送中…"
@@ -2609,7 +2609,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        233
+        311
       ]
     ],
     "translation": "上書き"
@@ -2620,7 +2620,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        225
+        303
       ]
     ],
     "translation": "スキップ"
@@ -2631,7 +2631,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        216
+        294
       ]
     ],
     "translation": "対象に同名セッションが存在する場合"
@@ -2642,10 +2642,21 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        116
+        164
       ]
     ],
     "translation": "このプロジェクトのセッション履歴を別プロジェクトへコピーまたは移動します。"
+  },
+  "project.transfer.dialog.description.this": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        162
+      ]
+    ],
+    "translation": "このセッションを別のプロジェクトにコピーまたは移動します。"
   },
   "project.transfer.dialog.title": {
     "placeholders": {},
@@ -2653,7 +2664,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        113
+        158
       ]
     ],
     "translation": "セッションを転送"
@@ -2683,7 +2694,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        201
+        279
       ]
     ],
     "translation": "コピー"
@@ -2694,7 +2705,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        209
+        287
       ]
     ],
     "translation": "移動"
@@ -2705,7 +2716,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        189
+        267
       ]
     ],
     "translation": "モード"
@@ -2716,7 +2727,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        250
+        328
       ]
     ],
     "translation": "移動元のJSONLファイルが削除されることを理解しています。"
@@ -2727,10 +2738,43 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        241
+        319
       ]
     ],
     "translation": "移動を実行すると移動元のセッションは空になります。"
+  },
+  "project.transfer.scope.all": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        197
+      ]
+    ],
+    "translation": "すべてのセッション"
+  },
+  "project.transfer.scope.this": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        189
+      ]
+    ],
+    "translation": "このセッション"
+  },
+  "project.transfer.scope_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        180
+      ]
+    ],
+    "translation": "範囲"
   },
   "project.transfer.source_label": {
     "placeholders": {},
@@ -2738,7 +2782,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        123
+        172
       ]
     ],
     "translation": "移動元プロジェクト"
@@ -2749,7 +2793,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        157
+        235
       ]
     ],
     "translation": "該当するプロジェクトがありません。"
@@ -2760,7 +2804,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        130
+        208
       ]
     ],
     "translation": "移動先プロジェクト"
@@ -2771,7 +2815,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        145
+        223
       ]
     ],
     "translation": "プロジェクトを選択…"
@@ -2782,7 +2826,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        154
+        232
       ]
     ],
     "translation": "プロジェクトを検索…"
@@ -3489,7 +3533,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        622
+        637
       ]
     ],
     "translation": "キャッシュ作成"
@@ -3500,7 +3544,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        636
+        651
       ]
     ],
     "translation": "キャッシュ読込"
@@ -3511,7 +3555,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        594
+        609
       ]
     ],
     "translation": "入力トークン"
@@ -3522,7 +3566,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        581
+        596
       ]
     ],
     "translation": "セッションコスト"
@@ -3533,7 +3577,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        608
+        623
       ]
     ],
     "translation": "出力トークン"
@@ -3544,7 +3588,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        588
+        603
       ]
     ],
     "translation": "合計"
@@ -3594,7 +3638,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        515
+        530
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/DeleteSessionDialog.tsx",
@@ -3613,7 +3657,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        687
+        702
       ]
     ],
     "translation": "新しいチャットを開始して会話を始めましょう"
@@ -3624,7 +3668,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        505
+        520
       ]
     ],
     "translation": "セッションファイルのパスをコピー"
@@ -3635,7 +3679,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        483
+        487
       ]
     ],
     "translation": "HTML をエクスポート"
@@ -3646,10 +3690,21 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        492
+        496
       ]
     ],
     "translation": "JSONL をエクスポート"
+  },
+  "session.menu.transfer_to_project": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        506
+      ]
+    ],
+    "translation": "プロジェクトへ転送…"
   },
   "session.processing": {
     "placeholders": {},
@@ -3657,7 +3712,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        796
+        811
       ]
     ],
     "translation": "Claude Codeが処理中..."
@@ -3705,7 +3760,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        743
+        758
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
@@ -3724,7 +3779,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        741
+        756
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",

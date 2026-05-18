@@ -608,7 +608,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        775
+        790
       ]
     ],
     "translation": "Show less"
@@ -623,7 +623,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        696
+        711
       ]
     ],
     "translation": "Recent sessions"
@@ -638,7 +638,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        777
+        792
       ]
     ],
     "translation": "View all ({count})"
@@ -653,11 +653,11 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        414
+        418
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        684
+        699
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
@@ -1078,7 +1078,7 @@
       ],
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        259
+        337
       ]
     ],
     "translation": "Cancel"
@@ -1217,7 +1217,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        541
+        556
       ]
     ],
     "translation": "Branch"
@@ -1272,7 +1272,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        522
+        537
       ]
     ],
     "translation": "Metadata"
@@ -1283,7 +1283,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        568
+        583
       ]
     ],
     "translation": "Model"
@@ -1317,7 +1317,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        528
+        543
       ]
     ],
     "translation": "Project path"
@@ -1352,7 +1352,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        555
+        570
       ]
     ],
     "translation": "Session ID"
@@ -2587,7 +2587,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        268
+        346
       ]
     ],
     "translation": "Transfer"
@@ -2598,7 +2598,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        265
+        343
       ]
     ],
     "translation": "Transferring…"
@@ -2609,7 +2609,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        233
+        311
       ]
     ],
     "translation": "Overwrite"
@@ -2620,7 +2620,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        225
+        303
       ]
     ],
     "translation": "Skip"
@@ -2631,7 +2631,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        216
+        294
       ]
     ],
     "translation": "When a session with the same name exists in the target"
@@ -2642,10 +2642,21 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        116
+        164
       ]
     ],
     "translation": "Copy or move this project's session history to another project."
+  },
+  "project.transfer.dialog.description.this": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        162
+      ]
+    ],
+    "translation": "Copy or move this session to another project."
   },
   "project.transfer.dialog.title": {
     "placeholders": {},
@@ -2653,7 +2664,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        113
+        158
       ]
     ],
     "translation": "Transfer Sessions"
@@ -2683,7 +2694,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        201
+        279
       ]
     ],
     "translation": "Copy"
@@ -2694,7 +2705,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        209
+        287
       ]
     ],
     "translation": "Move"
@@ -2705,7 +2716,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        189
+        267
       ]
     ],
     "translation": "Mode"
@@ -2716,7 +2727,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        250
+        328
       ]
     ],
     "translation": "I understand the source JSONL files will be deleted."
@@ -2727,10 +2738,43 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        241
+        319
       ]
     ],
     "translation": "Performing a move will leave the source project empty."
+  },
+  "project.transfer.scope.all": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        197
+      ]
+    ],
+    "translation": "All sessions"
+  },
+  "project.transfer.scope.this": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        189
+      ]
+    ],
+    "translation": "This session"
+  },
+  "project.transfer.scope_label": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        180
+      ]
+    ],
+    "translation": "Scope"
   },
   "project.transfer.source_label": {
     "placeholders": {},
@@ -2738,7 +2782,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        123
+        172
       ]
     ],
     "translation": "Source project"
@@ -2749,7 +2793,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        157
+        235
       ]
     ],
     "translation": "No matching projects."
@@ -2760,7 +2804,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        130
+        208
       ]
     ],
     "translation": "Target project"
@@ -2771,7 +2815,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        145
+        223
       ]
     ],
     "translation": "Select a project…"
@@ -2782,7 +2826,7 @@
     "origin": [
       [
         "src/app/projects/components/TransferSessionsDialog.tsx",
-        154
+        232
       ]
     ],
     "translation": "Search projects…"
@@ -3489,7 +3533,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        622
+        637
       ]
     ],
     "translation": "Cache write"
@@ -3500,7 +3544,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        636
+        651
       ]
     ],
     "translation": "Cache read"
@@ -3511,7 +3555,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        594
+        609
       ]
     ],
     "translation": "Input tokens"
@@ -3522,7 +3566,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        581
+        596
       ]
     ],
     "translation": "Cost"
@@ -3533,7 +3577,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        608
+        623
       ]
     ],
     "translation": "Output tokens"
@@ -3544,7 +3588,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        588
+        603
       ]
     ],
     "translation": "Total"
@@ -3594,7 +3638,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        515
+        530
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/DeleteSessionDialog.tsx",
@@ -3613,7 +3657,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        687
+        702
       ]
     ],
     "translation": "No messages yet"
@@ -3624,7 +3668,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        505
+        520
       ]
     ],
     "translation": "Copy session path"
@@ -3635,7 +3679,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        483
+        487
       ]
     ],
     "translation": "Export as HTML"
@@ -3646,10 +3690,21 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        492
+        496
       ]
     ],
     "translation": "Export as JSONL"
+  },
+  "session.menu.transfer_to_project": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        506
+      ]
+    ],
+    "translation": "Transfer to project…"
   },
   "session.processing": {
     "placeholders": {},
@@ -3657,7 +3712,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        796
+        811
       ]
     ],
     "translation": "Processing…"
@@ -3705,7 +3760,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        743
+        758
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
@@ -3724,7 +3779,7 @@
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
-        741
+        756
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
