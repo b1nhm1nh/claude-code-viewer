@@ -238,4 +238,140 @@ describe("SessionTransferService", () => {
       expect(dstEntries).toEqual(["regular.jsonl"]);
     }).pipe(Effect.provide(testLayer)),
   );
+
+  it.live("sessionIds filter: copies only listed sessions, leaves others in source", () =>
+    Effect.gen(function* () {
+      const src = yield* Effect.promise(() => makeProject("src-filter"));
+      const dst = yield* Effect.promise(() => makeProject("dst-filter"));
+      yield* Effect.promise(async () => {
+        await writeJsonl(src.dir, "keep1");
+        await writeJsonl(src.dir, "keep2");
+        await writeJsonl(src.dir, "skip-me");
+      });
+
+      const service = yield* SessionTransferService;
+      const result = yield* service.transfer({
+        sourceProjectId: src.projectId,
+        targetProjectId: dst.projectId,
+        mode: "copy",
+        conflict: "skip",
+        sessionIds: ["keep1", "keep2"],
+      });
+
+      expect(result.transferred.sort()).toEqual(["keep1", "keep2"]);
+      expect(result.skipped).toEqual([]);
+      expect(result.failed).toEqual([]);
+
+      const dstEntries = yield* Effect.promise(() => readdir(dst.dir).then((e) => e.sort()));
+      expect(dstEntries).toEqual(["keep1.jsonl", "keep2.jsonl"]);
+
+      const srcEntries = yield* Effect.promise(() => readdir(src.dir).then((e) => e.sort()));
+      expect(srcEntries).toEqual(["keep1.jsonl", "keep2.jsonl", "skip-me.jsonl"]);
+    }).pipe(Effect.provide(testLayer)),
+  );
+
+  it.live(
+    "sessionIds filter: missing id is reported as failed with reason 'Session not found'",
+    () =>
+      Effect.gen(function* () {
+        const src = yield* Effect.promise(() => makeProject("src-missing"));
+        const dst = yield* Effect.promise(() => makeProject("dst-missing"));
+        yield* Effect.promise(async () => {
+          await writeJsonl(src.dir, "present");
+        });
+
+        const service = yield* SessionTransferService;
+        const result = yield* service.transfer({
+          sourceProjectId: src.projectId,
+          targetProjectId: dst.projectId,
+          mode: "copy",
+          conflict: "skip",
+          sessionIds: ["present", "ghost"],
+        });
+
+        expect(result.transferred).toEqual(["present"]);
+        expect(result.failed).toEqual([{ sessionId: "ghost", reason: "Session not found" }]);
+      }).pipe(Effect.provide(testLayer)),
+  );
+
+  it.live("sessionIds filter + conflict=skip: existing target file preserved", () =>
+    Effect.gen(function* () {
+      const src = yield* Effect.promise(() => makeProject("src-filter-skip"));
+      const dst = yield* Effect.promise(() => makeProject("dst-filter-skip"));
+      yield* Effect.promise(async () => {
+        await writeJsonl(src.dir, "dup", "FROM_SOURCE\n");
+        await writeJsonl(dst.dir, "dup", "DST_ORIGINAL\n");
+      });
+
+      const service = yield* SessionTransferService;
+      const result = yield* service.transfer({
+        sourceProjectId: src.projectId,
+        targetProjectId: dst.projectId,
+        mode: "copy",
+        conflict: "skip",
+        sessionIds: ["dup"],
+      });
+
+      expect(result.transferred).toEqual([]);
+      expect(result.skipped).toEqual(["dup"]);
+
+      const dstDup = yield* Effect.promise(() => readFile(join(dst.dir, "dup.jsonl"), "utf-8"));
+      expect(dstDup).toBe("DST_ORIGINAL\n");
+    }).pipe(Effect.provide(testLayer)),
+  );
+
+  it.live("sessionIds filter + conflict=overwrite: existing target file replaced", () =>
+    Effect.gen(function* () {
+      const src = yield* Effect.promise(() => makeProject("src-filter-ow"));
+      const dst = yield* Effect.promise(() => makeProject("dst-filter-ow"));
+      yield* Effect.promise(async () => {
+        await writeJsonl(src.dir, "ow", "NEW\n");
+        await writeJsonl(dst.dir, "ow", "OLD\n");
+      });
+
+      const service = yield* SessionTransferService;
+      const result = yield* service.transfer({
+        sourceProjectId: src.projectId,
+        targetProjectId: dst.projectId,
+        mode: "copy",
+        conflict: "overwrite",
+        sessionIds: ["ow"],
+      });
+
+      expect(result.transferred).toEqual(["ow"]);
+      expect(result.skipped).toEqual([]);
+
+      const dstOw = yield* Effect.promise(() => readFile(join(dst.dir, "ow.jsonl"), "utf-8"));
+      expect(dstOw).toBe("NEW\n");
+    }).pipe(Effect.provide(testLayer)),
+  );
+
+  it.live("sessionIds filter in move mode: source file removed, both projects re-synced", () =>
+    Effect.gen(function* () {
+      const src = yield* Effect.promise(() => makeProject("src-filter-mv"));
+      const dst = yield* Effect.promise(() => makeProject("dst-filter-mv"));
+      yield* Effect.promise(async () => {
+        await writeJsonl(src.dir, "stay");
+        await writeJsonl(src.dir, "go");
+      });
+
+      const service = yield* SessionTransferService;
+      const result = yield* service.transfer({
+        sourceProjectId: src.projectId,
+        targetProjectId: dst.projectId,
+        mode: "move",
+        conflict: "skip",
+        sessionIds: ["go"],
+      });
+
+      expect(result.transferred).toEqual(["go"]);
+
+      const srcEntries = yield* Effect.promise(() => readdir(src.dir).then((e) => e.sort()));
+      const dstEntries = yield* Effect.promise(() => readdir(dst.dir).then((e) => e.sort()));
+      expect(srcEntries).toEqual(["stay.jsonl"]);
+      expect(dstEntries).toEqual(["go.jsonl"]);
+
+      expect(syncCalls.sort()).toEqual([dst.projectId, src.projectId].sort());
+    }).pipe(Effect.provide(testLayer)),
+  );
 });

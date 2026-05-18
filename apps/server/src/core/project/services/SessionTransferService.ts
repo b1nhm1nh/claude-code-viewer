@@ -15,6 +15,7 @@ export type TransferParams = {
   readonly targetProjectId: string;
   readonly mode: TransferMode;
   readonly conflict: TransferConflict;
+  readonly sessionIds?: ReadonlyArray<string>;
 };
 
 export type TransferResult = {
@@ -87,11 +88,26 @@ const layerImpl = Effect.gen(function* () {
       yield* fs.makeDirectory(dstDir, { recursive: true }).pipe(Effect.catchAll(() => Effect.void));
 
       const allEntries = yield* fs.readDirectory(srcDir).pipe(Effect.orElseSucceed(() => []));
-      const sessionFiles = allEntries.filter(isRegularSessionFile);
+      const presentSessionFiles = allEntries.filter(isRegularSessionFile);
 
       const transferred: string[] = [];
       const skipped: string[] = [];
       const failed: { sessionId: string; reason: string }[] = [];
+
+      let sessionFiles: string[];
+      if (params.sessionIds !== undefined) {
+        const presentIds = new Set(presentSessionFiles.map(stripJsonlExtension));
+        sessionFiles = [];
+        for (const id of params.sessionIds) {
+          if (presentIds.has(id)) {
+            sessionFiles.push(`${id}.jsonl`);
+          } else {
+            failed.push({ sessionId: id, reason: "Session not found" });
+          }
+        }
+      } else {
+        sessionFiles = presentSessionFiles;
+      }
 
       for (const fileName of sessionFiles) {
         const sessionId = stripJsonlExtension(fileName);
