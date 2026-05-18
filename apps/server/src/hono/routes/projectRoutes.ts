@@ -78,6 +78,7 @@ const projectRoutes = Effect.gen(function* () {
             targetProjectId: z.string().min(1, "targetProjectId is required"),
             mode: z.enum(["copy", "move"]),
             conflict: z.enum(["skip", "overwrite"]).optional().default("skip"),
+            sessionIds: z.array(z.string().min(1)).min(1).optional(),
           }),
         ),
         async (c) => {
@@ -91,6 +92,7 @@ const projectRoutes = Effect.gen(function* () {
                 targetProjectId: body.targetProjectId,
                 mode: body.mode,
                 conflict: body.conflict,
+                sessionIds: body.sessionIds,
               })
               .pipe(Effect.provide(runtime)),
           );

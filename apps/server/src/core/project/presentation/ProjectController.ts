@@ -161,6 +161,7 @@ const LayerImpl = Effect.gen(function* () {
     targetProjectId: string;
     mode: TransferMode;
     conflict: TransferConflict;
+    sessionIds?: readonly string[];
   }) =>
     Effect.gen(function* () {
       const either = yield* Effect.either(sessionTransferService.transfer(options));
