@@ -1,5 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import { Effect, Runtime } from "effect";
+import { compress } from "hono/compress";
 import { setCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
 import prexit from "prexit";
@@ -76,9 +77,28 @@ export const routes = (app: HonoAppType, options: CliOptions) =>
       });
     }
 
+    // Compress all API responses except SSE (which must stream uncompressed).
+    // `hono/compress` uses CompressionStream (available in Bun) and negotiates
+    // gzip/deflate via Accept-Encoding. Critical for shipping large session
+    // JSONL payloads (50MB+ raw → ~3-5MB gzipped).
+    const compressMiddleware = compress();
+    const conditionalCompress = createMiddleware<HonoContext>(async (c, next) => {
+      // Skip SSE (must stream uncompressed) and WS upgrade (101 response, no body).
+      const path = c.req.path;
+      if (
+        path.startsWith("/api/sse") ||
+        path.startsWith("/ws/") ||
+        c.req.header("upgrade")?.toLowerCase() === "websocket"
+      ) {
+        return next();
+      }
+      return compressMiddleware(c, next);
+    });
+
     return (
       app
         // middleware
+        .use(conditionalCompress)
         .use(configMiddleware)
         .use(apiOnlyMiddleware)
         .use(async (c, next) => {

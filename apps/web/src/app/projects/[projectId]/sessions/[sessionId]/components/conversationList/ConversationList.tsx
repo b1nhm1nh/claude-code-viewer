@@ -6,6 +6,7 @@ import type { ToolResultContent } from "@ccv/shared/conversation-schema/content/
 import type { AssistantMessageContent } from "@ccv/shared/conversation-schema/message/AssistantMessageSchema";
 import { calculateDuration } from "@ccv/shared/date/formatDuration";
 import { Trans } from "@lingui/react";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   AlertTriangle,
   ChevronDown,
@@ -324,24 +325,30 @@ export const ConversationList: FC<ConversationListProps> = ({
     [turnDurationMap],
   );
 
-  const toolUseIdToAgentIdMap = useMemo(() => {
-    const map = new Map<string, string>();
+  // Single pass over conversations to build both tool-related maps. With 17K+
+  // entries per session, doing this twice was wasteful.
+  const { toolUseIdToAgentIdMap, toolUseIdToToolUseResultMap } = useMemo(() => {
+    const agentIdMap = new Map<string, string>();
+    const resultMap = new Map<string, unknown>();
     for (const conv of validConversations) {
       if (conv.type !== "user") continue;
       const messageContent = conv.message.content;
       if (typeof messageContent === "string") continue;
 
+      const toolUseResult = conv.toolUseResult;
+      const hasAgent = hasAgentId(toolUseResult);
       for (const content of messageContent) {
         if (typeof content === "string") continue;
-        if (content.type === "tool_result") {
-          const toolUseResult = conv.toolUseResult;
-          if (hasAgentId(toolUseResult)) {
-            map.set(content.tool_use_id, toolUseResult.agentId);
-          }
+        if (content.type !== "tool_result") continue;
+        if (toolUseResult !== undefined) {
+          resultMap.set(content.tool_use_id, toolUseResult);
+        }
+        if (hasAgent) {
+          agentIdMap.set(content.tool_use_id, toolUseResult.agentId);
         }
       }
     }
-    return map;
+    return { toolUseIdToAgentIdMap: agentIdMap, toolUseIdToToolUseResultMap: resultMap };
   }, [validConversations]);
 
   const getAgentIdForToolUse = useCallback(
@@ -350,23 +357,6 @@ export const ConversationList: FC<ConversationListProps> = ({
     },
     [toolUseIdToAgentIdMap],
   );
-
-  const toolUseIdToToolUseResultMap = useMemo(() => {
-    const map = new Map<string, unknown>();
-    for (const conv of validConversations) {
-      if (conv.type !== "user") continue;
-      const messageContent = conv.message.content;
-      if (typeof messageContent === "string") continue;
-
-      for (const content of messageContent) {
-        if (typeof content === "string") continue;
-        if (content.type === "tool_result" && conv.toolUseResult !== undefined) {
-          map.set(content.tool_use_id, conv.toolUseResult);
-        }
-      }
-    }
-    return map;
-  }, [validConversations]);
 
   const getToolUseResult = useCallback(
     (toolUseId: string): unknown => {
@@ -489,6 +479,17 @@ export const ConversationList: FC<ConversationListProps> = ({
     setActiveMatchPosition(0);
   }, []);
 
+  // Virtualize the conversation list. With 10K+ rows in large sessions, plain
+  // DOM rendering was the dominant bottleneck.
+  const virtualizer = useVirtualizer({
+    count: renderableRows.length,
+    getScrollElement: () => scrollContainerRef.current,
+    estimateSize: () => 240,
+    overscan: 6,
+    measureElement: (element) => element.getBoundingClientRect().height,
+    getItemKey: (index) => renderableRows[index]?.rowKey ?? index,
+  });
+
   useEffect(() => {
     if (matchedRowIndices.length === 0) {
       return;
@@ -504,11 +505,10 @@ export const ConversationList: FC<ConversationListProps> = ({
       return;
     }
 
-    const rowElement = rowRefsMap.current.get(rowIndex);
-    if (rowElement !== undefined) {
-      rowElement.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [activeMatchPosition, matchedRowIndices]);
+    // With virtualization the row may not be mounted; scrollToIndex handles
+    // both cases and the highlight-retry effect picks up once mounted.
+    virtualizer.scrollToIndex(rowIndex, { align: "center", behavior: "smooth" });
+  }, [activeMatchPosition, matchedRowIndices, virtualizer]);
 
   useEffect(() => {
     const rootElement = scrollContainerRef.current;
@@ -754,15 +754,31 @@ export const ConversationList: FC<ConversationListProps> = ({
           </div>
         </div>
       )}
-      <ul className="w-full">
-        {renderableRows.map((row, index) => {
-          const rowElement = renderConversationRow(index);
+      <ul className="w-full relative" style={{ height: `${virtualizer.getTotalSize()}px` }}>
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const rowIndex = virtualRow.index;
+          const row = renderableRows[rowIndex];
+          if (row === undefined) {
+            return null;
+          }
+          const rowElement = renderConversationRow(rowIndex);
           if (rowElement === null) {
             return null;
           }
 
           return (
-            <li key={row.rowKey} ref={(el) => setRowRef(index, el)}>
+            <li
+              key={virtualRow.key}
+              data-index={rowIndex}
+              ref={(el) => {
+                setRowRef(rowIndex, el);
+                if (el !== null) {
+                  virtualizer.measureElement(el);
+                }
+              }}
+              className="absolute left-0 top-0 w-full"
+              style={{ transform: `translateY(${virtualRow.start}px)` }}
+            >
               {rowElement}
             </li>
           );

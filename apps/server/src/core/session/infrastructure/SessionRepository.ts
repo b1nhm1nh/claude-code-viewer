@@ -1,6 +1,6 @@
 import { FileSystem } from "@effect/platform";
 import { desc, eq, sql } from "drizzle-orm";
-import { Context, Effect, Layer, Option } from "effect";
+import { Context, Effect, Layer, Option, Ref } from "effect";
 import { DrizzleService } from "../../../lib/db/DrizzleService.ts";
 import { projects, sessions } from "../../../lib/db/schema.ts";
 import type { InferEffect } from "../../../lib/effect/types.ts";
@@ -8,9 +8,19 @@ import { parseJsonl } from "../../claude-code/functions/parseJsonl.ts";
 import { ApplicationContext } from "../../platform/services/ApplicationContext.ts";
 import { decodeProjectId, validateProjectPath } from "../../project/functions/id.ts";
 import { SyncService } from "../../sync/services/SyncService.ts";
-import type { Session, SessionDetail } from "../../types.ts";
+import type { ExtendedConversation, Session, SessionDetail } from "../../types.ts";
 import { decodeSessionId, validateSessionId } from "../functions/id.ts";
 import { SessionMetaService } from "../services/SessionMetaService.ts";
+
+type ParsedCacheEntry = {
+  readonly mtimeMs: number;
+  readonly size: number;
+  readonly conversations: ExtendedConversation[];
+};
+
+// Keep at most this many parsed sessions in memory. With 50MB raw JSONL each,
+// expect ~100-200MB resident at the cap. Tune if memory becomes a concern.
+const PARSED_CACHE_MAX_ENTRIES = 8;
 
 const LayerImpl = Effect.gen(function* () {
   const fs = yield* FileSystem.FileSystem;
@@ -18,6 +28,43 @@ const LayerImpl = Effect.gen(function* () {
   const appContext = yield* ApplicationContext;
   const { db } = yield* DrizzleService;
   const syncService = yield* SyncService;
+
+  // LRU cache keyed by sessionPath. Stores parsed conversations alongside the
+  // file's (mtime, size) signature so we can detect appends/edits and re-parse.
+  const parsedCacheRef = yield* Ref.make<Map<string, ParsedCacheEntry>>(new Map());
+
+  const readCachedConversations = (sessionPath: string, mtimeMs: number, size: number) =>
+    Effect.gen(function* () {
+      const cache = yield* Ref.get(parsedCacheRef);
+      const cached = cache.get(sessionPath);
+      if (cached !== undefined && cached.mtimeMs === mtimeMs && cached.size === size) {
+        // Touch entry to refresh LRU order.
+        yield* Ref.update(parsedCacheRef, (current) => {
+          const next = new Map(current);
+          next.delete(sessionPath);
+          next.set(sessionPath, cached);
+          return next;
+        });
+        return cached.conversations;
+      }
+
+      const content = yield* fs.readFileString(sessionPath);
+      const conversations = parseJsonl(content);
+
+      yield* Ref.update(parsedCacheRef, (current) => {
+        const next = new Map(current);
+        next.delete(sessionPath);
+        next.set(sessionPath, { mtimeMs, size, conversations });
+        while (next.size > PARSED_CACHE_MAX_ENTRIES) {
+          const oldestKey = next.keys().next().value;
+          if (oldestKey === undefined) break;
+          next.delete(oldestKey);
+        }
+        return next;
+      });
+
+      return conversations;
+    });
 
   const getSession = (projectId: string, sessionId: string) =>
     Effect.gen(function* () {
@@ -42,14 +89,14 @@ const LayerImpl = Effect.gen(function* () {
       }
 
       const sessionDetail = yield* Effect.gen(function* () {
-        // Read session file
-        const content = yield* fs.readFileString(sessionPath);
-        const allLines = content.split("\n").filter((line) => line.trim());
-
-        const conversations = parseJsonl(allLines.join("\n"));
-
-        // Get file stats
+        // Stat first — used both for cache key and lastModifiedAt
         const stat = yield* fs.stat(sessionPath);
+        const mtime = Option.getOrElse(stat.mtime, () => new Date());
+        const mtimeMs = mtime.getTime();
+        const size = Number(stat.size);
+
+        // Use parsed-conversation cache. Re-parse only if (mtime, size) changed.
+        const conversations = yield* readCachedConversations(sessionPath, mtimeMs, size);
 
         // Get session metadata
         const meta = yield* sessionMetaService.getSessionMeta(projectId, sessionId);
@@ -59,7 +106,7 @@ const LayerImpl = Effect.gen(function* () {
           jsonlFilePath: sessionPath,
           meta,
           conversations,
-          lastModifiedAt: Option.getOrElse(stat.mtime, () => new Date()),
+          lastModifiedAt: mtime,
         };
 
         return sessionDetail;

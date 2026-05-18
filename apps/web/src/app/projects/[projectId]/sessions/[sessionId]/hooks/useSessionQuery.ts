@@ -1,8 +1,6 @@
 import type { Conversation } from "@ccv/shared/conversation-schema";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useAtomValue } from "jotai";
 import { sessionDetailQuery } from "@/lib/api/queries";
-import { sseAtom } from "@/lib/sse/store/sseAtom";
 import { createVirtualUserEntry } from "@/lib/virtual-messages/createVirtualUserEntry";
 import { shouldRemoveVirtualMessage } from "@/lib/virtual-messages/shouldRemoveVirtualMessage";
 import {
@@ -17,8 +15,6 @@ const filterConversations = (
 ): Conversation[] => conversations.filter((c): c is Conversation => c.type !== "x-error");
 
 export const useSessionQuery = (projectId: string, sessionId: string) => {
-  const { isConnected: isSSEConnected } = useAtomValue(sseAtom);
-
   const query = useSuspenseQuery({
     queryKey: sessionDetailQuery(projectId, sessionId).queryKey,
     queryFn: async () => {
@@ -94,10 +90,12 @@ export const useSessionQuery = (projectId: string, sessionId: string) => {
 
       return result;
     },
-    // Fallback polling in case SSE connection is lost
-    // When SSE is connected, rely on SSE-triggered invalidations instead
-    refetchInterval: isSSEConnected ? false : 30_000,
+    // Rely on SSE-triggered invalidations. Polling a 50MB+ session payload every
+    // 30s when SSE drops would be catastrophic; if SSE is down the user can
+    // refresh manually.
+    refetchInterval: false,
     refetchIntervalInBackground: false,
+    refetchOnWindowFocus: false,
   });
 
   // Virtual message cleanup is handled by session list components
