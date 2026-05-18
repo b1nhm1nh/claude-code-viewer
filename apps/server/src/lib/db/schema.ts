@@ -10,6 +10,8 @@ export const projects = sqliteTable("projects", {
   path: text("path"),
   sessionCount: integer("session_count").notNull().default(0),
   dirMtimeMs: integer("dir_mtime_ms").notNull(),
+  createdAtMs: integer("created_at_ms"),
+  totalSizeBytes: integer("total_size_bytes").notNull().default(0),
   syncedAt: integer("synced_at").notNull(),
 });
 

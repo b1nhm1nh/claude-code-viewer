@@ -6,6 +6,7 @@ import { useSearch } from "@/components/SearchProvider";
 import { SystemInfoCard } from "@/components/SystemInfoCard";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ProjectList } from "./components/ProjectList";
+import { ProjectListViewToggle } from "./components/ProjectListViewToggle";
 import { SetupProjectDialog } from "./components/SetupProjectDialog";
 
 export const ProjectsPage: FC = () => {
@@ -58,11 +59,14 @@ export const ProjectsPage: FC = () => {
 
           <main>
             <section>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 gap-2">
                 <h2 className="text-xl font-semibold">
                   <Trans id="projects.page.title" />
                 </h2>
-                <SetupProjectDialog />
+                <div className="flex items-center gap-2">
+                  <ProjectListViewToggle />
+                  <SetupProjectDialog />
+                </div>
               </div>
               <Suspense
                 fallback={

@@ -85,6 +85,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,
@@ -163,6 +165,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,
@@ -230,6 +234,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,
@@ -283,6 +289,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,
@@ -339,6 +347,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: null, // No project path
@@ -402,6 +412,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,
@@ -501,6 +513,8 @@ describe("ClaudeCodeController.getClaudeCommands", () => {
             id: "test-project",
             claudeProjectPath: "/path/to/project",
             lastModifiedAt: new Date(),
+            createdAt: null,
+            totalSizeBytes: 0,
             meta: {
               projectName: "Test Project",
               projectPath: projectDir,

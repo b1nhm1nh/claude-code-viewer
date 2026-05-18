@@ -156,6 +156,8 @@ describe("RateLimitAutoScheduleService", () => {
           id: "test-project",
           claudeProjectPath: "/test/project",
           lastModifiedAt: new Date("2026-01-24T10:00:00.000Z"),
+          createdAt: null,
+          totalSizeBytes: 0,
           meta: {
             projectName: "test-project",
             projectPath: "/test/project",

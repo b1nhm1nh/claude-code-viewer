@@ -1,12 +1,15 @@
 import { formatLocaleDate } from "@ccv/shared/date/formatLocaleDate";
 import { Trans } from "@lingui/react";
 import { Link } from "@tanstack/react-router";
+import { useAtomValue } from "jotai";
 import { Copy, FolderIcon } from "lucide-react";
 import { type FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { projectListViewAtom } from "@/lib/atoms/projectListView";
 import { useConfig } from "../../hooks/useConfig";
 import { useProjects } from "../hooks/useProjects";
+import { ProjectListTable } from "./ProjectListTable";
 import { TransferSessionsDialog } from "./TransferSessionsDialog";
 
 export const ProjectList: FC = () => {
@@ -14,6 +17,7 @@ export const ProjectList: FC = () => {
     data: { projects },
   } = useProjects();
   const { config } = useConfig();
+  const view = useAtomValue(projectListViewAtom);
   const [transferOpenFor, setTransferOpenFor] = useState<string | null>(null);
 
   if (projects.length === 0) {
@@ -30,6 +34,10 @@ export const ProjectList: FC = () => {
         </CardContent>
       </Card>
     );
+  }
+
+  if (view === "list") {
+    return <ProjectListTable projects={projects} />;
   }
 
   return (

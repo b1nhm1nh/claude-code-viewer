@@ -107,7 +107,7 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
         onOpenChange(next);
       }}
     >
-      <DialogContent className="max-w-lg">
+      <DialogContent className="w-[92vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl">
         <DialogHeader>
           <DialogTitle>
             <Trans id="project.transfer.dialog.title" />
@@ -168,11 +168,13 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
                         >
                           <Check
                             className={cn(
-                              "mr-2 h-4 w-4",
+                              "mr-2 h-4 w-4 shrink-0",
                               targetId === p.id ? "opacity-100" : "opacity-0",
                             )}
                           />
-                          <span className="truncate">{projectLabel(p)}</span>
+                          <span className="truncate" title={projectLabel(p)}>
+                            {projectLabel(p)}
+                          </span>
                         </CommandItem>
                       ))}
                     </CommandGroup>

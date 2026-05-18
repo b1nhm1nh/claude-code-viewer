@@ -6,6 +6,8 @@ export const testProjectRepositoryLayer = (options?: {
     id: string;
     claudeProjectPath: string;
     lastModifiedAt: Date;
+    createdAt: Date | null;
+    totalSizeBytes: number;
     meta: {
       projectName: string | null;
       projectPath: string | null;

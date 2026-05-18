@@ -2,13 +2,23 @@
   "Available commands": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/CommandCompletion.tsx", 203]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/CommandCompletion.tsx",
+        203
+      ]
+    ],
     "translation": "利用可能なコマンド"
   },
   "Available files and directories": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/FileCompletion.tsx", 253]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/FileCompletion.tsx",
+        253
+      ]
+    ],
     "translation": "利用可能なファイルとディレクトリ"
   },
   "Close sidebar": {
@@ -26,8 +36,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 257],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 376]
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        257
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        376
+      ]
     ],
     "translation": "比較元"
   },
@@ -35,8 +51,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 265],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 382]
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        265
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        382
+      ]
     ],
     "translation": "比較先"
   },
@@ -44,7 +66,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 205]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        205
+      ]
     ],
     "translation": "カスタムツール名..."
   },
@@ -52,8 +77,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 460],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 293]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        460
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        293
+      ]
     ],
     "translation": "コミットに失敗しました"
   },
@@ -61,8 +92,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 515],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 361]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        515
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        361
+      ]
     ],
     "translation": "コミットとプッシュに失敗しました"
   },
@@ -70,21 +107,37 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 474],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 311]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        474
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        311
+      ]
     ],
     "translation": "プッシュに失敗しました"
   },
   "Key": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 97]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        97
+      ]
+    ],
     "translation": "キー"
   },
   "Message input with completion support": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 487]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        487
+      ]
+    ],
     "translation": "補完機能付きメッセージ入力"
   },
   "New chat": {
@@ -102,7 +155,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx", 52]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
+        52
+      ]
     ],
     "translation": "MCPサーバーを再読み込み"
   },
@@ -110,47 +166,84 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 502],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 346]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        502
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        346
+      ]
     ],
     "translation": "プッシュを再試行"
   },
   "Select enter key behavior": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 338]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        338
+      ]
+    ],
     "translation": "Enterキーの動作を選択"
   },
   "Select find hotkey": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 396]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        396
+      ]
+    ],
     "translation": "ページ内検索ホットキーを選択"
   },
   "Select language": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 482]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        482
+      ]
+    ],
     "translation": "言語を選択"
   },
   "Select search hotkey": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 370]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        370
+      ]
+    ],
     "translation": "検索ホットキーを選択"
   },
   "Select theme": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 511]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        511
+      ]
+    ],
     "translation": "テーマを選択"
   },
   "Uncommitted changes": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 172],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 177]
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        172
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        177
+      ]
     ],
     "translation": "未コミットの変更"
   },
@@ -158,7 +251,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 105]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        105
+      ]
     ],
     "translation": "値"
   },
@@ -177,7 +273,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 335],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        335
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         161
@@ -189,7 +288,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 317],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        317
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         100
@@ -201,7 +303,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 344],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        344
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/TaskModal.tsx",
         221
@@ -213,7 +318,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 334],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        334
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         160
@@ -247,7 +355,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 336],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        336
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         162
@@ -258,14 +369,22 @@
   "assistant.tool.loading_file": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/GitTabContent.tsx", 309]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        309
+      ]
+    ],
     "translation": "ファイルを読み込み中..."
   },
   "assistant.tool.loading_task": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 336],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        336
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/TaskModal.tsx",
         213
@@ -275,11 +394,16 @@
   },
   "assistant.tool.message_count": {
     "placeholders": {
-      "count": ["conversations.length"]
+      "count": [
+        "conversations.length"
+      ]
     },
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 322],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        322
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/TaskModal.tsx",
         199
@@ -291,7 +415,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 354],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        354
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/TaskModal.tsx",
         237
@@ -314,7 +441,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 337],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        337
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         163
@@ -337,8 +467,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 347],
-      ["src/app/components/rightPanel/GitTabContent.tsx", 326],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        347
+      ],
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        326
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/FileContentDialog.tsx",
         106
@@ -397,7 +533,12 @@
   "chat.attach_file": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 579]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        579
+      ]
+    ],
     "translation": "添付"
   },
   "chat.button.start": {
@@ -415,47 +556,109 @@
     "message": "Failed to copy command",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 209]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        209
+      ]
+    ],
     "translation": "コマンドのコピーに失敗しました"
   },
   "chat.copy_command.success": {
     "message": "Command copied to clipboard",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 202]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        202
+      ]
+    ],
     "translation": "コマンドをクリップボードにコピーしました"
   },
   "chat.error.send_failed": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 453]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        453
+      ]
+    ],
     "translation": "メッセージの送信に失敗しました。もう一度お試しください。"
   },
   "chat.history.button": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 83],
-      ["src/app/components/SessionHistoryPopover.tsx", 102]
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        83
+      ],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        102
+      ]
     ],
     "translation": "セッション履歴"
+  },
+  "chat.history.show_less": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        775
+      ]
+    ],
+    "translation": "折りたたむ"
   },
   "chat.history.title": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 115],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 695]
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        115
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        696
+      ]
     ],
     "translation": "最近のセッション"
+  },
+  "chat.history.view_all": {
+    "placeholders": {
+      "count": [
+        "sortedSessions.length"
+      ]
+    },
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        777
+      ]
+    ],
+    "translation": "すべて表示 ({count})"
   },
   "chat.modal.title": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 145],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 413],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 683],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        145
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        414
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        684
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         147
@@ -516,7 +719,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx", 46]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx",
+        46
+      ]
     ],
     "translation": "メッセージを入力... （/でコマンド、@でファイル、Command+Enterで送信）"
   },
@@ -525,7 +731,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx", 40]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx",
+        40
+      ]
     ],
     "translation": "メッセージを入力... （/でコマンド、@でファイル、Enterで送信）"
   },
@@ -534,7 +743,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx", 52]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx",
+        52
+      ]
     ],
     "translation": "メッセージを入力... （/でコマンド、@でファイル、Shift+Enterで送信）"
   },
@@ -578,7 +790,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx", 58]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ResumeChat.tsx",
+        58
+      ]
     ],
     "translation": "再開"
   },
@@ -586,21 +801,36 @@
     "message": "Failed to schedule message",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 299]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        299
+      ]
+    ],
     "translation": "メッセージの予約に失敗しました"
   },
   "chat.scheduled_send.success": {
     "message": "Message scheduled successfully",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 283]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        283
+      ]
+    ],
     "translation": "メッセージを予約しました"
   },
   "chat.scheduled_send.success_description": {
     "message": "You can view and manage it in the Scheduler tab",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 288]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        288
+      ]
+    ],
     "translation": "スケジューラタブで確認・管理できます"
   },
   "chat.send": {
@@ -617,28 +847,49 @@
   "chat.send_mode.immediate": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 532]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        532
+      ]
+    ],
     "translation": "今すぐ送信"
   },
   "chat.send_mode.label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 517]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        517
+      ]
+    ],
     "translation": "送信モード"
   },
   "chat.send_mode.scheduled": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 535],
-      ["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 674]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        535
+      ],
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        674
+      ]
     ],
     "translation": "予約送信"
   },
   "chat.send_mode.scheduled_time": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 542]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        542
+      ]
+    ],
     "translation": "送信予定時刻"
   },
   "chat.toolbar.agent.none": {
@@ -648,11 +899,11 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        323
+        288
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        331
+        296
       ]
     ],
     "translation": "エージェントなし"
@@ -664,7 +915,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        357
+        322
       ]
     ],
     "translation": "エージェントを選択"
@@ -673,14 +924,24 @@
     "message": "Select reasoning effort",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 644]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        644
+      ]
+    ],
     "translation": "Reasoning effort を選択"
   },
   "chat.toolbar.model.tooltip": {
     "message": "Select model",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 612]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        612
+      ]
+    ],
     "translation": "モデルを選択"
   },
   "chat.toolbar.permission_mode.accept_edits": {
@@ -690,7 +951,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        248
+        213
       ]
     ],
     "translation": "編集許可"
@@ -702,7 +963,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        254
+        219
       ]
     ],
     "translation": "バイパス"
@@ -714,7 +975,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        245
+        210
       ]
     ],
     "translation": "デフォルト"
@@ -726,7 +987,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        257
+        222
       ]
     ],
     "translation": "プラン"
@@ -738,7 +999,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        264
+        229
       ]
     ],
     "translation": "権限モードを選択"
@@ -750,7 +1011,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        299
+        264
       ]
     ],
     "translation": "デフォルトの Claude Code プロンプトを含める"
@@ -759,7 +1020,12 @@
     "message": "Voice input",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/[projectId]/components/chatForm/ChatInput.tsx", 714]],
+    "origin": [
+      [
+        "src/app/projects/[projectId]/components/chatForm/ChatInput.tsx",
+        714
+      ]
+    ],
     "translation": "音声入力"
   },
   "codeBlock.copy": {
@@ -767,8 +1033,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/CodeBlock.tsx", 65],
-      ["src/app/components/CodeBlock.tsx", 66]
+      [
+        "src/app/components/CodeBlock.tsx",
+        65
+      ],
+      [
+        "src/app/components/CodeBlock.tsx",
+        66
+      ]
     ],
     "translation": "コードをコピー"
   },
@@ -776,22 +1048,38 @@
     "message": "Failed to copy code",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/CodeBlock.tsx", 43]],
+    "origin": [
+      [
+        "src/app/components/CodeBlock.tsx",
+        43
+      ]
+    ],
     "translation": "コードのコピーに失敗しました"
   },
   "codeBlock.copy.success": {
     "message": "Code copied",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/CodeBlock.tsx", 32]],
+    "origin": [
+      [
+        "src/app/components/CodeBlock.tsx",
+        32
+      ]
+    ],
     "translation": "コードをコピーしました"
   },
   "common.action.cancel": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/components/SetupProjectDialog.tsx", 82],
-      ["src/app/projects/components/TransferSessionsDialog.tsx", 257]
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        82
+      ],
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        259
+      ]
     ],
     "translation": "キャンセル"
   },
@@ -874,8 +1162,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 281],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 396],
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        281
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        396
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         234
@@ -921,7 +1215,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 540]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        541
+      ]
     ],
     "translation": "ブランチ"
   },
@@ -932,7 +1229,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        186
+        151
       ]
     ],
     "translation": "ターミナルを起動"
@@ -940,13 +1237,15 @@
   "control.launch_terminal.error": {
     "message": "Failed to launch terminal: {message}",
     "placeholders": {
-      "message": ["err.message"]
+      "message": [
+        "err.message"
+      ]
     },
     "comments": [],
     "origin": [
       [
-        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        97
+        "src/app/hooks/useLaunchTerminal.ts",
+        36
       ]
     ],
     "translation": "ターミナルの起動に失敗しました: {message}"
@@ -954,13 +1253,15 @@
   "control.launch_terminal.success": {
     "message": "Launched {terminal}",
     "placeholders": {
-      "terminal": ["body.terminal"]
+      "terminal": [
+        "body.terminal"
+      ]
     },
     "comments": [],
     "origin": [
       [
-        "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        87
+        "src/app/hooks/useLaunchTerminal.ts",
+        26
       ]
     ],
     "translation": "{terminal} を起動しました"
@@ -969,7 +1270,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 521]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        522
+      ]
     ],
     "translation": "メタデータ"
   },
@@ -977,7 +1281,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 567]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        568
+      ]
     ],
     "translation": "モデル"
   },
@@ -987,7 +1294,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        143
+        108
       ]
     ],
     "translation": "新規"
@@ -999,7 +1306,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        136
+        101
       ]
     ],
     "translation": "新しいチャット"
@@ -1008,7 +1315,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 527]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        528
+      ]
     ],
     "translation": "プロジェクトパス"
   },
@@ -1019,7 +1329,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        170
+        135
       ]
     ],
     "translation": "ボトムにスクロール"
@@ -1031,7 +1341,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        154
+        119
       ]
     ],
     "translation": "トップにスクロール"
@@ -1040,7 +1350,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 554]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        555
+      ]
     ],
     "translation": "セッションID"
   },
@@ -1086,7 +1399,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        207
+        208
       ]
     ],
     "translation": "生データ："
@@ -1097,7 +1410,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        200
+        201
       ]
     ],
     "translation": "この問題を報告"
@@ -1108,7 +1421,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        178
+        179
       ]
     ],
     "translation": "スキーマエラー"
@@ -1119,7 +1432,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        190
+        191
       ]
     ],
     "translation": "スキーマ検証エラー"
@@ -1130,7 +1443,7 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/conversationList/ConversationList.tsx",
-        193
+        194
       ]
     ],
     "translation": "この会話エントリの解析に失敗しました。フォーマットの変更または解析の問題が考えられます。"
@@ -1345,8 +1658,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 621],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 533]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        621
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        533
+      ]
     ],
     "translation": "コミット"
   },
@@ -1354,8 +1673,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 550],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 442]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        550
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        442
+      ]
     ],
     "translation": "変更をコミット"
   },
@@ -1363,8 +1688,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 592],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 505]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        592
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        505
+      ]
     ],
     "translation": "コミットメッセージ"
   },
@@ -1372,8 +1703,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 657],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 567]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        657
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        567
+      ]
     ],
     "translation": "コミット＆プッシュ"
   },
@@ -1381,8 +1718,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 618],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 530]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        618
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        530
+      ]
     ],
     "translation": "コミット中..."
   },
@@ -1390,8 +1733,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 654],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 564]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        654
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        564
+      ]
     ],
     "translation": "コミット＆プッシュ中..."
   },
@@ -1399,8 +1748,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 579],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 471]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        579
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        471
+      ]
     ],
     "translation": "すべて選択解除"
   },
@@ -1408,7 +1763,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 577]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        577
+      ]
     ],
     "translation": "コミットメッセージを入力"
   },
@@ -1416,7 +1774,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 48]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        48
+      ]
     ],
     "translation": "ファイル"
   },
@@ -1424,8 +1785,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 59],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 45]
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        59
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        45
+      ]
     ],
     "translation": "ファイルが変更されました"
   },
@@ -1433,8 +1800,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/ReviewTabContent.tsx", 389],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 613]
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        389
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        613
+      ]
     ],
     "translation": "差分を読み込み中..."
   },
@@ -1442,8 +1815,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 639],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 550]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        639
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        550
+      ]
     ],
     "translation": "プッシュ"
   },
@@ -1451,8 +1830,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 636],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 547]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        636
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        547
+      ]
     ],
     "translation": "プッシュ中..."
   },
@@ -1460,8 +1845,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/GitTabContent.tsx", 570],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 463]
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        570
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        463
+      ]
     ],
     "translation": "すべて選択"
   },
@@ -1469,39 +1860,65 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx", 575]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffModal.tsx",
+        575
+      ]
     ],
     "translation": "少なくとも1つのファイルを選択してください"
   },
   "directory_picker.current": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/DirectoryPicker.tsx", 39]],
+    "origin": [
+      [
+        "src/app/projects/components/DirectoryPicker.tsx",
+        39
+      ]
+    ],
     "translation": "現在："
   },
   "directory_picker.loading": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/DirectoryPicker.tsx", 56]],
+    "origin": [
+      [
+        "src/app/projects/components/DirectoryPicker.tsx",
+        56
+      ]
+    ],
     "translation": "読み込み中..."
   },
   "directory_picker.no_directories": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/DirectoryPicker.tsx", 81]],
+    "origin": [
+      [
+        "src/app/projects/components/DirectoryPicker.tsx",
+        81
+      ]
+    ],
     "translation": "ディレクトリが見つかりません"
   },
   "directory_picker.show_hidden": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/DirectoryPicker.tsx", 50]],
+    "origin": [
+      [
+        "src/app/projects/components/DirectoryPicker.tsx",
+        50
+      ]
+    ],
     "translation": "隠しファイルを表示"
   },
   "e.g., 1.00": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 535]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        535
+      ]
     ],
     "translation": "例: 1.00"
   },
@@ -1509,7 +1926,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 491]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        491
+      ]
     ],
     "translation": "例: 10"
   },
@@ -1517,7 +1937,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 512]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        512
+      ]
     ],
     "translation": "例: 10000"
   },
@@ -1525,41 +1948,69 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 423]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        423
+      ]
     ],
     "translation": "例: api.example.com, cdn.example.com"
   },
   "layout.bottom_panel.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/BottomPanel.tsx", 190]],
+    "origin": [
+      [
+        "src/app/components/BottomPanel.tsx",
+        190
+      ]
+    ],
     "translation": "ターミナル"
   },
   "layout.toggle_bottom_panel": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/AppLayout.tsx", 128]],
+    "origin": [
+      [
+        "src/app/components/AppLayout.tsx",
+        128
+      ]
+    ],
     "translation": "下パネルを切り替え"
   },
   "layout.toggle_left_panel": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/AppLayout.tsx", 107]],
+    "origin": [
+      [
+        "src/app/components/AppLayout.tsx",
+        107
+      ]
+    ],
     "translation": "左パネルを切り替え"
   },
   "layout.toggle_right_panel": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/AppLayout.tsx", 149]],
+    "origin": [
+      [
+        "src/app/components/AppLayout.tsx",
+        149
+      ]
+    ],
     "translation": "右パネルを切り替え"
   },
   "mcp.error.load_failed": {
     "placeholders": {
-      "error": ["error.message"]
+      "error": [
+        "error.message"
+      ]
     },
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx", 70]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
+        70
+      ]
     ],
     "translation": "MCPサーバーの読み込みに失敗しました: {error}"
   },
@@ -1567,7 +2018,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx", 76]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
+        76
+      ]
     ],
     "translation": "MCPサーバーが見つかりません"
   },
@@ -1575,187 +2029,334 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx", 44]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/McpTab.tsx",
+        44
+      ]
     ],
     "translation": "MCPサーバー"
   },
   "notfound.button.go_home": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotFound.tsx", 37]],
+    "origin": [
+      [
+        "src/components/NotFound.tsx",
+        37
+      ]
+    ],
     "translation": "ホームに戻る"
   },
   "notfound.default.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotFound.tsx", 14]],
+    "origin": [
+      [
+        "src/components/NotFound.tsx",
+        14
+      ]
+    ],
     "translation": "お探しのページは存在しないか、移動されました。"
   },
   "notfound.default.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotFound.tsx", 13]],
+    "origin": [
+      [
+        "src/components/NotFound.tsx",
+        13
+      ]
+    ],
     "translation": "ページが見つかりません"
   },
   "notfound.session.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/routes/projects/$projectId/session.tsx", 36]],
+    "origin": [
+      [
+        "src/routes/projects/$projectId/session.tsx",
+        36
+      ]
+    ],
     "translation": "お探しのセッションは存在しません。"
   },
   "notfound.session.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/routes/projects/$projectId/session.tsx", 35]],
+    "origin": [
+      [
+        "src/routes/projects/$projectId/session.tsx",
+        35
+      ]
+    ],
     "translation": "セッションが見つかりません"
   },
   "notification.beep": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/lib/notifications.tsx", 95]],
+    "origin": [
+      [
+        "src/lib/notifications.tsx",
+        95
+      ]
+    ],
     "translation": "ビープ音"
   },
   "notification.chime": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/lib/notifications.tsx", 96]],
+    "origin": [
+      [
+        "src/lib/notifications.tsx",
+        96
+      ]
+    ],
     "translation": "チャイム"
   },
   "notification.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotificationSettings.tsx", 159]],
+    "origin": [
+      [
+        "src/components/NotificationSettings.tsx",
+        159
+      ]
+    ],
     "translation": "Claude Code のタスクが完了した時に再生する音を選択してください"
   },
   "notification.empty": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/NotificationBell.tsx", 111]],
+    "origin": [
+      [
+        "src/app/components/NotificationBell.tsx",
+        111
+      ]
+    ],
     "translation": "新しい通知はありません"
   },
   "notification.none": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/lib/notifications.tsx", 94]],
+    "origin": [
+      [
+        "src/lib/notifications.tsx",
+        94
+      ]
+    ],
     "translation": "なし"
   },
   "notification.permission_requested": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/NotificationBell.tsx", 133]],
+    "origin": [
+      [
+        "src/app/components/NotificationBell.tsx",
+        133
+      ]
+    ],
     "translation": "権限の許可が必要です"
   },
   "notification.ping": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/lib/notifications.tsx", 97]],
+    "origin": [
+      [
+        "src/lib/notifications.tsx",
+        97
+      ]
+    ],
     "translation": "ピン"
   },
   "notification.pop": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/lib/notifications.tsx", 98]],
+    "origin": [
+      [
+        "src/lib/notifications.tsx",
+        98
+      ]
+    ],
     "translation": "ポップ"
   },
   "notification.push.denied": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotificationSettings.tsx", 110]],
+    "origin": [
+      [
+        "src/components/NotificationSettings.tsx",
+        110
+      ]
+    ],
     "translation": "ブラウザで通知が拒否されています"
   },
   "notification.push.enable": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/components/NotificationSettings.tsx", 103],
-      ["src/components/NotificationSettings.tsx", 122]
+      [
+        "src/components/NotificationSettings.tsx",
+        103
+      ],
+      [
+        "src/components/NotificationSettings.tsx",
+        122
+      ]
     ],
     "translation": "Push 通知を有効にする"
   },
   "notification.push.enabled": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotificationSettings.tsx", 92]],
+    "origin": [
+      [
+        "src/components/NotificationSettings.tsx",
+        92
+      ]
+    ],
     "translation": "有効"
   },
   "notification.push.label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotificationSettings.tsx", 82]],
+    "origin": [
+      [
+        "src/components/NotificationSettings.tsx",
+        82
+      ]
+    ],
     "translation": "Push 通知"
   },
   "notification.question_asked": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/NotificationBell.tsx", 135]],
+    "origin": [
+      [
+        "src/app/components/NotificationBell.tsx",
+        135
+      ]
+    ],
     "translation": "Claudeからの質問"
   },
   "notification.session_completed": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/NotificationBell.tsx", 131]],
+    "origin": [
+      [
+        "src/app/components/NotificationBell.tsx",
+        131
+      ]
+    ],
     "translation": "セッションが完了しました"
   },
   "notification.session_paused": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/NotificationBell.tsx", 129]],
+    "origin": [
+      [
+        "src/app/components/NotificationBell.tsx",
+        129
+      ]
+    ],
     "translation": "セッションが一時停止しました"
   },
   "notification.test": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/NotificationSettings.tsx", 152]],
+    "origin": [
+      [
+        "src/components/NotificationSettings.tsx",
+        152
+      ]
+    ],
     "translation": "テスト"
   },
   "notification.title": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/NotificationBell.tsx", 89],
-      ["src/app/components/NotificationBell.tsx", 101]
+      [
+        "src/app/components/NotificationBell.tsx",
+        89
+      ],
+      [
+        "src/app/components/NotificationBell.tsx",
+        101
+      ]
     ],
     "translation": "通知"
   },
   "panel.browser.empty.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 322]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        322
+      ]
+    ],
     "translation": "上のURLバーにURLを入力するか、会話中のリンクをクリックしてください"
   },
   "panel.browser.empty.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 319]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        319
+      ]
+    ],
     "translation": "ページが読み込まれていません"
   },
   "panel.files.edited_section": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 414],
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 544]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        414
+      ],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        544
+      ]
     ],
     "translation": "編集されたファイル"
   },
   "panel.files.filter_tools": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/FilesToolsTabContent.tsx", 611]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        611
+      ]
+    ],
     "translation": "ツールでフィルター"
   },
   "panel.files.loading_agents": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/FilesToolsTabContent.tsx", 686]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        686
+      ]
+    ],
     "translation": "Agent を読み込み中..."
   },
   "panel.files.no_agents": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 445],
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 702]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        445
+      ],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        702
+      ]
     ],
     "translation": "Agent はまだありません"
   },
@@ -1763,23 +2364,40 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 421],
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 585]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        421
+      ],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        585
+      ]
     ],
     "translation": "編集されたファイルはまだありません"
   },
   "panel.files.no_filtered_tool_calls": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/FilesToolsTabContent.tsx", 667]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        667
+      ]
+    ],
     "translation": "選択したフィルタに一致するツール呼び出しはありません"
   },
   "panel.files.no_tool_calls": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 433],
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 669]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        433
+      ],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        669
+      ]
     ],
     "translation": "ツール呼び出しはまだありません"
   },
@@ -1787,141 +2405,257 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 426],
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 592]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        426
+      ],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        592
+      ]
     ],
     "translation": "ツール呼び出し"
   },
   "panel.git.empty": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/GitTabContent.tsx", 532]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        532
+      ]
+    ],
     "translation": "Git変更がありません"
   },
   "panel.git.pr_links": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/GitTabContent.tsx", 750]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        750
+      ]
+    ],
     "translation": "プルリクエスト"
   },
   "panel.git.view_content": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/GitTabContent.tsx", 279]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        279
+      ]
+    ],
     "translation": "コンテンツ"
   },
   "panel.git.view_diff": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/GitTabContent.tsx", 275]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/GitTabContent.tsx",
+        275
+      ]
+    ],
     "translation": "差分"
   },
   "panel.review.empty": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 308]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        308
+      ]
+    ],
     "translation": "レビュー対象がありません"
   },
   "panel.tab.browser": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 53]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        53
+      ]
+    ],
     "translation": "ブラウザ"
   },
   "panel.tab.explorer": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 41]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        41
+      ]
+    ],
     "translation": "エクスプローラー"
   },
   "panel.tab.git": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 46]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        46
+      ]
+    ],
     "translation": "Git"
   },
   "panel.tab.review": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/RightPanel.tsx", 51]],
+    "origin": [
+      [
+        "src/app/components/RightPanel.tsx",
+        51
+      ]
+    ],
     "translation": "レビュー"
   },
   "panel.todo.collapsed_title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/common/CollapsibleTodoSection.tsx", 79]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/common/CollapsibleTodoSection.tsx",
+        79
+      ]
+    ],
     "translation": "Todo"
   },
   "project.new": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/SetupProjectDialog.tsx", 60]],
+    "origin": [
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        60
+      ]
+    ],
     "translation": "新規プロジェクト"
   },
   "project.setup.action.setting_up": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/SetupProjectDialog.tsx", 93]],
+    "origin": [
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        93
+      ]
+    ],
     "translation": "セットアップ中..."
   },
   "project.setup.action.setup": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/SetupProjectDialog.tsx", 96]],
+    "origin": [
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        96
+      ]
+    ],
     "translation": "プロジェクトをセットアップ"
   },
   "project.setup.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/SetupProjectDialog.tsx", 69]],
+    "origin": [
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        69
+      ]
+    ],
     "translation": "Claude Codeプロジェクトとしてセットアップするディレクトリまで移動してください。CLAUDE.mdが存在する場合はプロジェクトを説明し、存在しない場合は<0>/init</0>で初期化します。"
   },
   "project.setup.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/SetupProjectDialog.tsx", 66]],
+    "origin": [
+      [
+        "src/app/projects/components/SetupProjectDialog.tsx",
+        66
+      ]
+    ],
     "translation": "新規プロジェクトをセットアップ"
   },
   "project.transfer.action.submit": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 266]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        268
+      ]
+    ],
     "translation": "実行"
   },
   "project.transfer.action.transferring": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 263]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        265
+      ]
+    ],
     "translation": "転送中…"
   },
   "project.transfer.conflict.overwrite": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 231]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        233
+      ]
+    ],
     "translation": "上書き"
   },
   "project.transfer.conflict.skip": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 223]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        225
+      ]
+    ],
     "translation": "スキップ"
   },
   "project.transfer.conflict_label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 214]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        216
+      ]
+    ],
     "translation": "対象に同名セッションが存在する場合"
   },
   "project.transfer.dialog.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 116]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        116
+      ]
+    ],
     "translation": "このプロジェクトのセッション履歴を別プロジェクトへコピーまたは移動します。"
   },
   "project.transfer.dialog.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 113]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        113
+      ]
+    ],
     "translation": "セッションを転送"
   },
   "project.transfer.menu_label": {
@@ -1932,159 +2666,392 @@
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         113
       ],
-      ["src/app/projects/components/ProjectList.tsx", 80]
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        88
+      ],
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        150
+      ]
     ],
     "translation": "セッションを転送…"
   },
   "project.transfer.mode.copy": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 199]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        201
+      ]
+    ],
     "translation": "コピー"
   },
   "project.transfer.mode.move": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 207]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        209
+      ]
+    ],
     "translation": "移動"
   },
   "project.transfer.mode_label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 187]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        189
+      ]
+    ],
     "translation": "モード"
   },
   "project.transfer.move_confirm": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 248]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        250
+      ]
+    ],
     "translation": "移動元のJSONLファイルが削除されることを理解しています。"
   },
   "project.transfer.move_warning": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 239]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        241
+      ]
+    ],
     "translation": "移動を実行すると移動元のセッションは空になります。"
   },
   "project.transfer.source_label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 123]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        123
+      ]
+    ],
     "translation": "移動元プロジェクト"
   },
   "project.transfer.target_empty": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 157]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        157
+      ]
+    ],
     "translation": "該当するプロジェクトがありません。"
   },
   "project.transfer.target_label": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 130]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        130
+      ]
+    ],
     "translation": "移動先プロジェクト"
   },
   "project.transfer.target_placeholder": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 145]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        145
+      ]
+    ],
     "translation": "プロジェクトを選択…"
   },
   "project.transfer.target_search": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/TransferSessionsDialog.tsx", 154]],
+    "origin": [
+      [
+        "src/app/projects/components/TransferSessionsDialog.tsx",
+        154
+      ]
+    ],
     "translation": "プロジェクトを検索…"
+  },
+  "project_list.action.terminal": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        161
+      ]
+    ],
+    "translation": "ターミナル"
+  },
+  "project_list.column.actions": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        240
+      ]
+    ],
+    "translation": "アクション"
+  },
+  "project_list.column.created": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        210
+      ]
+    ],
+    "translation": "作成日"
+  },
+  "project_list.column.last_update": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        217
+      ]
+    ],
+    "translation": "最終更新"
+  },
+  "project_list.column.messages": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        224
+      ]
+    ],
+    "translation": "メッセージ"
+  },
+  "project_list.column.project": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        203
+      ]
+    ],
+    "translation": "プロジェクト"
+  },
+  "project_list.column.size": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        232
+      ]
+    ],
+    "translation": "サイズ"
   },
   "project_list.last_modified": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/ProjectList.tsx", 54]],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        62
+      ]
+    ],
     "translation": "最終更新："
   },
   "project_list.messages": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/ProjectList.tsx", 63]],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        71
+      ]
+    ],
     "translation": "メッセージ："
   },
   "project_list.no_projects.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/ProjectList.tsx", 28]],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        32
+      ]
+    ],
     "translation": "~/.claude/projectsディレクトリにClaude Codeプロジェクトが見つかりません。Claude Codeとの会話を開始して、最初のプロジェクトをセットアップしてください。"
   },
   "project_list.no_projects.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/ProjectList.tsx", 25]],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        29
+      ]
+    ],
     "translation": "プロジェクトが見つかりません"
+  },
+  "project_list.view.grid": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListViewToggle.tsx",
+        30
+      ]
+    ],
+    "translation": "グリッド"
+  },
+  "project_list.view.list": {
+    "placeholders": {},
+    "comments": [],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectListViewToggle.tsx",
+        49
+      ]
+    ],
+    "translation": "リスト"
   },
   "project_list.view_conversations": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/components/ProjectList.tsx", 70]],
+    "origin": [
+      [
+        "src/app/projects/components/ProjectList.tsx",
+        78
+      ],
+      [
+        "src/app/projects/components/ProjectListTable.tsx",
+        139
+      ]
+    ],
     "translation": "会話を表示"
   },
   "project_switcher.no_project": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/ProjectSwitcher.tsx", 71]],
+    "origin": [
+      [
+        "src/app/components/ProjectSwitcher.tsx",
+        71
+      ]
+    ],
     "translation": "プロジェクトがありません"
   },
   "project_switcher.no_results": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/ProjectSwitcher.tsx", 81]],
+    "origin": [
+      [
+        "src/app/components/ProjectSwitcher.tsx",
+        81
+      ]
+    ],
     "translation": "該当するプロジェクトがありません"
   },
   "projects.page.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/page.tsx", 55]],
+    "origin": [
+      [
+        "src/app/projects/page.tsx",
+        56
+      ]
+    ],
     "translation": "Claude Codeの会話履歴とプロジェクトの操作を閲覧"
   },
   "projects.page.loading": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/page.tsx", 71]],
+    "origin": [
+      [
+        "src/app/projects/page.tsx",
+        75
+      ]
+    ],
     "translation": "プロジェクトを読み込み中..."
   },
   "projects.page.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/projects/page.tsx", 63]],
+    "origin": [
+      [
+        "src/app/projects/page.tsx",
+        64
+      ]
+    ],
     "translation": "プロジェクト"
   },
   "review.action.insert": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 345]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        345
+      ]
+    ],
     "translation": "レビューを挿入"
   },
   "review.action.insert.success": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 232]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        232
+      ]
+    ],
     "translation": "レビューをチャット入力に挿入しました"
   },
   "review.action.reset": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 335]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        335
+      ]
+    ],
     "translation": "リセット"
   },
   "review.action.reset.success": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 226]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        226
+      ]
+    ],
     "translation": "すべてのコメントをクリアしました"
   },
   "review.comment.placeholder": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffViewer.tsx", 101]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffViewer.tsx",
+        101
+      ]
     ],
     "translation": "コメントを追加..."
   },
@@ -2092,22 +3059,37 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffViewer.tsx", 122]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/diffModal/DiffViewer.tsx",
+        122
+      ]
     ],
     "translation": "保存"
   },
   "review.comments.count": {
     "placeholders": {
-      "count": ["comments.length"]
+      "count": [
+        "comments.length"
+      ]
     },
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 322]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        322
+      ]
+    ],
     "translation": "{count} 件のコメント"
   },
   "review.comments.empty": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/app/components/rightPanel/ReviewTabContent.tsx", 321]],
+    "origin": [
+      [
+        "src/app/components/rightPanel/ReviewTabContent.tsx",
+        321
+      ]
+    ],
     "translation": "コメントなし"
   },
   "scheduler.create_job": {
@@ -2179,7 +3161,9 @@
   },
   "scheduler.error.load_failed": {
     "placeholders": {
-      "error": ["error.message"]
+      "error": [
+        "error.message"
+      ]
     },
     "comments": [],
     "origin": [
@@ -2490,11 +3474,11 @@
     "origin": [
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        212
+        177
       ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/resumeChat/ChatActionMenu.tsx",
-        217
+        182
       ]
     ],
     "translation": "中止"
@@ -2503,7 +3487,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 621]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        622
+      ]
     ],
     "translation": "キャッシュ作成"
   },
@@ -2511,7 +3498,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 635]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        636
+      ]
     ],
     "translation": "キャッシュ読込"
   },
@@ -2519,7 +3509,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 593]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        594
+      ]
     ],
     "translation": "入力トークン"
   },
@@ -2527,7 +3520,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 580]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        581
+      ]
     ],
     "translation": "セッションコスト"
   },
@@ -2535,7 +3531,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 607]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        608
+      ]
     ],
     "translation": "出力トークン"
   },
@@ -2543,7 +3542,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 587]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        588
+      ]
     ],
     "translation": "合計"
   },
@@ -2573,7 +3575,9 @@
   },
   "session.delete_dialog.description": {
     "placeholders": {
-      "title": ["sessionTitle"]
+      "title": [
+        "sessionTitle"
+      ]
     },
     "comments": [],
     "origin": [
@@ -2588,7 +3592,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 514],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        515
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/DeleteSessionDialog.tsx",
         73
@@ -2600,8 +3607,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 409],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 686]
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        409
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        687
+      ]
     ],
     "translation": "新しいチャットを開始して会話を始めましょう"
   },
@@ -2609,7 +3622,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 504]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        505
+      ]
     ],
     "translation": "セッションファイルのパスをコピー"
   },
@@ -2617,7 +3633,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 482]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        483
+      ]
     ],
     "translation": "HTML をエクスポート"
   },
@@ -2625,7 +3644,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 491]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        492
+      ]
     ],
     "translation": "JSONL をエクスポート"
   },
@@ -2633,7 +3655,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 775]
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        796
+      ]
     ],
     "translation": "Claude Codeが処理中..."
   },
@@ -2674,8 +3699,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 192],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 740],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        192
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        743
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         195
@@ -2687,8 +3718,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 190],
-      ["src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx", 738],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        190
+      ],
+      [
+        "src/app/projects/[projectId]/sessions/[sessionId]/components/SessionPageMain.tsx",
+        741
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         193
@@ -2700,7 +3737,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 227],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        227
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         236
@@ -2723,7 +3763,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/SessionHistoryPopover.tsx", 118],
+      [
+        "src/app/components/SessionHistoryPopover.tsx",
+        118
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/SessionsTab.tsx",
         118
@@ -2736,21 +3779,32 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 439]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        439
+      ]
     ],
     "translation": "詳細設定"
   },
   "settings.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/GlobalSidebar.tsx", 68]],
+    "origin": [
+      [
+        "src/components/GlobalSidebar.tsx",
+        68
+      ]
+    ],
     "translation": "表示と動作の設定"
   },
   "settings.disallowedTools.label": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 286]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        286
+      ]
     ],
     "translation": "無効化するツール"
   },
@@ -2758,7 +3812,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 130]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        130
+      ]
     ],
     "translation": "環境変数を追加"
   },
@@ -2767,7 +3824,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 301]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        301
+      ]
     ],
     "translation": "環境変数"
   },
@@ -2775,106 +3835,191 @@
     "message": "External Terminal",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 224]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        224
+      ]
+    ],
     "translation": "外部ターミナル"
   },
   "settings.external_terminal.auto": {
     "message": "Auto-detect",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 241]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        241
+      ]
+    ],
     "translation": "自動検出"
   },
   "settings.external_terminal.description": {
     "message": "Terminal app launched by the 'Launch Terminal' toolbar button. Auto-detect picks Windows Terminal on Windows, Terminal on macOS, GNOME Terminal on Linux.",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 252]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        252
+      ]
+    ],
     "translation": "ツールバーの「ターミナルを起動」ボタンで起動するターミナルアプリ。自動検出は Windows では Windows Terminal、macOS では Terminal、Linux では GNOME Terminal を選択します。"
   },
   "settings.external_terminal.select": {
     "message": "Auto-detect",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 233]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        233
+      ]
+    ],
     "translation": "自動検出"
   },
   "settings.input.enter_key_behavior": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 330]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        330
+      ]
+    ],
     "translation": "Enterキーの動作"
   },
   "settings.input.enter_key_behavior.command_enter": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 348]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        348
+      ]
+    ],
     "translation": "Command+Enterで送信"
   },
   "settings.input.enter_key_behavior.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 354]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        354
+      ]
+    ],
     "translation": "メッセージ入力でのEnterキーの動作を選択"
   },
   "settings.input.enter_key_behavior.enter": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 345]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        345
+      ]
+    ],
     "translation": "Enterで送信"
   },
   "settings.input.enter_key_behavior.shift_enter": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 342]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        342
+      ]
+    ],
     "translation": "Shift+Enterで送信（デフォルト）"
   },
   "settings.input.find_hotkey": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 391]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        391
+      ]
+    ],
     "translation": "ページ内検索ホットキー"
   },
   "settings.input.find_hotkey.command_f": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 403]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        403
+      ]
+    ],
     "translation": "Command+F"
   },
   "settings.input.find_hotkey.ctrl_f": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 400]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        400
+      ]
+    ],
     "translation": "Ctrl+F"
   },
   "settings.input.find_hotkey.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 409]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        409
+      ]
+    ],
     "translation": "ページ内検索を開くホットキーを選択します"
   },
   "settings.input.search_hotkey": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 362]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        362
+      ]
+    ],
     "translation": "検索ホットキー"
   },
   "settings.input.search_hotkey.command_k": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 377]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        377
+      ]
+    ],
     "translation": "Command+K"
   },
   "settings.input.search_hotkey.ctrl_k": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 374]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        374
+      ]
+    ],
     "translation": "Ctrl+K"
   },
   "settings.input.search_hotkey.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 383]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        383
+      ]
+    ],
     "translation": "検索ダイアログを開くホットキーを選択します"
   },
   "settings.loading": {
@@ -2885,38 +4030,66 @@
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/MobileSidebar.tsx",
         138
       ],
-      ["src/components/GlobalSidebar.tsx", 76]
+      [
+        "src/components/GlobalSidebar.tsx",
+        76
+      ]
     ],
     "translation": "設定を読み込み中..."
   },
   "settings.locale": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 477]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        477
+      ]
+    ],
     "translation": "言語"
   },
   "settings.locale.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 498]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        498
+      ]
+    ],
     "translation": "お好みの言語を選択"
   },
   "settings.locale.en": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 489]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        489
+      ]
+    ],
     "translation": "English"
   },
   "settings.locale.ja": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 486]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        486
+      ]
+    ],
     "translation": "日本語"
   },
   "settings.locale.zh_CN": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 492]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        492
+      ]
+    ],
     "translation": "中国語（簡体字）"
   },
   "settings.maxBudgetUsd.label": {
@@ -2924,7 +4097,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 525]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        525
+      ]
     ],
     "translation": "最大予算 (USD)"
   },
@@ -2933,7 +4109,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 503]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        503
+      ]
     ],
     "translation": "最大思考トークン数"
   },
@@ -2942,7 +4121,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 482]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        482
+      ]
     ],
     "translation": "最大ターン数"
   },
@@ -2950,21 +4132,36 @@
     "message": "Configure the model options available in the session toolbar",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 466]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        466
+      ]
+    ],
     "translation": "セッションツールバーで利用可能なモデル選択肢を設定します"
   },
   "settings.model_choices.label": {
     "message": "Model Choices",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 417]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        417
+      ]
+    ],
     "translation": "モデル選択肢"
   },
   "settings.model_choices.placeholder": {
     "message": "Add model choice...",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 447]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        447
+      ]
+    ],
     "translation": "モデル選択肢を追加..."
   },
   "settings.notifications": {
@@ -2983,7 +4180,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 366]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        366
+      ]
     ],
     "translation": "サンドボックス外のコマンドを許可"
   },
@@ -2992,7 +4192,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 346]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        346
+      ]
     ],
     "translation": "サンドボックス化されている場合Bashを自動許可"
   },
@@ -3001,7 +4204,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 317]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        317
+      ]
     ],
     "translation": "サンドボックス"
   },
@@ -3010,7 +4216,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 398]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        398
+      ]
     ],
     "translation": "ローカルバインディングを許可"
   },
@@ -3019,7 +4228,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 407]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        407
+      ]
     ],
     "translation": "許可するドメイン (カンマ区切り)"
   },
@@ -3028,38 +4240,66 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 376]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        376
+      ]
     ],
     "translation": "ネットワーク設定"
   },
   "settings.section.notifications": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/GlobalSidebar.tsx", 91]],
+    "origin": [
+      [
+        "src/components/GlobalSidebar.tsx",
+        91
+      ]
+    ],
     "translation": "通知"
   },
   "settings.section.session_display": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/GlobalSidebar.tsx", 84]],
+    "origin": [
+      [
+        "src/components/GlobalSidebar.tsx",
+        84
+      ]
+    ],
     "translation": "セッション表示"
   },
   "settings.section.system_info": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/GlobalSidebar.tsx", 104]],
+    "origin": [
+      [
+        "src/components/GlobalSidebar.tsx",
+        104
+      ]
+    ],
     "translation": "システム情報"
   },
   "settings.session.auto_schedule_continue_on_rate_limit": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 315]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        315
+      ]
+    ],
     "translation": "レート制限時に自動的に継続をスケジュール"
   },
   "settings.session.auto_schedule_continue_on_rate_limit.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 321]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        321
+      ]
+    ],
     "translation": "Claude がレート制限に達した際に、自動的に継続メッセージをスケジュール実行します"
   },
   "settings.session.display": {
@@ -3076,25 +4316,45 @@
   "settings.session.hide_no_user_message": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 271]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        271
+      ]
+    ],
     "translation": "ユーザーメッセージのないセッションを非表示"
   },
   "settings.session.hide_no_user_message.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 277]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        277
+      ]
+    ],
     "translation": "ユーザーコマンドまたはメッセージを含むセッションのみを表示"
   },
   "settings.session.unify_same_title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 292]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        292
+      ]
+    ],
     "translation": "同じタイトルのセッションを統合"
   },
   "settings.session.unify_same_title.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 298]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        298
+      ]
+    ],
     "translation": "同じタイトルの複数のセッションがある場合、最新のセッションのみを表示"
   },
   "settings.settingSources.label": {
@@ -3102,7 +4362,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 445]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        445
+      ]
     ],
     "translation": "設定ソース"
   },
@@ -3111,44 +4374,77 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 275]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        275
+      ]
     ],
     "translation": "Claude Code のシステムプロンプトを含める"
   },
   "settings.tab.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/GlobalSidebar.tsx", 60]],
+    "origin": [
+      [
+        "src/components/GlobalSidebar.tsx",
+        60
+      ]
+    ],
     "translation": "表示と通知の設定"
   },
   "settings.theme": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 506]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        506
+      ]
+    ],
     "translation": "テーマ"
   },
   "settings.theme.dark": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 518]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        518
+      ]
+    ],
     "translation": "ダーク"
   },
   "settings.theme.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 527]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        527
+      ]
+    ],
     "translation": "お好みのカラーテーマを選択"
   },
   "settings.theme.light": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 515]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        515
+      ]
+    ],
     "translation": "ライト"
   },
   "settings.theme.system": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 521]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        521
+      ]
+    ],
     "translation": "システム"
   },
   "settings.title": {
@@ -3156,8 +4452,14 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx", 578],
-      ["src/components/GlobalSidebar.tsx", 65]
+      [
+        "src/app/projects/[projectId]/components/chatForm/ClaudeCodeSettingsForm.tsx",
+        578
+      ],
+      [
+        "src/components/GlobalSidebar.tsx",
+        65
+      ]
     ],
     "translation": "設定"
   },
@@ -3165,35 +4467,60 @@
     "message": "Usage Mode",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 187]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        187
+      ]
+    ],
     "translation": "利用モード"
   },
   "settings.usage_mode.api": {
     "message": "API",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 207]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        207
+      ]
+    ],
     "translation": "API"
   },
   "settings.usage_mode.description": {
     "message": "Select how you use Claude Code. Subscription mode restricts features that require the Agent SDK.",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 213]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        213
+      ]
+    ],
     "translation": "Claude Codeの利用方法を選択してください。サブスクリプションモードではAgent SDKが必要な機能が制限されます。"
   },
   "settings.usage_mode.select": {
     "message": "Select usage mode",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 193]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        193
+      ]
+    ],
     "translation": "利用モードを選択"
   },
   "settings.usage_mode.subscription": {
     "message": "Subscription (Max, Pro, etc.)",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SettingsControls.tsx", 201]],
+    "origin": [
+      [
+        "src/components/SettingsControls.tsx",
+        201
+      ]
+    ],
     "translation": "サブスクリプション (Max, Proなど)"
   },
   "sidebar.back.to.projects": {
@@ -3209,7 +4536,9 @@
   },
   "sidebar.edited_files.count": {
     "placeholders": {
-      "count": ["editedFiles.length"]
+      "count": [
+        "editedFiles.length"
+      ]
     },
     "comments": [],
     "origin": [
@@ -3235,7 +4564,10 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/app/components/rightPanel/FilesToolsTabContent.tsx", 567],
+      [
+        "src/app/components/rightPanel/FilesToolsTabContent.tsx",
+        567
+      ],
       [
         "src/app/projects/[projectId]/sessions/[sessionId]/components/sessionSidebar/EditedFilesTab.tsx",
         156
@@ -3390,105 +4722,191 @@
   "system_info.available_features": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 126]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        126
+      ]
+    ],
     "translation": "利用可能機能"
   },
   "system_info.claude_code": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 94]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        94
+      ]
+    ],
     "translation": "Claude Code"
   },
   "system_info.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 71]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        71
+      ]
+    ],
     "translation": "バージョンと機能情報"
   },
   "system_info.executable_path": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 99]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        99
+      ]
+    ],
     "translation": "実行ファイル"
   },
   "system_info.feature.agent_sdk.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 26]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        26
+      ]
+    ],
     "translation": "@anthropic-ai/claude-code ではなく @anthropic-ai/claude-agent-sdk を利用します"
   },
   "system_info.feature.agent_sdk.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 25]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        25
+      ]
+    ],
     "translation": "拡張エージェントモード"
   },
   "system_info.feature.run_skills_directly.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 41]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        41
+      ]
+    ],
     "translation": "スキルを直接実行する機能が有効になっています"
   },
   "system_info.feature.run_skills_directly.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 40]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        40
+      ]
+    ],
     "translation": "スキル直接実行"
   },
   "system_info.feature.sidechain_separation.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 31]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        31
+      ]
+    ],
     "translation": "サイドチェーン会話が agent-*.jsonl に分離保存されます"
   },
   "system_info.feature.sidechain_separation.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 30]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        30
+      ]
+    ],
     "translation": "サイドチェーン分離"
   },
   "system_info.feature.tool_approval.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 21]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        21
+      ]
+    ],
     "translation": "Claude がツールを実行する前に承認または拒否でき、アクションを完全にコントロールできます"
   },
   "system_info.feature.tool_approval.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 20]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        20
+      ]
+    ],
     "translation": "ツール実行承認"
   },
   "system_info.feature.unknown.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 46]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        46
+      ]
+    ],
     "translation": "機能情報は利用できません"
   },
   "system_info.feature.uuid_on_sdk_message.description": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 36]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        36
+      ]
+    ],
     "translation": "SDK メッセージに UUID が含まれるようになります"
   },
   "system_info.feature.uuid_on_sdk_message.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 35]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        35
+      ]
+    ],
     "translation": "SDK メッセージ UUID"
   },
   "system_info.title": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 68]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        68
+      ]
+    ],
     "translation": "システム情報"
   },
   "system_info.unknown": {
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/components/SystemInfoCard.tsx", 104],
-      ["src/components/SystemInfoCard.tsx", 115]
+      [
+        "src/components/SystemInfoCard.tsx",
+        104
+      ],
+      [
+        "src/components/SystemInfoCard.tsx",
+        115
+      ]
     ],
     "translation": "不明"
   },
@@ -3496,57 +4914,98 @@
     "placeholders": {},
     "comments": [],
     "origin": [
-      ["src/components/SystemInfoCard.tsx", 83],
-      ["src/components/SystemInfoCard.tsx", 112]
+      [
+        "src/components/SystemInfoCard.tsx",
+        83
+      ],
+      [
+        "src/components/SystemInfoCard.tsx",
+        112
+      ]
     ],
     "translation": "バージョン"
   },
   "system_info.viewer_version": {
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/SystemInfoCard.tsx", 79]],
+    "origin": [
+      [
+        "src/components/SystemInfoCard.tsx",
+        79
+      ]
+    ],
     "translation": "Claude Code Viewer"
   },
   "usage_mode.api.description": {
     "message": "You use Claude Code with API keys. All features are available.",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 75]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        75
+      ]
+    ],
     "translation": "APIキーを使用してClaude Codeを利用します。すべての機能が利用可能です。"
   },
   "usage_mode.api.label": {
     "message": "API",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 71]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        71
+      ]
+    ],
     "translation": "API"
   },
   "usage_mode.dialog.description": {
     "message": "Please select your usage mode. You can change this later in settings.",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 36]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        36
+      ]
+    ],
     "translation": "利用モードを選択してください。この設定は後から変更できます。"
   },
   "usage_mode.dialog.title": {
     "message": "How do you use Claude Code?",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 33]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        33
+      ]
+    ],
     "translation": "Claude Codeの利用方法は？"
   },
   "usage_mode.subscription.description": {
     "message": "You use Claude Code with a subscription plan (Max, Pro, etc.). Some features that require the Agent SDK will be restricted.",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 56]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        56
+      ]
+    ],
     "translation": "サブスクリプションプラン（Max、Proなど）でClaude Codeを利用します。Agent SDKを必要とする一部の機能が制限されます。"
   },
   "usage_mode.subscription.label": {
     "message": "Subscription",
     "placeholders": {},
     "comments": [],
-    "origin": [["src/components/UsageModeDialog.tsx", 52]],
+    "origin": [
+      [
+        "src/components/UsageModeDialog.tsx",
+        52
+      ]
+    ],
     "translation": "サブスクリプション"
   },
   "user.content.document.pdf": {

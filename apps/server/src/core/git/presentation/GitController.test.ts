@@ -14,6 +14,8 @@ const makeNullProjectPathLayer = () => {
         id: "test-project",
         claudeProjectPath: "/path/to/project",
         lastModifiedAt: new Date(),
+        createdAt: null,
+        totalSizeBytes: 0,
         meta: {
           projectName: "Test Project",
           projectPath: null, // No project path

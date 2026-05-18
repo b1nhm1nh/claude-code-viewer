@@ -66,6 +66,8 @@ describe("ProjectRepository", () => {
           id: projectId,
           claudeProjectPath: projectPath,
           lastModifiedAt: mockDate,
+          createdAt: null,
+          totalSizeBytes: 0,
           meta: mockMeta,
         });
       }).pipe(

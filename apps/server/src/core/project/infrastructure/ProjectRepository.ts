@@ -1,5 +1,5 @@
 import { FileSystem } from "@effect/platform";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { Context, Effect, Layer, Option } from "effect";
 import { DrizzleService } from "../../../lib/db/DrizzleService.ts";
 import { projects } from "../../../lib/db/schema.ts";
@@ -37,11 +37,19 @@ const LayerImpl = Effect.gen(function* () {
       // Get project metadata
       const meta = yield* projectMetaService.getProjectMeta(projectId);
 
+      // Read cached fields (createdAtMs, totalSizeBytes) from DB if available
+      const row = db.select().from(projects).where(eq(projects.id, projectId)).get();
+
       return {
         project: {
           id: projectId,
           claudeProjectPath: fullPath,
           lastModifiedAt: Option.getOrElse(stat.mtime, () => new Date()),
+          createdAt:
+            row?.createdAtMs !== null && row?.createdAtMs !== undefined
+              ? new Date(row.createdAtMs)
+              : Option.getOrNull(stat.birthtime),
+          totalSizeBytes: row?.totalSizeBytes ?? 0,
           meta,
         },
       };
@@ -64,6 +72,8 @@ const LayerImpl = Effect.gen(function* () {
               id: row.id,
               claudeProjectPath: row.path ?? decodeProjectId(row.id),
               lastModifiedAt: new Date(row.dirMtimeMs),
+              createdAt: row.createdAtMs !== null ? new Date(row.createdAtMs) : null,
+              totalSizeBytes: row.totalSizeBytes,
               meta,
             } satisfies Project;
           }),

@@ -99,6 +99,23 @@ const LayerImpl = Effect.gen(function* () {
   // Tries sessions-index.json first (fast), falls back to parsing JSONL.
   // -------------------------------------------------------------------------
 
+  const computeProjectTotalSize = (
+    projectDirPath: string,
+    sessionFileNames: string[],
+  ): Effect.Effect<number, Error> =>
+    Effect.gen(function* () {
+      const sizes = yield* Effect.all(
+        sessionFileNames.map((fileName) =>
+          fs.stat(path.join(projectDirPath, fileName)).pipe(
+            Effect.map((stat) => Number(stat.size)),
+            Effect.catchAll(() => Effect.succeed(0)),
+          ),
+        ),
+        { concurrency: 4 },
+      );
+      return sizes.reduce((sum, size) => sum + size, 0);
+    });
+
   const extractProjectCwd = (
     projectDirPath: string,
     sessionFileNames: string[],
@@ -393,6 +410,8 @@ const LayerImpl = Effect.gen(function* () {
         if (!existingProject) {
           // Extract actual project cwd from the earliest session file
           const projectCwd = yield* extractProjectCwd(projectPath, sessionFiles);
+          const createdAtMs = Option.getOrUndefined(dirStat.birthtime)?.getTime() ?? null;
+          const totalSizeBytes = yield* computeProjectTotalSize(projectPath, sessionFiles);
 
           db.insert(projects)
             .values({
@@ -401,6 +420,8 @@ const LayerImpl = Effect.gen(function* () {
               path: projectCwd,
               sessionCount: 0,
               dirMtimeMs,
+              createdAtMs,
+              totalSizeBytes,
               syncedAt: Date.now(),
             })
             .onConflictDoNothing()
@@ -471,9 +492,10 @@ const LayerImpl = Effect.gen(function* () {
 
         updateProjectSessionCount(projectId);
 
-        // Update project dir_mtime_ms and synced_at
+        // Update project dir_mtime_ms, total_size_bytes, and synced_at
+        const totalSizeBytes = yield* computeProjectTotalSize(projectPath, sessionFiles);
         db.update(projects)
-          .set({ dirMtimeMs, syncedAt: Date.now() })
+          .set({ dirMtimeMs, totalSizeBytes, syncedAt: Date.now() })
           .where(eq(projects.id, projectId))
           .run();
       }
@@ -562,6 +584,10 @@ const LayerImpl = Effect.gen(function* () {
         const dirMtimeMs = dirStat
           ? Option.getOrElse(dirStat.mtime, () => new Date(0)).getTime()
           : 0;
+        const createdAtMs = dirStat
+          ? (Option.getOrUndefined(dirStat.birthtime)?.getTime() ?? null)
+          : null;
+        const totalSizeBytes = yield* computeProjectTotalSize(projectPath, sessionFiles);
 
         db.insert(projects)
           .values({
@@ -570,6 +596,8 @@ const LayerImpl = Effect.gen(function* () {
             path: projectCwd,
             sessionCount: 0,
             dirMtimeMs,
+            createdAtMs,
+            totalSizeBytes,
             syncedAt: Date.now(),
           })
           .onConflictDoNothing()
@@ -628,6 +656,13 @@ const LayerImpl = Effect.gen(function* () {
       }
 
       updateProjectSessionCount(projectId);
+
+      // Refresh total size after session add/remove
+      const totalSizeBytes = yield* computeProjectTotalSize(projectPath, sessionFiles);
+      db.update(projects)
+        .set({ totalSizeBytes, syncedAt: Date.now() })
+        .where(eq(projects.id, projectId))
+        .run();
     });
 
   return {

@@ -8,6 +8,8 @@ export type Project = {
   id: string;
   claudeProjectPath: string;
   lastModifiedAt: Date;
+  createdAt: Date | null;
+  totalSizeBytes: number;
   meta: ProjectMeta;
 };
 

@@ -103,6 +103,8 @@ describe("InitializeService", () => {
                 id: "project-1",
                 claudeProjectPath: "/path/to/project-1",
                 lastModifiedAt: new Date(),
+                createdAt: null,
+                totalSizeBytes: 0,
                 meta: {
                   projectName: "Project 1",
                   projectPath: "/path/to/project-1",
