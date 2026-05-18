@@ -38,9 +38,19 @@ type Props = {
   project: Project;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  currentSessionId?: string;
+  currentSessionTitle?: string;
+  onAfterMove?: (targetProjectId: string, sessionId: string) => void;
 };
 
-export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange }) => {
+export const TransferSessionsDialog: FC<Props> = ({
+  project,
+  open,
+  onOpenChange,
+  currentSessionId,
+  currentSessionTitle,
+  onAfterMove,
+}) => {
   const { i18n } = useLingui();
   const {
     data: { projects },
@@ -52,6 +62,9 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
   const [conflict, setConflict] = useState<"skip" | "overwrite">("skip");
   const [comboboxOpen, setComboboxOpen] = useState(false);
   const [moveConfirmed, setMoveConfirmed] = useState(false);
+  const [scope, setScope] = useState<"this" | "all">(
+    currentSessionId !== undefined ? "this" : "all",
+  );
 
   const targetProjects = useMemo(
     () => projects.filter((p) => p.id !== project.id),
@@ -69,23 +82,55 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
     setConflict("skip");
     setMoveConfirmed(false);
     setComboboxOpen(false);
+    setScope(currentSessionId !== undefined ? "this" : "all");
   };
 
   const handleSubmit = () => {
     if (targetId === "") return;
+
+    const singleId =
+      scope === "this" && currentSessionId !== undefined ? currentSessionId : undefined;
+    const sessionIds = singleId !== undefined ? [singleId] : undefined;
+
     transferMutation.mutate(
       {
         sourceProjectId: project.id,
         targetProjectId: targetId,
         mode,
         conflict,
+        sessionIds,
       },
       {
         onSuccess: (data) => {
-          const parts: string[] = [`Transferred ${data.transferred.length} sessions`];
-          if (data.skipped.length > 0) parts.push(`skipped ${data.skipped.length}`);
-          if (data.failed.length > 0) parts.push(`failed ${data.failed.length}`);
-          toast.success(parts.join(", "));
+          if (singleId !== undefined) {
+            const wasTransferred = data.transferred.includes(singleId);
+            const wasSkipped = data.skipped.includes(singleId);
+            const failure = data.failed.find((f) => f.sessionId === singleId);
+            const targetLabel = projectLabel(
+              targetProjects.find((p) => p.id === targetId) ?? project,
+            );
+
+            if (wasTransferred) {
+              if (mode === "move") {
+                toast.success(`Moved to ${targetLabel}`);
+                onAfterMove?.(targetId, singleId);
+              } else {
+                toast.success(`Copied to ${targetLabel}`);
+              }
+            } else if (wasSkipped) {
+              toast.message("Session already exists in target, skipped");
+            } else if (failure !== undefined) {
+              toast.error(`Transfer failed: ${failure.reason}`);
+            } else {
+              toast.error("Transfer failed");
+            }
+          } else {
+            const parts: string[] = [`Transferred ${data.transferred.length} sessions`];
+            if (data.skipped.length > 0) parts.push(`skipped ${data.skipped.length}`);
+            if (data.failed.length > 0) parts.push(`failed ${data.failed.length}`);
+            toast.success(parts.join(", "));
+          }
+
           reset();
           onOpenChange(false);
         },
@@ -113,7 +158,11 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
             <Trans id="project.transfer.dialog.title" />
           </DialogTitle>
           <DialogDescription>
-            <Trans id="project.transfer.dialog.description" />
+            {scope === "this" ? (
+              <Trans id="project.transfer.dialog.description.this" />
+            ) : (
+              <Trans id="project.transfer.dialog.description" />
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -124,6 +173,35 @@ export const TransferSessionsDialog: FC<Props> = ({ project, open, onOpenChange 
             </Label>
             <div className="text-sm text-muted-foreground truncate">{projectLabel(project)}</div>
           </div>
+
+          {currentSessionId !== undefined && (
+            <div className="space-y-2">
+              <Label>
+                <Trans id="project.transfer.scope_label" />
+              </Label>
+              <div className="inline-flex rounded-md border p-1 bg-muted">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant={scope === "this" ? "default" : "ghost"}
+                  onClick={() => setScope("this")}
+                >
+                  <Trans id="project.transfer.scope.this" />
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant={scope === "all" ? "default" : "ghost"}
+                  onClick={() => setScope("all")}
+                >
+                  <Trans id="project.transfer.scope.all" />
+                </Button>
+              </div>
+              {scope === "this" && currentSessionTitle !== undefined && (
+                <p className="text-xs text-muted-foreground truncate">{currentSessionTitle}</p>
+              )}
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label>
